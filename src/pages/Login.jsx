@@ -1,32 +1,67 @@
-import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { loginPost } from "../utils/Endpoint";
+import { toast } from "react-toastify";
+import { setUser } from "../redux/slices/AuthSlicer";
+import { useNavigate } from "react-router-dom";
 
 import logo from "../assets/logo.png";
 import axios from "../utils/AxiosInstance";
-import { loginPost } from "../utils/Endpoint";
-import { toast } from "react-toastify";
 
 const Login = () => {
-  const [data, setData] = useState({
+  const [error, setError] = useState({});
+  const [user, setData] = useState({
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userData = useSelector((state) => state.auth);
 
+  useEffect(() => {
+    if (userData?.userInfo != null) {
+      navigate("/home");
+    }
+  }, [userData, navigate]);
+
+  // @DSC Form Submit
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(data, "data from the from");
     try {
-     const response = await axios.post(loginPost,data);
-     toast.success(response?.data?.email && "Successfully Loged in")
-     console.log(response)
+      // @dsc Validation
+      const validationError = {};
+
+      if (!user.email.trim()) {
+        validationError.email = "email is require";
+      } else if (!/\S+@\S+\.\S+/.test(user.email)) {
+        validationError.email = "email is not valid";
+      }
+
+      if (!user.password.trim()) {
+        validationError.password = "password is require";
+      } else if (user.password.length < 6 || user.password.length > 20) {
+        validationError.password =
+          "password is minimum containing 6 and maximum containing 20 characters";
+      }
+      setError(validationError);
+
+      // Backend call for user Validation
+      if (Object.keys(validationError).length === 0) {
+        const response = await axios.post(loginPost, user);
+        toast.success(response?.data?.email && "Successfully Login");
+        dispatch(setUser(response.data));
+        console.log(response);
+      }
     } catch (error) {
       console.log(error);
-      toast.error(error?.response?.data?.msg)
+      toast.error(error?.response?.data?.msg);
     }
   };
 
+  // @DSC Input Changes
   const changeHandler = (e) => {
     setData({
-      ...data,
+      ...user,
       [e.target.name]: e.target.value,
     });
   };
@@ -60,6 +95,11 @@ const Login = () => {
                     required
                     className="border p-2 mt-1 focus:outline-none rounded "
                   />
+                  {error.email && (
+                    <span className="text-[12px] py-2 text-red-600">
+                      {error.email}
+                    </span>
+                  )}
                 </div>
                 <div className="flex flex-col text-sm">
                   <label htmlFor="" className="text-xs">
@@ -72,6 +112,11 @@ const Login = () => {
                     required
                     className="border p-2 mt-1 focus:outline-none rounded"
                   />
+                  {error.password && (
+                    <span className=" text-[12px] py-2 text-red-600">
+                      {error.password}
+                    </span>
+                  )}
                   <div className="w-full flex justify-end">
                     <span className="text-[10px] mt-1 hover:text-blue-700 cursor-pointer">
                       Forgot Password?
