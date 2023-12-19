@@ -19,8 +19,8 @@ const Login = () => {
   const userData = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (userData?.userInfo != null) {
-      navigate("/home");
+    if (userData?.userInfo?.role === "admin") {
+      navigate("/admin/dashboard");
     }
   }, [userData, navigate]);
 

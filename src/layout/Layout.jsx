@@ -6,13 +6,13 @@ import SideMenu from "../components/sideMenu/SideMenu";
 
 const Layout = () => {
   return (
-    <div CLS>
+    <div className="h-screen overflow-hidden">
       <Header />
-      <div className="container mx-auto w-full ">
-        <div className="hidden md:flex md:w-1/5 shadow h-full">
+      <div className="container mx-auto flex w-full h-full">
+        <div className="hidden md:flex md:w-1/5 h-full ">
           <SideMenu />
         </div>
-        <div className="w-full md:w-4/5">{<Outlet />}</div>
+        <div className="md:w-4/5 p-10">{<Outlet />}</div>
       </div>
       <Footer />
     </div>
