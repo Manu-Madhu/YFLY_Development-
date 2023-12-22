@@ -4,6 +4,7 @@ import { loginPost } from "../utils/Endpoint";
 import { toast } from "react-toastify";
 import { setUser } from "../redux/slices/AuthSlicer";
 import { useNavigate } from "react-router-dom";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 import logo from "../assets/logo.png";
 import axios from "../utils/AxiosInstance";
@@ -14,6 +15,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth);
@@ -50,7 +52,6 @@ const Login = () => {
         const response = await axios.post(loginPost, user);
         toast.success(response?.data?.email && "Successfully Login");
         dispatch(setUser(response.data));
-        console.log(response);
       }
     } catch (error) {
       console.log(error);
@@ -66,6 +67,14 @@ const Login = () => {
     });
   };
 
+  // @DCS password eye button
+  const icon = visible ? (
+    <AiFillEye size={19} className="text-secondary cursor-pointer" />
+  ) : (
+    <AiFillEyeInvisible size={19} className="text-secondary cursor-pointer" />
+  );
+  const inputType = visible ? "text" : "password";
+
   return (
     <div className="w-full h-screen relative flex items-center justify-center overflow-hidden">
       <img
@@ -80,12 +89,12 @@ const Login = () => {
         <div className="w-full flex items-center justify-center">
           <div className="data  w-full m-5 bg-white border md:w-1/4 rounded p-10 shadow-lg">
             <form onSubmit={submitHandler} className="flex flex-col  py-5">
-              <h2 className="text-[#0061B2] text-xl font-bold text-center mb-5">
+              <h2 className="text-[#0061B2] text-2xl font-bold text-center mb-5">
                 Login
               </h2>
               <div className="flex flex-col gap-3">
                 <div className="flex flex-col text-sm">
-                  <label htmlFor="" className="text-xs">
+                  <label htmlFor="" className="text-xs md:text-sm font-semibold text-[#0061B2]">
                     Email
                   </label>
                   <input
@@ -101,26 +110,29 @@ const Login = () => {
                     </span>
                   )}
                 </div>
-                <div className="flex flex-col text-sm">
-                  <label htmlFor="" className="text-xs">
+                <div className="flex flex-col text-sm relative">
+                  <label htmlFor="" className="text-xs md:text-sm font-semibold text-[#0061B2]">
                     Password
                   </label>
                   <input
-                    type="password"
+                    type={inputType}
                     name="password"
                     onChange={changeHandler}
                     required
                     className="border p-2 mt-1 focus:outline-none rounded"
                   />
+                  <div className="absolute right-0 h-full flex items-center justify-end pe-2">
+                    <div onClick={() => setVisible(!visible)}>{icon}</div>
+                  </div>
                   {error.password && (
                     <span className=" text-[12px] py-2 text-red-600">
                       {error.password}
                     </span>
                   )}
-                  <div className="w-full flex justify-end">
-                    <span className="text-[10px] mt-1 hover:text-blue-700 cursor-pointer">
+                  <div className="w-full flex justify-end cursor-pointer">
+                    <div className="text-[10px] mt-1 hover:text-blue-700 ">
                       Forgot Password?
-                    </span>
+                    </div>
                   </div>
                 </div>
               </div>

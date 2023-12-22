@@ -4,12 +4,11 @@ import { Link, useLocation } from "react-router-dom";
 
 const SideMenu = () => {
   const location = useLocation();
-  console.log(location.pathname);
   return (
     <div className="container mx-auto shadow-right">
       <div className="mx-5 md:mx-10 p-5 flex flex-col mt-5">
         {Sidebar.map((data) => (
-          <Link to={data.path}>
+          <Link key={data?.id} to={data.path}>
             <div
               className={`flex items-center gap-3 cursor-pointer mb-4 ${
                 data.path === location.pathname &&

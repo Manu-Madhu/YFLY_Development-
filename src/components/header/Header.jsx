@@ -3,9 +3,14 @@ import { CiSearch } from "react-icons/ci";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { LuMenu } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
+import { useSelector } from "react-redux";
+
+import profile from "../../assets/icon/profileicon.png";
 
 const Header = () => {
   const [menu, setMenu] = useState(false);
+  const user = useSelector((state) => state.auth.userInfo);
+
   return (
     <div className="shadow-sm">
       <div className="container mx-auto ">
@@ -29,12 +34,18 @@ const Header = () => {
             />
           </div>
           <div className="hidden md:flex gap-3 w-full items-center justify-end">
-            <IoMdNotificationsOutline size={30} className=" cursor-pointer text-slate-500" />
-            <img
-              src={require("../../assets/icon/profileicon.png")}
-              alt="proPic"
-              className="w-10 rounded-full cursor-pointer"
+            <IoMdNotificationsOutline
+              size={30}
+              className=" cursor-pointer text-slate-500"
             />
+            <div className="flex flex-col items-center">
+              <img
+                src={`${user?.image ? user?.image : profile}`}
+                alt="proPic"
+                className="w-10 rounded-full cursor-pointer"
+              />
+              <h1 className="text-xs text-secondary mt-1">{user?.name}</h1>
+            </div>
           </div>
           <div>
             {!menu ? (
@@ -60,15 +71,18 @@ const Header = () => {
                       />
                     </div>
                     <div className="flex gap-3 w-full items-center mt-3">
-                      <IoMdNotificationsOutline 
+                      <IoMdNotificationsOutline
                         size={30}
                         className=" cursor-pointer text-slate-500"
                       />
-                      <img
-                        src={require("../../assets/icon/profileicon.png")}
-                        alt="proPic"
-                        className="w-10 rounded-full cursor-pointer"
-                      />
+                      <div>
+                        <img
+                          src={require("../../assets/icon/profileicon.png")}
+                          alt="proPic"
+                          className="w-10 rounded-full cursor-pointer"
+                        />
+                        <h1>halo</h1>
+                      </div>
                     </div>
                   </div>
                 </div>
