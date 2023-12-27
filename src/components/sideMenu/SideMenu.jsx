@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 const SideMenu = () => {
   const location = useLocation();
   return (
-    <div className="container mx-auto shadow-right">
+    <div className="container mx-auto shadow-right hidden md:flex md:w-1/5 h-screen fixed bg-white">
       <div className="mx-5 md:mx-10 p-5 flex flex-col mt-5">
         {Sidebar.map((data) => (
           <Link key={data?.id} to={data.path}>

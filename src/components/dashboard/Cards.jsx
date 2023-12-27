@@ -3,7 +3,7 @@ import React from "react";
 const Cards = ({ data }) => {
   console.log(data)
   return (
-    <div className="flex flex-wrap gap-5 border rounded-lg p-8">
+    <div className="flex flex-wrap gap-5  p-8">
       {data.map((data, index) => (
         <div className="border p-5 bg-white rounded-lg shadow w-full md:w-[250px]" key={index}>
           <div className="flex">

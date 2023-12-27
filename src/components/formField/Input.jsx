@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ name, placeholder, type }) => {
+const Input = ({ name, placeholder, type, changeHandler }) => {
   return (
     <>
       <input
@@ -8,6 +8,7 @@ const Input = ({ name, placeholder, type }) => {
         name={name}
         className={`border text-xs p-3 focus:outline-none w-full rounded-lg`}
         placeholder={placeholder}
+        onChange={changeHandler}
       />
     </>
   );

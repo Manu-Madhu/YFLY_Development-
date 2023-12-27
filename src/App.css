@@ -35,6 +35,15 @@
   box-shadow: 2px 4px 24.6px 0px rgba(0, 0, 0, 0.25) inset;
 }
 
+.emp_card{
+  background-image: url('./assets/images/cardBg.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
-
+.emp_card:hover{
+  filter: drop-shadow(0px 8px 22px #5AB2E1);
+  
+}
 

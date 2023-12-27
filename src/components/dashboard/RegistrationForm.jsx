@@ -4,19 +4,58 @@ import { IoClose } from "react-icons/io5";
 
 import Input from "../formField/Input";
 import TrackingUI from "../stepper/TrackingUI";
+import SelectionInput from "../formField/SelectionInput";
 
 const RegistrationForm = ({ setModal }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
-
   const steps = ["Student Info", "Application Info", "Over View"];
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phone: "",
+    birthDate: "",
+    age: "",
+    image: "",
+    qualification: "",
+    address: {
+      houseName: "",
+      city: "",
+      state: "",
+      pin: "",
+    },
+  });
+
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+
+    if (name.includes("address")) {
+      const addressField = name.split("address")[1]; // Get the specific address field
+      console.log(addressField);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        address: {
+          ...prevFormData.address,
+          [addressField]: value, // Update the specific address field
+        },
+      }));
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+  };
 
   // Submit Handler
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log(formData);
   };
   return (
-    <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center">
+    <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center z-50">
       <div className="relative bg-white mt-60  md:mt-0 md:w-1/2 rounded-lg p-5  md:p-10 md:px-14 m-5">
         <h1 className="font-bold text-center text-xl text-primary_colors">
           Register New Student
@@ -44,6 +83,7 @@ const RegistrationForm = ({ setModal }) => {
                         name={data.name}
                         placeholder={data.placeholder}
                         type={data.type}
+                        changeHandler={changeHandler}
                       />
                     </div>
                   ))}
@@ -62,7 +102,20 @@ const RegistrationForm = ({ setModal }) => {
                 <>
                   {FormData.map((data) => (
                     <div key={data?.id} className="w-full md:w-1/2 p-1 py-2">
-                      <Input
+                      <SelectionInput
+                        name={data.name}
+                        placeholder={data.placeholder}
+                        type={data.type}
+                      />
+                    </div>
+                  ))}
+                </>
+              )}
+              {currentStep === 3 && (
+                <>
+                  {FormData.map((data) => (
+                    <div key={data?.id} className="w-full md:w-1/2 p-1 py-2">
+                      <SelectionInput
                         name={data.name}
                         placeholder={data.placeholder}
                         type={data.type}
