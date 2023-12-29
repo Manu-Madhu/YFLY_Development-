@@ -1,4 +1,5 @@
 import React from "react";
+import TrackerVertical from "../stepper/TrackerVertical";
 
 const Application = () => {
   return (
@@ -23,11 +24,22 @@ const Application = () => {
           </div>
         </div>
       </div>
-      <div className="w-full border mt-10 rounded-xl">
+      <div className="w-full border mt-10 rounded-xl max-h-screen overflow-hidden">
         <h1 className="p-3 px-5 font-bold">Tracking Progress</h1>
         <hr />
-        <div>
-            
+        <div className="w-full flex p-3 px-5">
+          <div className="w-full md:w-1/4">
+            <div className="mt-3">
+              <h1 className="font-semibold ">#Acknowledgement Number</h1>
+              <h5>123456</h5>
+            </div>
+            <div>
+              <TrackerVertical />
+            </div>
+          </div>
+          <div className="rounded-lg bg-[#F9F9F9] w-full md:w-3/4 mt-3">
+            details
+          </div>
         </div>
       </div>
     </>
