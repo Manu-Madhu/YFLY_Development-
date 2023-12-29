@@ -10,7 +10,7 @@ const Layout = () => {
       <Header />
       <div className="container mx-auto flex w-full h-full mt-24">
         <SideMenu />
-        <div className="md:w-4/5 p-10 md:ms-[300px]">{<Outlet />}</div>
+        <div className="w-full md:w-4/5 px-5 md:p-10 md:ms-[300px] ">{<Outlet />}</div>
       </div>
       <Footer />
     </div>

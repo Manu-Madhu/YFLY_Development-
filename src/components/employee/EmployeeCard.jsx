@@ -1,18 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const EmployeeCard = () => {
+const EmployeeCard = ({ data }) => {
   return (
-    <div className="w-full md:w-1/3 p-1 ">
-      <div className="emp_card shadow-lg flex flex-col items-center justify-center rounded-xl p-5 hover:scale-95 ease-in-out duration-200 cursor-pointer">
-        <img src="" alt="" />
-        <img
-          src={require("../../assets/icon/employee/Counselers.png")}
-          alt="icon"
-        />
-        <h1 className="font-bold text-white">COUNSELLORS</h1>
-      </div>
+    <div className="w-full md:w-1/3 p-2">
+      <Link to={`/admin/employee/list/${data?.path}`}>
+        <div className="emp_card shadow-lg flex flex-col items-center justify-center rounded-xl p-5 hover:scale-95 ease-in-out duration-200 cursor-pointer">
+          <img src={data?.image} alt="icon" className="w-24" />
+          <h1 className="font-bold text-white">{data?.name}</h1>
+        </div>
+      </Link>
     </div>
   );
 };
 
 export default EmployeeCard;
+ 

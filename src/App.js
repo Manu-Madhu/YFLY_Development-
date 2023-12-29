@@ -9,6 +9,9 @@ import Employee from './pages/admin/Employee'
 import Student from './pages/admin/Student'
 import TrackStudent from './pages/admin/TrackStudent';
 import AdminProtectedRoute from './routes/AdminProtectedRoute';
+import ViewEmployees from './components/employee/ViewEmployees';
+import EmployeeProfile from './components/employee/EmployeeProfile';
+import Application from './components/application/Application';
 
 
 function App() {
@@ -22,6 +25,9 @@ function App() {
             <Route element={<AdminProtectedRoute />}>
               <Route path='admin/dashboard' element={<Dashboard />} />
               <Route path='admin/employee' element={<Employee />} />
+              <Route path='admin/employee/list/:role' element={<ViewEmployees />} />
+              <Route path='admin/employee/profile' element={<EmployeeProfile />} />
+              <Route path='admin/employee/student/application/:id' element={<Application />} />
               <Route path='admin/student' element={<Student />} />
               <Route path='admin/track_student' element={<TrackStudent />} />
             </Route>

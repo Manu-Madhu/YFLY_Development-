@@ -1,0 +1,38 @@
+import React from "react";
+
+const Profile = () => {
+  return (
+    <div className="w-full">
+      <div className="bg-gradient-to-b from-[#058BD2] gap-1 rounded-xl flex flex-col items-center text-white font-semibold">
+        <h1 className=" mt-14">Manu M</h1>
+        <h1 className="uppercase font-normal">COUNSELLORS</h1>
+        <img
+          src={require("../../../assets/icon/profileicon.png")}
+          alt="profile_pic"
+          className="w-28 border-2 border-white rounded-full shadow-lg mt-3"
+        />
+      </div>
+      <div className="flex flex-col px-10 gap-3">
+        <h1 className=" mt-5  text-[13px] ">
+          Hi i am Manu M , i am a COUNSELLORS in this company i have total of 3
+          years of experience in this current role if u have any issue please
+          feel free to contact me.
+        </h1>
+        <div>
+          <h1 className="text-slate-500 text-bold text-left">Address :</h1>
+          <span className="text-sm">Manu Nivas, Plakadavu, Neyyattinkara, Kerala</span>
+        </div>
+        <div>
+          <h1 className="text-slate-500 text-bold text-left">Email Address: :</h1>
+          <span className="text-sm">Test@gmail.com</span>
+        </div>
+        <div>
+          <h1 className="text-slate-500 text-bold text-left">Phone Number:</h1>
+          <span className="text-sm">7356924029</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Profile;
