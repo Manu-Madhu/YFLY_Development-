@@ -1,6 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "../../utils/AxiosInstance"
+import { getEmployeesRoute } from "../../utils/Endpoint";
 
-const Table = () => {
+const Table = ({department}) => {
+  const [data,setData] = useState([]);
+  const [page,setpage] = useState(1);
+  const [entries,setEntries] = useState(10);
+
+  console.log("department",department)
+
+  const getData = async()=>{
+    await axios.get(`${getEmployeesRoute}?department=${department}&page=${page}&entries=${entries}`)
+    .then((res)=>{
+        console.log("data",res.data);
+        setData(res.data);
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+  }
+
+  useEffect(()=>{
+    getData()
+  },[]);
+
+  console.log(data)
   return (
     <div className="relative shadow-md md:rounded-lg overflow-x-scroll md:overflow-hidden mb-3">
       <table className="w-full  text-sm text-left ">
@@ -13,9 +37,8 @@ const Table = () => {
               fullName
             </th>
             <th className="px-6 py-4">department</th>
-            <th className="px-6 py-4">role</th>
+            <th className="px-6 py-4">email</th>
             <th className="px-6 py-4">phoneNumber</th>
-            <th className="px-6 py-4">----</th>
             <th className="px-6 py-4  t">
               <div className="font-medium text-white  hover:underline-none hover:text-blue-800 hover:cursor-pointer">
                 Edit
@@ -24,23 +47,27 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          <tr className="bg-white border-b  hover:bg-gray-50 text-black">
-            <td
-              scope="row"
-              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-            >
-              fullName
-            </td>
-            <td className="px-6 py-4">department</td>
-            <td className="px-6 py-4">role</td>
-            <td className="px-6 py-4">phoneNumber</td>
-            <td className="px-6 py-4">----</td>
-            <td className="px-6 py-4  t">
-              <div className="font-medium text-blue-600 dark:text-blue-500 hover:underline-none hover:text-blue-800 hover:cursor-pointer">
-                Edit
-              </div>
-            </td>
-          </tr>
+
+          {
+            data?.map((emp,i)=>(
+              <tr key={i} className="bg-white border-b  hover:bg-gray-50 text-black">
+                <td
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                >
+                  {emp?.name}
+                </td>
+                <td className="px-6 py-4">{emp?.department}</td>
+                <td className="px-6 py-4">{emp?.email}</td>
+                <td className="px-6 py-4">{emp?.phone}</td>
+                <td className="px-6 py-4  t">
+                  <div className="font-medium text-blue-600 dark:text-blue-500 hover:underline-none hover:text-blue-800 hover:cursor-pointer">
+                    Edit
+                  </div>
+                </td>
+              </tr>
+
+            ))
+          }
         </tbody>
       </table>
     </div>

@@ -73,6 +73,52 @@ export const FormData = [
     },
 ]
 
+export const EmpFormData = [
+    {
+        id:1,
+        name:"name",
+        placeholder:"Name*",
+        type:"text"
+    },
+    {
+        id:2,
+        name:"phone",
+        placeholder:"Phone*",
+        type:"text"
+    },
+    {
+        id:3,
+        name:"email",
+        placeholder:"Email*",
+        type:"email"
+    },
+    {
+        id:4,
+        name:"password",
+        placeholder:"Password*",
+        type:"text"
+    },
+    {
+        id:5,
+        name:"birthDate",
+        placeholder:"Date Of Birth*",
+        type:"date"
+    },
+    {
+        id:6,
+        name:"education",
+        placeholder:"Education*",
+        type:"text"
+    },
+    {
+        id:7,
+        name:"department",
+        placeholder:"Department*",
+        type:"text"
+    },
+   
+]
+
 
 export const Address =[
     {

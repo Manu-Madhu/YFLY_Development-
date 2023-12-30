@@ -13,6 +13,7 @@ const Card = lazy(() => import("../../components/dashboard/Cards"));
 const Dashboard = () => {
   const [data, setData] = useState([]);
   const [modal, setModal] = useState(false);
+  const [empModal, setEmpModal] = useState(false);
 
   // @DCS All Card Data
   useEffect(() => {
@@ -45,6 +46,7 @@ const Dashboard = () => {
           </div>
           <div className="w-full flex items-center justify-around">
             <button
+            onClick={()=> setEmpModal(true)}
               className="me-2 p-2 px-4 text-normal bg-primary_colors text-white rounded-lg hover:scale-105 ease-in-out duration-200"
             >
               Register a New Employeee
@@ -104,7 +106,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      {modal && <RegistrationForm setModal={setModal} />}
+      {modal && <RegistrationForm setModal={setModal} entity="Student" />}
+      {empModal && <RegistrationForm setModal={setEmpModal} entity="Employee" />}
     </>
   );
 };
