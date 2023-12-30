@@ -10,7 +10,7 @@ import profile from "../../assets/icon/profileicon.png";
 const Header = () => {
   const [menu, setMenu] = useState(false);
   const user = useSelector((state) => state.auth.userInfo);
-
+  console.log(user)
   return (
     <div className="shadow-sm fixed z-50 w-full bg-white top-0">
       <div className="container mx-auto ">

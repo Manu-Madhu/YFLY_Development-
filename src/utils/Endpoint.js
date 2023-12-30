@@ -29,4 +29,7 @@ export const getAnApplicationRoute = '/api/application/get';
 export const getAllApplications ='/api/application/get-all';
 
 // Get all StudentData;
-export const getAllStudent ='/api/student/get-all'
+export const getAllStudent ='/api/student/get-all';
+
+// Get an employee data;
+export const getAEmployeeData ='/api/employee/get'
