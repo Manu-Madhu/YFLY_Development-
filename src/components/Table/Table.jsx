@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../utils/AxiosInstance"
 import { getEmployeesRoute } from "../../utils/Endpoint";
+import { useNavigate } from "react-router-dom";
 
 const Table = ({department}) => {
   const [data,setData] = useState([]);
   const [page,setpage] = useState(1);
   const [entries,setEntries] = useState(10);
+  const navigate = useNavigate();
 
   console.log("department",department)
 
@@ -50,7 +52,7 @@ const Table = ({department}) => {
 
           {
             data?.map((emp,i)=>(
-              <tr key={i} className="bg-white border-b  hover:bg-gray-50 text-black">
+              <tr key={i} onClick={(e)=> navigate(`/admin/employee/profile/${emp._id}`)} className="bg-white border-b  hover:bg-gray-50 text-black cursor-pointer">
                 <td
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
                 >

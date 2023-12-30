@@ -17,4 +17,10 @@ export const studentRegisterRoute = '/api/student/create'
 export const employeeRegisterRoute = '/api/employee/create'
 
 // Get Employee list by department;
-export const getEmployeesRoute = '/api/employee/get-all'
+export const getEmployeesRoute = '/api/employee/get-all';
+
+//Get an Employee;
+export const getAnEmployeeRoute = '/api/employee/get';
+
+//Get an Application;
+export const getAnApplicationRoute = '/api/application/get';
