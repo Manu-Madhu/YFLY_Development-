@@ -12,7 +12,7 @@ const Header = () => {
   const user = useSelector((state) => state.auth.userInfo);
 
   return (
-    <div className="shadow-sm fixed z-10 w-full bg-white top-0">
+    <div className="shadow-sm fixed z-20 w-full bg-white top-0">
       <div className="container mx-auto ">
         <div className="mx-1 md:mx-10 flex items-center justify-between p-5">
           <div className="w-full">

@@ -24,20 +24,20 @@ const Application = () => {
           </div>
         </div>
       </div>
-      <div className="w-full border mt-10 rounded-xl max-h-screen overflow-hidden">
+      <div className="w-full p-2 border mt-10 rounded-xl max-h-screen overflow-hidden">
         <h1 className="p-3 px-5 font-bold">Tracking Progress</h1>
         <hr />
-        <div className="w-full flex p-3 px-5">
-          <div className="w-full md:w-1/4">
-            <div className="mt-3">
-              <h1 className="font-semibold ">#Acknowledgement Number</h1>
-              <h5>123456</h5>
-            </div>
-            <div>
+        <div className="mt-3 absolute z-20 bg-white text-sm p-3 px-5">
+          <h1 className="font-semibold ">#Acknowledgement Number</h1>
+          <h5>123456</h5>
+        </div>
+        <div className="w-full h-[300px] flex p-3 px-5">
+          <div className="w-full md:w-1/4 overflow-scroll">
+            <div className="mt-20 ">
               <TrackerVertical />
             </div>
           </div>
-          <div className="rounded-lg bg-[#F9F9F9] w-full md:w-3/4 mt-3">
+          <div className="rounded-lg bg-[#F9F9F9] w-full md:w-3/4 mt-3 p-3">
             details
           </div>
         </div>
