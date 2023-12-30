@@ -30,6 +30,8 @@ function App() {
               <Route path='admin/employee/profile' element={<EmployeeProfile />} />
               <Route path='admin/application/:id' element={<Application />} />
               <Route path='admin/applications' element={<AllApplications />} />
+              <Route path='admin/employee/profile/:id' element={<EmployeeProfile />} />
+              <Route path='admin/application/:id' element={<Application />} />
               <Route path='admin/student' element={<Student />} />
               <Route path='admin/track_student' element={<TrackStudent />} />
             </Route>
