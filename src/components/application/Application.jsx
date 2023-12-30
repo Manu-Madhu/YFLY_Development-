@@ -1,5 +1,6 @@
 import React from "react";
 import TrackerVertical from "../stepper/TrackerVertical";
+import RightSide from "./tracking/RightSide";
 
 const Application = () => {
   return (
@@ -27,18 +28,22 @@ const Application = () => {
       <div className="w-full p-2 border mt-10 rounded-xl max-h-screen overflow-hidden">
         <h1 className="p-3 px-5 font-bold">Tracking Progress</h1>
         <hr />
-        <div className="mt-3 absolute z-20 bg-white text-sm p-3 px-5">
+        <div className="hidden md:flex mt-3 absolute z-20 bg-white text-sm p-3 px-5">
           <h1 className="font-semibold ">#Acknowledgement Number</h1>
           <h5>123456</h5>
         </div>
-        <div className="w-full h-[300px] flex p-3 px-5">
-          <div className="w-full md:w-1/4 overflow-scroll">
-            <div className="mt-20 ">
+        <div className="w-full md:h-[300px] flex flex-col md:flex-row p-3 px-5">
+          <div className="w-full md:w-1/4 overflow-scroll order-2 md:order-1">
+            <div className="md:mt-20">
+              <div className=" md:hidden my-3 z-20 bg-white text-sm">
+                <h1 className="font-semibold ">#Acknowledgement Number</h1>
+                <h5>123456</h5>
+              </div>
               <TrackerVertical />
             </div>
           </div>
-          <div className="rounded-lg bg-[#F9F9F9] w-full md:w-3/4 mt-3 p-3">
-            details
+          <div className="rounded-lg bg-[#F9F9F9] w-full md:w-3/4 mt-3 p-3 order-1">
+            <RightSide />
           </div>
         </div>
       </div>
