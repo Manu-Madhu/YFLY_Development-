@@ -10,7 +10,7 @@ const ViewEmployees = () => {
         {params?.role}
       </h1>
       <div className="mt-5 ">
-        <Table />
+        <Table department={params?.role}/>
       </div>
     </div>
   );
