@@ -23,7 +23,7 @@ export const Sidebar = [
     {
         id: 3,
         name: "Applications",
-        path: "/admin/student",
+        path: "/admin/applications",
         icon: <PiStudentFill size={25}/>
     },
     {

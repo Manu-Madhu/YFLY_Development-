@@ -12,6 +12,7 @@ import AdminProtectedRoute from './routes/AdminProtectedRoute';
 import ViewEmployees from './components/employee/ViewEmployees';
 import EmployeeProfile from './components/employee/EmployeeProfile';
 import Application from './components/application/Application';
+import AllApplications from './components/application/AllApplications';
 
 
 function App() {
@@ -27,7 +28,8 @@ function App() {
               <Route path='admin/employee' element={<Employee />} />
               <Route path='admin/employee/list/:role' element={<ViewEmployees />} />
               <Route path='admin/employee/profile' element={<EmployeeProfile />} />
-              <Route path='admin/employee/student/application/:id' element={<Application />} />
+              <Route path='admin/application/:id' element={<Application />} />
+              <Route path='admin/applications' element={<AllApplications />} />
               <Route path='admin/student' element={<Student />} />
               <Route path='admin/track_student' element={<TrackStudent />} />
             </Route>
