@@ -13,7 +13,7 @@ export const EmployeeCards = [
     {
       id: 1,
       image:councilors,
-      path:"councilors",
+      path:"counsellors",
       name:"COUNSELLORS"
     },
     {
@@ -31,7 +31,7 @@ export const EmployeeCards = [
     {
       id: 4,
       image:finances,
-      path:"finances",
+      path:"financers",
       name:"FINANCERS"
     },
     {

@@ -43,7 +43,13 @@ const Dashboard = () => {
               <Card data={data} />
             </Suspense>
           </div>
-          <div className="w-full flex items-center justify-end">
+          <div className="w-full flex items-center justify-around">
+            <button
+              className="me-2 p-2 px-4 text-normal bg-primary_colors text-white rounded-lg hover:scale-105 ease-in-out duration-200"
+            >
+              Register a New Employeee
+            </button>
+
             <button
               onClick={() => setModal(!modal)}
               className="me-2 p-2 px-4 text-normal bg-primary_colors text-white rounded-lg hover:scale-105 ease-in-out duration-200"
@@ -51,6 +57,7 @@ const Dashboard = () => {
               Register a New Student
             </button>
           </div>
+         
         </div>
         <div className="flex flex-col md:flex-row w-full mt-5 md:mt-10 gap-5 md:gap-2">
           <div className=" md:w-1/2 ">

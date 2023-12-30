@@ -6,6 +6,11 @@ import Input from "../formField/Input";
 import TrackingUI from "../stepper/TrackingUI";
 import SelectionInput from "../formField/SelectionInput";
 
+import axios from "../../utils/AxiosInstance";
+import { studentRegisterRoute } from "../../utils/Endpoint";
+import { toast } from "react-toastify";
+
+
 const RegistrationForm = ({ setModal }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
@@ -50,9 +55,21 @@ const RegistrationForm = ({ setModal }) => {
   };
 
   // Submit Handler
-  const submitHandler = (e) => {
+  const submitHandler = async(e) => {
     e.preventDefault();
     console.log(formData);
+    if(!(formData?.name || formData?.email)) return;
+    
+    await axios.post(studentRegisterRoute, formData)
+    .then((res)=>{
+      console.log(res.data);
+      toast.success(res?.data?.msg)
+    })
+    .catch((error)=>{
+      console.log(error);
+      toast.error(error?.response?.data?.msg)
+    })
+    
   };
   return (
     <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center z-50">
