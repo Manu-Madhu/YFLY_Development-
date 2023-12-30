@@ -44,7 +44,7 @@ const Dashboard = () => {
               <Card data={data} />
             </Suspense>
           </div>
-          <div className="w-full flex items-center justify-around">
+          <div className="w-full flex items-center justify-end">
             <button
             onClick={()=> setEmpModal(true)}
               className="me-2 p-2 px-4 text-normal bg-primary_colors text-white rounded-lg hover:scale-105 ease-in-out duration-200"

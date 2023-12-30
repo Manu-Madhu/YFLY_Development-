@@ -16,13 +16,13 @@ export const Sidebar = [
     },
     {
         id: 2,
-        name: "Manage Employee",
+        name: "Manage Team",
         path: "/admin/employee",
         icon: <MdOutlinePeople size={25}/>
     },
     {
         id: 3,
-        name: "Manage Student",
+        name: "Applications",
         path: "/admin/student",
         icon: <PiStudentFill size={25}/>
     },
