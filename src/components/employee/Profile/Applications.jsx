@@ -12,7 +12,7 @@ const Applications = ({data}) => {
 
       {
         data?.applicationList?.map((application,i)=>(
-          <div className="bg-gradient-to-r from-[#52C3FF] to-[#D0EAFF] p-5 flex justify-around rounded-xl shadow-xl relative">
+          <div className="bg-gradient-to-r from-[#52C3FF] to-[#D0EAFF] p-5 flex justify-around rounded-xl shadow-xl relative mb-3">
             <img
               src={require("../../../assets/icon/application_ban.png")}
               alt="ban"

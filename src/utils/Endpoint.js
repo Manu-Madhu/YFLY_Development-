@@ -24,3 +24,9 @@ export const getAnEmployeeRoute = '/api/employee/get';
 
 //Get an Application;
 export const getAnApplicationRoute = '/api/application/get';
+
+// Get all Applications;
+export const getAllApplications ='/api/application/get-all';
+
+// Get all StudentData;
+export const getAllStudent ='/api/student/get-all'

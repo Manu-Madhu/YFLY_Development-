@@ -29,7 +29,7 @@ export const Sidebar = [
     {
         id: 4,
         name: "Track Student",
-        path: "/admin/track_student",
+        path: "/admin/student",
         icon: <TbBrowserCheck size={25}/>
     },
     {

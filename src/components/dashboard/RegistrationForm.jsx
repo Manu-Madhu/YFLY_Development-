@@ -4,7 +4,6 @@ import { IoClose } from "react-icons/io5";
 
 import Input from "../formField/Input";
 import TrackingUI from "../stepper/TrackingUI";
-import SelectionInput from "../formField/SelectionInput";
 
 import axios from "../../utils/AxiosInstance";
 import { employeeRegisterRoute, studentRegisterRoute } from "../../utils/Endpoint";
@@ -194,9 +193,14 @@ const RegistrationForm = ({ setModal, entity }) => {
                 </>
               )}
               {currentStep === 2 && (
-                <>
+                <div className="flex flex-col  border w-full rounded p-5 ">
                   <h1>Name : <span>{formData?.name}</span></h1>
-                </>
+                  <h1>Email : <span>{formData?.email}</span></h1>
+                  <h1>Phone : <span>{formData?.phone}</span></h1>
+                  <h1>DOB : <span>{formData?.birthDate}</span></h1>
+                  <h1>Qualification : <span>{formData?.qualification}</span></h1>
+                  <h1>Address : <span>{formData?.address?.houseName}</span></h1>
+                </div>
               )}
               {/* {currentStep === 3 && (
                 <>

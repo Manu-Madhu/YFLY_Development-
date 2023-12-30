@@ -49,7 +49,7 @@ const Dashboard = () => {
             onClick={()=> setEmpModal(true)}
               className="me-2 p-2 px-4 text-normal bg-primary_colors text-white rounded-lg hover:scale-105 ease-in-out duration-200"
             >
-              Register a New Employeee
+              Register a New Employee
             </button>
 
             <button

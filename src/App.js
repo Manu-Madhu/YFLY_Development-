@@ -7,7 +7,6 @@ import Dashboard from './pages/admin/Dashboard';
 import Logout from './pages/Logout';
 import Employee from './pages/admin/Employee'
 import Student from './pages/admin/Student'
-import TrackStudent from './pages/admin/TrackStudent';
 import AdminProtectedRoute from './routes/AdminProtectedRoute';
 import ViewEmployees from './components/employee/ViewEmployees';
 import EmployeeProfile from './components/employee/EmployeeProfile';
@@ -27,13 +26,10 @@ function App() {
               <Route path='admin/dashboard' element={<Dashboard />} />
               <Route path='admin/employee' element={<Employee />} />
               <Route path='admin/employee/list/:role' element={<ViewEmployees />} />
-              <Route path='admin/employee/profile' element={<EmployeeProfile />} />
-              <Route path='admin/application/:id' element={<Application />} />
-              <Route path='admin/applications' element={<AllApplications />} />
               <Route path='admin/employee/profile/:id' element={<EmployeeProfile />} />
               <Route path='admin/application/:id' element={<Application />} />
+              <Route path='admin/applications' element={<AllApplications />} />
               <Route path='admin/student' element={<Student />} />
-              <Route path='admin/track_student' element={<TrackStudent />} />
             </Route>
           </Route>
           <Route path='*' element={<div>Pages Not Found</div>} />
