@@ -49,7 +49,6 @@ const Table = ({department}) => {
           </tr>
         </thead>
         <tbody>
-
           {
             data?.map((emp,i)=>(
               <tr key={i} onClick={(e)=> navigate(`/admin/employee/profile/${emp._id}`)} className="bg-white border-b  hover:bg-gray-50 text-black cursor-pointer">

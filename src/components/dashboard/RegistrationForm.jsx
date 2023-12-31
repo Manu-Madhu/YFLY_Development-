@@ -4,7 +4,6 @@ import { IoClose } from "react-icons/io5";
 
 import Input from "../formField/Input";
 import TrackingUI from "../stepper/TrackingUI";
-import SelectionInput from "../formField/SelectionInput";
 
 import axios from "../../utils/AxiosInstance";
 import { employeeRegisterRoute, studentRegisterRoute } from "../../utils/Endpoint";
@@ -14,7 +13,7 @@ import { toast } from "react-toastify";
 const RegistrationForm = ({ setModal, entity }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
-  const steps = ["Student Info", "Application Info", "Over View"];
+  const steps = ["Student Info", "Over View"];
 
   const [formData, setFormData] = useState({
     name: "",
@@ -128,6 +127,8 @@ const RegistrationForm = ({ setModal, entity }) => {
     }
     
   };
+
+  
   return (
     <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center z-50">
       <div className="relative bg-white mt-60  md:mt-0 md:w-1/2 rounded-lg p-5  md:p-10 md:px-14 m-5">
@@ -192,6 +193,16 @@ const RegistrationForm = ({ setModal, entity }) => {
                 </>
               )}
               {currentStep === 2 && (
+                <div className="flex flex-col  border w-full rounded p-5 ">
+                  <h1>Name : <span>{formData?.name}</span></h1>
+                  <h1>Email : <span>{formData?.email}</span></h1>
+                  <h1>Phone : <span>{formData?.phone}</span></h1>
+                  <h1>DOB : <span>{formData?.birthDate}</span></h1>
+                  <h1>Qualification : <span>{formData?.qualification}</span></h1>
+                  <h1>Address : <span>{formData?.address?.houseName}</span></h1>
+                </div>
+              )}
+              {/* {currentStep === 3 && (
                 <>
                   {FormData.map((data) => (
                     <div key={data?.id} className="w-full md:w-1/2 p-1 py-2">
@@ -203,20 +214,7 @@ const RegistrationForm = ({ setModal, entity }) => {
                     </div>
                   ))}
                 </>
-              )}
-              {currentStep === 3 && (
-                <>
-                  {FormData.map((data) => (
-                    <div key={data?.id} className="w-full md:w-1/2 p-1 py-2">
-                      <SelectionInput
-                        name={data.name}
-                        placeholder={data.placeholder}
-                        type={data.type}
-                      />
-                    </div>
-                  ))}
-                </>
-              )}
+              )} */}
             </div>
 
             {/* BUTTON */}

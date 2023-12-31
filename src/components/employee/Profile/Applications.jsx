@@ -1,14 +1,17 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const Applications = ({data}) => {
-  console.log(data)
-  console.log(data[0])
+const Applications = ({ data }) => {
+  const user = useSelector((state) => state?.auth?.userInfo);
+  console.log(  data?.applicationList)
   return (
     <>
-      <h1 className="mt-10 mb-5 text-xl font-bold text-primary_colors">
-        Applications
-      </h1>
+      {user?.role === "admin" && (
+        <h1 className="mt-10 mb-5 text-xl font-bold text-primary_colors">
+          Applications
+        </h1>
+      )}
 
       {
         data?.map((work,i)=>(
@@ -35,15 +38,19 @@ const Applications = ({data}) => {
                   View
                 </button>
               </Link>
-
-              <div className="p-2 px-10 h-10 text-white rounded bg-[#E87D00]">
-                Status
-              </div>
+            ) : (
+              <Link to={`/employee/application/${application._id}`}>
+                <button className="p-2 px-10 h-10 text-sm text-white rounded bg-[#3B7493]">
+                  View
+                </button>
+              </Link>
+            )}
+            <div className="p-2 px-10 h-10 text-sm text-white rounded bg-[#E87D00] capitalize">
+              {application?.status}
             </div>
           </div>
-
-        ))
-      }
+        </div>
+      ))}
     </>
   );
 };

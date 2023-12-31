@@ -23,14 +23,35 @@ export const Sidebar = [
     {
         id: 3,
         name: "Applications",
-        path: "/admin/student",
+        path: "/admin/applications",
         icon: <PiStudentFill size={25}/>
     },
     {
         id: 4,
         name: "Track Student",
-        path: "/admin/track_student",
+        path: "/admin/student",
         icon: <TbBrowserCheck size={25}/>
+    },
+    {
+        id: 5,
+        name: "Log Out",
+        path: "/logout",
+        icon: <AiOutlineLogin size={25}/>
+    },
+]
+
+export const SidebarE = [
+    {
+        id: 1,
+        name: "Dashboard",
+        path: "/employee/dashboard",
+        icon: <RxDashboard size={25}/>
+    },
+    {
+        id: 2,
+        name: "Applications",
+        path: "/employee/application",
+        icon: <MdOutlinePeople size={25}/>
     },
     {
         id: 5,
