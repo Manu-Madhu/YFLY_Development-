@@ -35,3 +35,63 @@ export const getAEmployeeData ='/api/employee/get'
 
 //Get Assigned works;
 export const getAssignedWorksRoute = '/api/employee/get-assigned-works'
+
+// Get Route to refresh token;
+export const refreshTokenRoute = '/api/auth/refresh-token';
+
+// Post Route to Send Otp;
+export const sendOtpRoute = '/api/auth/send-otp'
+
+// Post Route to verify email;
+export const verifyOtpRoute = '/api/auth/verify-mail'
+
+//Put Update employee
+export const updateEmployeeRoute = '/api/employee/update'
+
+//Put change-Password of Employee
+export const changeEmpPwdRoute = '/api/employee/change-password'
+
+//Put Deactivate-Employee
+export const deactivateEmployeeRoute = '/api/employee/deactivate';
+
+//Get A Student
+export const getAStudentRoute = '/api/student/get';
+
+//Put Update-Student
+export const updateStudentRoute = '/api/student/update';
+
+//Put Change-Password of Student
+export const changeStdtPwdRoute = '/api/student/change-password';
+
+//Put Change-Password of Admin
+export const changeAdmnPwdRoute = '/api/admin/change-password';
+
+//Get Admin;
+export const getAdminRoute = '/api/admin/get'; //<== + AdminId
+
+//Put Update Admin;
+export const updateAdminRoute = '/api/admin/update';
+
+//Put Assign Work;
+export const workAssignRoute = '/api/admin/assign-work';
+
+//Put Remove Assignee;
+export const removeAssigneeRoute = '/api/admin/remove-assignee';
+
+//Post Create application
+export const createApplicationRoute = '/api/application/create';
+
+//Delete Delete Application
+export const deleteApplicationRoute = '/api/application/delete'; //<== + ApplicationId
+
+//Put Update Application;
+export const updateApplicationRoute = '/api/application/update';
+
+//Post Upload Documents of an Application;
+export const uploadDocumentsRoute = '/api/application/upload-documents'; //<== + ApplicationId
+
+//Get All comments in an Application;
+export const getAllComments = '/api/comment/get-all'; //<== + ApplicationId
+
+//Post a Comment;
+export const postComment = '/api/comment/add';
