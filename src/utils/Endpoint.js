@@ -4,7 +4,7 @@ export const baseUrl = "http://localhost:8800"
 export const loginPost = '/api/auth/login'
 
 // Logout
-export const userLogout = './api/auth/logout'
+export const userLogout = '/api/auth/logout'
 
 // employee Dashboard data
 export const dashData = '/api/admin/get-application-metrics'

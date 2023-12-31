@@ -1,19 +1,5 @@
 import React from "react";
 import { TiTick } from "react-icons/ti";
-// import {
-//   Timeline,
-//   TimelineItem,
-//   TimelineConnector,
-//   TimelineHeader,
-//   TimelineIcon,
-//   TimelineBody,
-//   Typography,
-// } from "@material-tailwind/react";
-// import {
-//   HomeIcon,
-//   BellIcon,
-//   CurrencyDollarIcon,
-// } from "@heroicons/react/24/solid";
 
 const TrackerVertical = () => {
   const step = [
