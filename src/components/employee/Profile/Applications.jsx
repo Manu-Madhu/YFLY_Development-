@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Applications = ({ data }) => {
   const user = useSelector((state) => state?.auth?.userInfo);
-  console.log(  data?.applicationList)
+  console.log(  data?.applicationList);
   return (
     <>
       {user?.role === "admin" && (
