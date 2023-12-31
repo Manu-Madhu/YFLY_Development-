@@ -3,28 +3,43 @@ import Profile from "./Profile/Profile";
 import DashCard from "./Profile/DashCard";
 import Applications from "./Profile/Applications";
 import { useParams } from "react-router-dom";
-import axios from "../../utils/AxiosInstance";
-import { getAnEmployeeRoute } from "../../utils/Endpoint";
+import axios from "../../utils/AxiosInstance"
+import { getAnEmployeeRoute, getAssignedWorksRoute } from "../../utils/Endpoint";
 
 const EmployeeProfile = () => {
-  const { id } = useParams();
+  const {id} = useParams();
+  console.log("empid",id)
+  console.log("typeof id",typeof id)
   const [empData, setEmpData] = useState({});
+  const [works,setWorks] = useState([]);
 
-  const getEmployee = async () => {
-    await axios
-      .get(`${getAnEmployeeRoute}/${id}`)
-      .then((res) => {
-        setEmpData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const getEmployee = async()=>{
+    await axios.get(`${getAnEmployeeRoute}/${id}`)
+    .then((res)=>{
+      setEmpData(res.data);
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
 
-  useEffect(() => {
-    getEmployee();
-  }, []);
+  const getAssignedWorks = async()=>{
+    await axios.get(`${getAssignedWorksRoute}/${id}`)
+    .then((res)=>{
+      console.log(res.data)
+      setWorks(res.data)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+  }
 
+  useEffect(()=>{
+    getEmployee()
+    getAssignedWorks()
+  },[])
+
+  console.log("empData",empData)
 
   return (
     <div className="w-full text-black ">
@@ -33,14 +48,14 @@ const EmployeeProfile = () => {
       </h1>
       <div className="w-full mt-5 flex flex-col md:flex-row gap-5">
         <div className="w-full md:w-2/6">
-          <Profile data={empData} />
+          <Profile data={empData}/>
         </div>
         <div className="w-full md:w-4/6 space-y-5">
           <div>
-            <DashCard data={empData} />
+            <DashCard data={empData}/>
           </div>
           <div>
-            <Applications data={empData} />
+            <Applications data={works}/>
           </div>
         </div>
       </div>

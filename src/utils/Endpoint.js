@@ -33,3 +33,6 @@ export const getAllStudent ='/api/student/get-all';
 
 // Get an employee data;
 export const getAEmployeeData ='/api/employee/get'
+
+//Get Assigned works;
+export const getAssignedWorksRoute = '/api/employee/get-assigned-works'
