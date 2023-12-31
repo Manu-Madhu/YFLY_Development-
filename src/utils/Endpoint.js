@@ -24,3 +24,6 @@ export const getAnEmployeeRoute = '/api/employee/get';
 
 //Get an Application;
 export const getAnApplicationRoute = '/api/application/get';
+
+//Get Assigned works;
+export const getAssignedWorksRoute = '/api/employee/get-assigned-works'

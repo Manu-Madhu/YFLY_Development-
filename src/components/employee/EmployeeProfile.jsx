@@ -4,13 +4,14 @@ import DashCard from "./Profile/DashCard";
 import Applications from "./Profile/Applications";
 import { useParams } from "react-router-dom";
 import axios from "../../utils/AxiosInstance"
-import { getAnEmployeeRoute } from "../../utils/Endpoint";
+import { getAnEmployeeRoute, getAssignedWorksRoute } from "../../utils/Endpoint";
 
 const EmployeeProfile = () => {
   const {id} = useParams();
   console.log("empid",id)
   console.log("typeof id",typeof id)
   const [empData, setEmpData] = useState({});
+  const [works,setWorks] = useState([]);
 
   const getEmployee = async()=>{
     await axios.get(`${getAnEmployeeRoute}/${id}`)
@@ -22,8 +23,20 @@ const EmployeeProfile = () => {
     })
   }
 
+  const getAssignedWorks = async()=>{
+    await axios.get(`${getAssignedWorksRoute}/${id}`)
+    .then((res)=>{
+      console.log(res.data)
+      setWorks(res.data)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+  }
+
   useEffect(()=>{
     getEmployee()
+    getAssignedWorks()
   },[])
 
   console.log("empData",empData)
@@ -42,7 +55,7 @@ const EmployeeProfile = () => {
             <DashCard data={empData}/>
           </div>
           <div>
-            <Applications data={empData}/>
+            <Applications data={works}/>
           </div>
         </div>
       </div>
