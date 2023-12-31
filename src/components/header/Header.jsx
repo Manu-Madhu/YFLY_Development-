@@ -44,10 +44,9 @@ const Header = () => {
                 className=" cursor-pointer text-slate-500"
               />
 
-              <div className="mt-2 flex flex-col justify-end hover:text-primary_colors cursor-pointer">
+              <div onClick={() => navigate("/logout")} className="mt-2 flex flex-col justify-end hover:text-primary_colors cursor-pointer">
                 <AiOutlineLogin className="" size={30} />
                 <h1
-                  onClick={() => navigate("/logout")}
                   className="text-xs text-secondary mt-1 cursor-pointer hover:text-primary_colors"
                 >
                   Logout

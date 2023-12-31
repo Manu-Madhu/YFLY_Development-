@@ -88,11 +88,11 @@ const Login = () => {
       />
       <div className="container mx-auto h-full">
         <div className="md:mx-10 w-full flex items-center ms:items-start justify-center md:justify-start ">
-          <img src={logo} alt="Logo" className="object-container z-50 " />
+          <img src={logo} alt="Logo" className="object-container z-50" />
         </div>
         <div className="w-full flex items-center justify-center">
-          <div className="data  w-full m-5 bg-white border md:w-1/4 rounded p-10 shadow-lg">
-            <form onSubmit={submitHandler} className="flex flex-col  py-5">
+          <div className="data w-full m-5 bg-white border md:w-2/6 rounded p-10 shadow-lg">
+            <form onSubmit={submitHandler} className="flex flex-col py-5">
               <h2 className="text-[#0061B2] text-2xl font-bold text-center mb-5">
                 Login
               </h2>
