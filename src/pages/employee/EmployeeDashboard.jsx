@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import instance from "../../utils/AxiosInstance";
 import { getAEmployeeData } from "../../utils/Endpoint";
-import Cards from "../../components/dashboard/Cards";
 import { FaUserGraduate } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { MdManageAccounts } from "react-icons/md";
 
 const EmployeeDashboard = () => {
   const [userInfo, setUserInfo] = useState();
