@@ -1,61 +1,63 @@
 import React, { useEffect, useState } from "react";
-import TrackerVertical from "../stepper/TrackerVertical";
-import RightSide from "./tracking/RightSide";
 import { useParams } from "react-router-dom";
-import axios from "../../utils/AxiosInstance";
 import { getAnApplicationRoute } from "../../utils/Endpoint";
 
+import TrackerVertical from "../stepper/TrackerVertical";
+import RightSide from "./tracking/RightSide";
+import axios from "../../utils/AxiosInstance";
+
 const Application = () => {
-  const {id} = useParams();
-  const [data,setData] = useState({});
+  const { id } = useParams();
+  const [data, setData] = useState({});
 
-  const getApplication = async()=>{
-    await axios.get(`${getAnApplicationRoute}/${id}`)
-    .then((res)=>{
-        setData(res.data)
-    })
-    .catch((error)=>{
-      console.log(error)
-    })
-  }
+  useEffect(() => {
+    axios
+      .get(`${getAnApplicationRoute}/${id}`)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-  useEffect(()=>{
-    getApplication()
-  },[])
-  
+  }, [id]);
+
   return (
     <>
+      {/* welcome Card */}
       <div className="application_card p-5 rounded-xl ">
         <h1 className="text-white md:text-2xl font-bold my-3">
           Welcome To The Application Of{" "}
-          <span className="text-primary_colors"> {data?.studentName}</span>{" "}
+          <span className="text-blue-800"> {data?.studentName}</span>
         </h1>
         <div className="text-white mt-5 flex items-center justify-around gap-4">
           <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">Name</h5>
-            <h5>{data?.studentName}</h5>
+            <h5 className="text-sm capitalize">{data?.studentName}</h5>
           </div>
           <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">Country</h5>
-            <h5>{data?.country}</h5>
+            <h5 className="text-sm capitalize">{data?.country}</h5>
           </div>
           <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">University</h5>
-            <h5>{data?.university}</h5>
+            <h5 className="text-sm capitalize">{data?.university}</h5>
           </div>
           <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">Intake</h5>
-            <h5>{data?.intake}</h5>
+            <h5 className="text-sm capitalize">{data?.intake}</h5>
           </div>
         </div>
       </div>
+      {/* Tracking process */}
       <div className="w-full p-2 border mt-10 rounded-xl max-h-screen overflow-hidden">
         <h1 className="p-3 px-5 font-bold">Tracking Progress</h1>
         <hr />
         <div className="hidden md:block mt-3 absolute z-20 bg-white text-sm p-3 px-5">
           <h1 className="font-semibold ">#Acknowledgement Number: </h1>
-          <h5> {data._id}</h5>
+          <h5 className="text-xs"> {data._id}</h5>
         </div>
+        {/* Tracking stepper */}
         <div className="w-full h-[650px] flex flex-col md:flex-row p-3 px-5">
           <div className="w-full md:w-1/4 overflow-scroll order-2 md:order-1">
             <div className="md:mt-20">
@@ -63,11 +65,11 @@ const Application = () => {
                 <h1 className="font-semibold ">#Acknowledgement Number:</h1>
                 <h5>{data._id}</h5>
               </div>
-              <TrackerVertical />
+              <TrackerVertical data={data} />
             </div>
           </div>
           <div className="rounded-lg bg-[#F9F9F9] w-full md:w-3/4 mt-3 p-5 order-1">
-            <RightSide data={data}/>
+            <RightSide data={data} />
           </div>
         </div>
       </div>

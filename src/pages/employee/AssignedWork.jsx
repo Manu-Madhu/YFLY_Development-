@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import Applications from "../../components/employee/Profile/Applications";
-import instance from "../../utils/AxiosInstance";
 import { getAssignedWorksRoute } from "../../utils/Endpoint";
 import { useSelector } from "react-redux";
+
+import Applications from "../../components/employee/Profile/Applications";
+import instance from "../../utils/AxiosInstance";
 
 const AssignedWork = () => {
   const [words, setWorks] = useState([]);
@@ -12,7 +13,6 @@ const AssignedWork = () => {
     await instance
       .get(`${getAssignedWorksRoute}/${userData?._id}`)
       .then((res) => {
-        console.log(res.data);
         setWorks(res.data);
       })
       .catch((error) => {

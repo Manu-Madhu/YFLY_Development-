@@ -13,7 +13,6 @@ const Header = () => {
   const [menu, setMenu] = useState(false);
   const user = useSelector((state) => state.auth.userInfo);
   const navigate = useNavigate();
-  console.log(user);
   return (
     <>
       <div className="shadow-sm fixed z-50 w-full bg-white top-0">

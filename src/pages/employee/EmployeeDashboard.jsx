@@ -1,26 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import instance from "../../utils/AxiosInstance";
-import { getAEmployeeData } from "../../utils/Endpoint";
 import { FaUserGraduate } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const EmployeeDashboard = () => {
-  const [userInfo, setUserInfo] = useState();
   const userData = useSelector((state) => state.auth.userInfo);
-  console.log(userData);
-
-  useState(() => {
-    instance
-      .get(`${getAEmployeeData}/${userData?._id}`)
-      .then((res) => {
-        setUserInfo(res.data);
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
   return (
     <div>
