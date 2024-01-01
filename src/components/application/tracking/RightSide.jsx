@@ -21,27 +21,25 @@ const RightSide = ({ data }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [data?._id,setComments]);
+  }, [data?._id, setComments]);
 
-  const submitHandle = async(e) => {
+  const submitHandle = async (e) => {
     e.preventDefault();
-    console.log(comment)
+    console.log(comment);
     const message = {
       applicationId: data?._id,
       commentorId: user?._id,
-      comment:comment
-    }
-    try{
-      const response = await axios.post(postComment,message);
+      comment: comment,
+    };
+    try {
+      const response = await axios.post(postComment, message);
       console.log(response);
-      toast.success(response?.data?.msg)
-      setComments([
-        ...comments,
-        response?.data?.data
-      ])
-    }catch(error){
+      toast.success(response?.data?.msg);
+      setComments([response?.data?.data, ...comments]);
+      setComment('');
+    } catch (error) {
       console.log(error);
-      toast.warning(error?.response?.data?.msg)
+      toast.warning(error?.response?.data?.msg);
     }
   };
 
@@ -92,7 +90,8 @@ const RightSide = ({ data }) => {
             rows="10"
             className="w-full h-20 rounded-lg focus:outline-none p-3 text-xs text-slate-300"
             placeholder="Enter your message"
-            onChange={(e)=>setComment(e.target.value)}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
           ></textarea>
           <button className="absolute bottom-5 right-4 bg-primary_colors text-white px-5 rounded p-1 text-center">
             send
@@ -119,7 +118,7 @@ const RightSide = ({ data }) => {
             </div>
           ))
         ) : (
-          <div>
+          <div className="w-full h-full flex items-center justify-center">
             <EmptyData data={"No Comments Are Available"} />
           </div>
         )}
