@@ -8,7 +8,6 @@ import { AiOutlineLogin } from "react-icons/ai";
 
 import profile from "../../assets/icon/profileicon.png";
 import { useNavigate } from "react-router-dom";
-import { userLogout } from "../../utils/Endpoint";
 
 const Header = () => {
   const [menu, setMenu] = useState(false);

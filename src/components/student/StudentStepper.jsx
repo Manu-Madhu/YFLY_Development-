@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { TiTick } from "react-icons/ti";
 import { useSelector } from "react-redux";
 import { getAnApplicationRoute } from "../../utils/Endpoint";
-import { Tooltip } from "react-tooltip";
-import { BarLoader  } from "react-spinners";
+import { BarLoader } from "react-spinners";
 
-import "react-tooltip/dist/react-tooltip.css";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 import axios from "../../utils/AxiosInstance";
 import "../stepper/TrackingUI.css";
 
@@ -56,18 +56,19 @@ const TrackingUI = () => {
                   i + 1
                 )}
               </div>
-              <a data-tooltip-id="my-tooltip" data-tooltip-content={step.name}>
-                <p className="text-gray-500 w-10  text-xs font-semibold mt-2 truncate">
+              <Tippy className="" content={<div>{step.name}</div>}>
+                <p className="text-gray-500 w-10  text-xs font-semibold mt-2 truncate cursor-pointer">
                   {step.name}{" "}
                 </p>
-              </a>
-              <Tooltip id="my-tooltip" className="z-20 w-20" />
+              </Tippy>
             </div>
           ))
         ) : (
           <div className="flex items-center gap-4">
-            <BarLoader  color="#058BD2" />
-            <span className="text-gray-500 font-semibold">Application Not Start Yet</span>
+            <BarLoader color="#058BD2" />
+            <span className="text-gray-500 font-semibold">
+              Application Not Start Yet
+            </span>
           </div>
         )}
       </div>
