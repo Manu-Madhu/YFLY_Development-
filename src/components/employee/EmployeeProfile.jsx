@@ -8,8 +8,6 @@ import { getAnEmployeeRoute, getAssignedWorksRoute } from "../../utils/Endpoint"
 
 const EmployeeProfile = () => {
   const {id} = useParams();
-  console.log("empid",id)
-  console.log("typeof id",typeof id)
   const [empData, setEmpData] = useState({});
   const [works,setWorks] = useState([]);
 
@@ -38,8 +36,6 @@ const EmployeeProfile = () => {
     getEmployee()
     getAssignedWorks()
   },[])
-
-  console.log("empData",empData)
 
   return (
     <div className="w-full text-black ">
