@@ -38,16 +38,19 @@ const StudentDashboard = () => {
                   Welcome{" "}
                   <span className="font-semiBold capitalize">{user?.name}</span>
                 </h1>
+                
                 <p className="text-white text-[11px]">
                   <span className="font-bold">DOB :</span>{" "}
                   {DateFormat(user?.birthDate)}
                 </p>
               </div>
               <div>
+                
                 <p className="text-white font-semibold">
-                  User ID :{" "}
-                  <span className="font-semiBold capitalize">{user?._id}</span>
+                  Application ID :{" "}
+                  <span className="font-thin capitalize">{user?.applicationId}</span>
                 </p>
+                
               </div>
             </div>
             {/* details about the student */}
@@ -59,6 +62,10 @@ const StudentDashboard = () => {
               <div>
                 <h1 className="font-semibold pb-0.5">Phone</h1>
                 <p>{user?.phone}</p>
+              </div>
+              <div>
+                <h1 className="font-semibold pb-0.5">Qualification</h1>
+                <p>{user?.qualification}</p>
               </div>
               <div>
                 <h1 className="font-semibold pb-0.5">Country</h1>
