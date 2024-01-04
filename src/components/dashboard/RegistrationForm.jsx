@@ -52,14 +52,14 @@ const RegistrationForm = ({ setModal, entity }) => {
     const { name, value } = e.target;
 
     if(entity === "Student"){
-      if (name.includes("address")) {
+      if (["houseName","city","state","pin"].includes(name)) {
         const addressField = name.split("address")[1]; // Get the specific address field
         console.log(addressField);
         setFormData((prevFormData) => ({
           ...prevFormData,
           address: {
             ...prevFormData.address,
-            [addressField]: value, // Update the specific address field
+            [name]: value, // Update the specific address field
           },
         }));
       } else {
@@ -70,14 +70,12 @@ const RegistrationForm = ({ setModal, entity }) => {
       }
     }
     else if(entity === "Employee"){
-      if (name.includes("address")) {
-        const addressField = name.split("address")[1]; // Get the specific address field
-        console.log(addressField);
+      if (["houseName","city","state","pin"].includes(name)) {
         setEmpFormData((prevFormData) => ({
           ...prevFormData,
           address: {
             ...prevFormData.address,
-            [addressField]: value, // Update the specific address field
+            [name]: value, 
           },
         }));
       } else {
@@ -102,6 +100,7 @@ const RegistrationForm = ({ setModal, entity }) => {
       await axios.post(studentRegisterRoute, formData)
       .then((res)=>{
         console.log(res.data);
+        setModal(false)
         toast.success(res?.data?.msg)
       })
       .catch((error)=>{
@@ -117,6 +116,7 @@ const RegistrationForm = ({ setModal, entity }) => {
       await axios.post(employeeRegisterRoute, empFormData)
       .then((res)=>{
         console.log(res.data);
+        setModal(false)
         toast.success(res?.data?.msg)
       })
       .catch((error)=>{
@@ -128,7 +128,7 @@ const RegistrationForm = ({ setModal, entity }) => {
     
   };
 
-  
+  console.log("efd",empFormData)
   return (
     <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center z-50">
       <div className="relative bg-white mt-60  md:mt-0 md:w-1/2 rounded-lg p-5  md:p-10 md:px-14 m-5">
@@ -158,10 +158,11 @@ const RegistrationForm = ({ setModal, entity }) => {
                   FormData.map((data) => (
                     <div key={data?.id} className="w-full md:w-1/2 p-1 py-2">
                       <Input
-                        name={data.name}
-                        placeholder={data.placeholder}
-                        type={data.type}
+                        name={data?.name}
+                        placeholder={data?.placeholder}
+                        type={data?.type}
                         changeHandler={changeHandler}
+                        value={formData[data?.name]}
                       />
                     </div>
                   ))
@@ -172,10 +173,11 @@ const RegistrationForm = ({ setModal, entity }) => {
                   EmpFormData.map((data) => (
                     <div key={data?.id} className="w-full md:w-1/2 p-1 py-2">
                       <Input
-                        name={data.name}
-                        placeholder={data.placeholder}
-                        type={data.type}
+                        name={data?.name}
+                        placeholder={data?.placeholder}
+                        type={data?.type}
                         changeHandler={changeHandler}
+                        value={empFormData[data?.name]}
                       />
                     </div>
                   ))
@@ -184,43 +186,52 @@ const RegistrationForm = ({ setModal, entity }) => {
                   {Address.map((data) => (
                     <div key={data?.id} className="w-full md:w-1/2 p-1 py-2">
                       <Input
-                        name={data.name}
-                        placeholder={data.placeholder}
-                        type={data.type}
+                        name={data?.name}
+                        placeholder={data?.placeholder}
+                        type={data?.type}
+                        changeHandler={changeHandler}
+                        value={(entity === "Student") ? formData?.address?.[data?.name] : empFormData?.address?.[data?.name]}
                       />
                     </div>
                   ))}
                 </>
               )}
               {currentStep === 2 && (
+                entity === "Student"
+                ?
                 <div className="flex flex-col  border w-full rounded p-5 ">
                   <h1>Name : <span>{formData?.name}</span></h1>
                   <h1>Email : <span>{formData?.email}</span></h1>
                   <h1>Phone : <span>{formData?.phone}</span></h1>
                   <h1>DOB : <span>{formData?.birthDate}</span></h1>
                   <h1>Qualification : <span>{formData?.qualification}</span></h1>
-                  <h1>Address : <span>{formData?.address?.houseName}</span></h1>
+                  <h1>House Name : <span>{formData?.address?.houseName}</span></h1>
+                  <h1>City : <span>{formData?.address?.city}</span></h1>
+                  <h1>State : <span>{formData?.address?.state}</span></h1>
+                  <h1>Pin : <span>{formData?.address?.pin}</span></h1>
+                </div>
+                :
+                <div className="flex flex-col  border w-full rounded p-5 ">
+                  <h1>Name : <span>{empFormData?.name}</span></h1>
+                  <h1>Email : <span>{empFormData?.email}</span></h1>
+                  <h1>Phone : <span>{empFormData?.phone}</span></h1>
+                  <h1>DOB : <span>{empFormData?.birthDate}</span></h1>
+                  <h1>Education : <span>{empFormData?.education}</span></h1>
+                  <h1>Department : <span>{empFormData?.department}</span></h1>
+                  <h1>House Name : <span>{empFormData?.address?.houseName}</span></h1>
+                  <h1>City : <span>{empFormData?.address?.city}</span></h1>
+                  <h1>State : <span>{empFormData?.address?.state}</span></h1>
+                  <h1>Pin : <span>{empFormData?.address?.pin}</span></h1>
                 </div>
               )}
-              {/* {currentStep === 3 && (
-                <>
-                  {FormData.map((data) => (
-                    <div key={data?.id} className="w-full md:w-1/2 p-1 py-2">
-                      <SelectionInput
-                        name={data.name}
-                        placeholder={data.placeholder}
-                        type={data.type}
-                      />
-                    </div>
-                  ))}
-                </>
-              )} */}
+              
             </div>
 
             {/* BUTTON */}
             <div className="text-white text-normal space-x-3 flex items-center justify-end mt-10">
               {currentStep > 1 && !complete && (
                 <button
+                  type="button"
                   className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"
                   onClick={() => setCurrentStep((prev) => prev - 1)}
                 >
@@ -229,6 +240,7 @@ const RegistrationForm = ({ setModal, entity }) => {
               )}
               {!complete && (
                 <button
+                  type="button"
                   className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"
                   onClick={() => {
                     currentStep === steps.length
@@ -239,12 +251,13 @@ const RegistrationForm = ({ setModal, entity }) => {
                   {currentStep === steps.length ? "Finish" : "Next"}
                 </button>
               )}
-              <button
-                type="submit"
-                className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"
-              >
-                Submit
-              </button>
+              {complete &&
+                <button
+                  type="submit"
+                  className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"
+                  >
+                  Submit
+                </button>}
             </div>
           </form>
         </div>

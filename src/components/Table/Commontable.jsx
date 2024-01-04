@@ -18,8 +18,8 @@ const CommonTable = ({ data, page, entries }) => {
             </th>
             <th className="px-6 py-4">Date Created</th>
             <th className="px-6 py-4">Student Name</th>
-            <th className="px-6 py-4">University Name</th>
-            <th className="px-6 py-4">Program Name</th>
+            <th className="px-6 py-4">University</th>
+            <th className="px-6 py-4">Program</th>
             <th className="px-6 py-4">Intake</th>
             <th className="px-6 py-4">Stage</th>
             <th className="px-6 py-4">Application Status</th>
@@ -35,20 +35,23 @@ const CommonTable = ({ data, page, entries }) => {
             >
               <td className="px-6 py-4">{i + 1}</td>
               <td className="px-6 py-4">{DateFormat(items?.createdAt)}</td>
-              <td className="px-6 py-4">{items?.studentDetails?.name}</td>
+              <td className="px-6 py-4">{items?.studentName}</td>
               <td className="px-6 py-4">{items?.university}</td>
               <td className="px-6 py-4">{items?.program}</td>
               <td className="px-6 py-4">{items?.intake}</td>
               <td className="px-6 py-4">
                 {items?.steps.length > 0
-                  ? items?.steps[items.steps.length - 1]?.process
+                  ? items?.steps[items.steps.length - 1]?.name
                   : "On Processing"}
               </td>
               <td className="px-6 py-4">{items?.status}</td>
               <td className="px-6 py-4">
-                {items?.steps.length > 0
+                {/* {items?.steps.length > 0
                   ? items?.steps[items.steps.length - 1]?.assignee
-                  : "On Processing"}
+                  : "NIL"} */}
+                {items?.assignee
+                  ? items?.assigneeName
+                  : "NIL"}
               </td>
             </tr>
           ))}

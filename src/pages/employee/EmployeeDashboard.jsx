@@ -20,9 +20,6 @@ const EmployeeDashboard = () => {
     })
   },[])
 
-  // console.log("userdata",userData)
-  // console.log("dashdata",dashData)
-
   return (
     <div>
       {" "}

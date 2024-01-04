@@ -26,7 +26,7 @@ const AssignedWork = () => {
 
   return (
     <div className="w-full h-full text-black ">
-      <h1 className="text-primary_colors text-2xl font-bold">Applications</h1>
+      <h1 className="text-primary_colors text-2xl font-bold">Tasks</h1>
       <div className="mt-5 w-full ">
         <Applications data={words} />
       </div>
