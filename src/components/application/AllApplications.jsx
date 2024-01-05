@@ -34,7 +34,7 @@ const AllApplications = () => {
       <div className="w-full h-full text-black ">
         <div className="flex flex-col md:flex-row justify-between">
           <h1 className="text-primary_colors text-2xl font-bold">
-            Manage Applications
+            Applications
           </h1>
           <button onClick={()=>setModal(true)} className="p-2 px-5 text-normal bg-primary_colors text-white rounded-lg hover:scale-105 ease-in-out duration-200">
             Add New Application

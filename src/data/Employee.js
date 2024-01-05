@@ -59,3 +59,19 @@ export const EmployeeCards = [
       name:"TECHNICAL SPECIALISTS"
     },
 ]
+
+
+export const status =[
+  {
+    id:1,
+    name:"pending"
+  },
+  {
+    id:1,
+    name:"ongoing"
+  },
+  {
+    id:1,
+    name:"complete"
+  }
+]

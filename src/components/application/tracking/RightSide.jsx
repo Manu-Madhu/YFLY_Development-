@@ -1,16 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { getAllComments, postComment } from "../../../utils/Endpoint";
+import {
+  getAStudentRoute,
+  getAllComments,
+  postComment,
+} from "../../../utils/Endpoint";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 import axios from "../../../utils/AxiosInstance";
 import EmptyData from "../../loading/EmptyData";
-import { toast } from "react-toastify";
+import DocModal from "../../student/DocModal";
+import Tippy from "@tippyjs/react";
+import StatusModal from "../../employee/StatusModal";
 
 const RightSide = ({ data }) => {
   const createdDate = new Date(data?.createdAt).toLocaleString();
   const user = useSelector((state) => state?.auth?.userInfo);
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
+  const [docModal, setDocModal] = useState(false);
+  const [docData, setDocData] = useState();
+  const [statusUpdate,setStatusUpdate] = useState(false)
+
+  const studentData = async () => {
+    try {
+      const response = await axios.get(
+        `${getAStudentRoute}/${data?.studentId}`
+      );
+      setDocData(response?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     axios
@@ -21,6 +43,9 @@ const RightSide = ({ data }) => {
       .catch((error) => {
         console.log(error);
       });
+
+    studentData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?._id, setComments]);
 
   const submitHandle = async (e) => {
@@ -36,12 +61,13 @@ const RightSide = ({ data }) => {
       console.log(response);
       toast.success(response?.data?.msg);
       setComments([response?.data?.data, ...comments]);
-      setComment('');
+      setComment("");
     } catch (error) {
       console.log(error);
       toast.warning(error?.response?.data?.msg);
     }
   };
+
 
   return (
     <>
@@ -52,18 +78,24 @@ const RightSide = ({ data }) => {
             {/* 10/10/2023 - <span>02:30 pm</span> */}
             {createdDate}
           </h1>
-          <h1 className="text-sm font-bold text-primary_colors">
-            {/* Case closed - Offer Received Student not interested to Pay */}
-            {data?.status}
-          </h1>
+          <div>
+            <h1 className="text-sm font-bold ">
+              {/* Case closed - Offer Received Student not interested to Pay */}
+              <span>Status : </span>
+              <span className="text-primary_colors capitalize">
+                {data?.status}
+              </span>
+            </h1>
+          </div>
         </div>
-        <div className="mt-10 flex justify-between ">
+        <hr className="my-5" />
+        <div className="flex justify-between ">
           <div className="space-y-1">
-            <h1 className="text-primary_colors font-semibold">
+            <h1 className="text-sm text-primary_colors font-semibold">
               {/* 123456/22-23 */}
               {data?._id}
             </h1>
-            <h1 className="font-semibold capitalize">
+            <h1 className="text-sm font-semibold capitalize">
               {/* Msc International Business */}
               {data?.program}
             </h1>
@@ -72,18 +104,57 @@ const RightSide = ({ data }) => {
               {data?.university}
             </h1>
           </div>
-          <div className="flex items-end font-bold">
+          <div className="flex flex-col justify-between capitalize">
+            <button onClick={()=>setStatusUpdate(true)} className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded ">
+              Update Status
+            </button>
             {/* Jan 2023 */}
-            {data?.intake}
+            <h1 className="font-bold text-end">{data?.intake}</h1>
           </div>
         </div>
       </div>
 
+      {/* Documents */}
+      <h1 className="my-3 font-semibold text-slate-500 text-sm text-gray-600">
+        Documents
+      </h1>
+      <div className="bg-white p-4 rounded-lg flex gap-2 relative overflow-x-scroll capitalize">
+        {data?.documents?.length > 0 ? (
+          data?.documents?.map((items, i) => (
+            <Tippy key={i} className="" content={<div>{items?.name}</div>}>
+              <div className="flex flex-col text-center text-[11px] cursor-pointer">
+                <Link to={items?.location}>
+                  <img
+                    src={require("../../../assets/icon/file.png")}
+                    alt="file"
+                    className="w-14 border p-1 rounded"
+                  />
+                </Link>
+                <span>{items?.name}</span>
+              </div>
+            </Tippy>
+          ))
+        ) : (
+          <div className="w-full flex items-center justify-center">
+            <EmptyData data={"No Document Are Available"} />
+          </div>
+        )}
+        <button
+          onClick={() => setDocModal(true)}
+          className="absolute bottom-5 right-4 bg-primary_colors text-white text-[13px] px-5 rounded p-1 text-center"
+        >
+          Upload Document
+        </button>
+      </div>
+
       {/* Comment typing Form */}
-      <h1 className="my-3 font-bold text-slate-500 text-sm">Comments</h1>
+      <h1 className="my-3 font-semibold text-slate-500 text-sm text-gray-600">
+        Comments
+      </h1>
       <div className="relative ">
         <form action="" onSubmit={submitHandle}>
           <textarea
+            required
             name="comment"
             id=""
             cols="30"
@@ -93,27 +164,27 @@ const RightSide = ({ data }) => {
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           ></textarea>
-          <button className="absolute bottom-5 right-4 bg-primary_colors text-white px-5 rounded p-1 text-center">
-            send
+          <button className="absolute bottom-5 right-4 bg-primary_colors text-white text-[13px] px-5 rounded p-2 text-center">
+            Send
           </button>
         </form>
       </div>
 
       {/* Comments */}
-      <div className="mt-5 h-[250px] space-y-5 overflow-scroll">
+      <div className="mt-3 h-[220px] space-y-3 overflow-scroll border p-3 rounded-lg">
         {comments?.length > 0 ? (
           comments?.map((items, i) => (
             <div key={i}>
               <div className="flex justify-between">
-                <h1 className="text-xs font-semibold  capitalize">
+                <h1 className="text-xs font-medium text-gray-500 capitalize">
                   {items?.commentorDetails?.name}
                 </h1>
-                <h1 className="text-xs ">
+                <h1 className="text-xs text-gray-500">
                   {new Date(items?.createdAt).toLocaleString()}
                 </h1>
               </div>
               <div className="bg-primary_colors p-5 mt-2 rounded-lg">
-                <p className="text-sm text-white">{items?.comment}</p>
+                <p className="text-[13px] text-white">{items?.comment}</p>
               </div>
             </div>
           ))
@@ -123,6 +194,9 @@ const RightSide = ({ data }) => {
           </div>
         )}
       </div>
+
+      {docModal && <DocModal setModal={setDocModal} user={docData} />}
+      {statusUpdate && <StatusModal setModal={setStatusUpdate} user={docData} applicationData={data} />}
     </>
   );
 };

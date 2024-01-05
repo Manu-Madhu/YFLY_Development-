@@ -31,12 +31,12 @@ const Table = ({department}) => {
     <div className="relative shadow-md md:rounded-lg overflow-x-scroll md:overflow-hidden mb-3">
       <table className="w-full  text-sm text-left ">
         <thead className="text-xs text-white uppercase bg ">
-          <tr className="bg-primary_colors border-b  ">
+          <tr className="bg-primary_colors border-b ">
             <th
               scope="row"
-              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              className="px-6 py-4  text-white  font-bold"
             >
-              fullName
+              full Name
             </th>
             <th className="px-6 py-4">department</th>
             <th className="px-6 py-4">email</th>

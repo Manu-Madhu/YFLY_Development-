@@ -4,9 +4,6 @@ import { PiStudentFill } from "react-icons/pi";
 import { TbBrowserCheck } from "react-icons/tb";
 import { AiOutlineLogin } from "react-icons/ai";
 
-
-
-
 export const Sidebar = [
     {
         id: 1,
@@ -50,7 +47,7 @@ export const SidebarE = [
     {
         id: 2,
         name: "Applications",
-        path: "/employee/application",
+        path: "/employee/application" || "/employee/application/6591b74a3b1ed41707ee2930",
         icon: <MdOutlinePeople size={25}/>
     },
     {

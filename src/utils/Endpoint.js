@@ -88,7 +88,7 @@ export const deleteApplicationRoute = '/api/application/delete'; //<== + Applica
 export const updateApplicationRoute = '/api/application/update';
 
 //Post Upload Documents of an Application;
-export const uploadDocumentsRoute = '/api/application/upload-documents'; //<== + ApplicationId
+export const uploadDocumentsRoute = '/api/application/upload-document'; //<== + ApplicationId
 
 //Get All comments in an Application;
 export const getAllComments = '/api/comment/get-all'; //<== + ApplicationId

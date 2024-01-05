@@ -37,10 +37,10 @@ const Header = () => {
               />
             </div>
             <div className="hidden md:flex gap-3 w-full items-center justify-end">
-              <IoMdNotificationsOutline
+              {/* <IoMdNotificationsOutline
                 size={30}
                 className=" cursor-pointer text-slate-500"
-              />
+              /> */}
 
               <div onClick={() => navigate("/logout")} className="mt-2 flex flex-col justify-end hover:text-primary_colors cursor-pointer">
                 <AiOutlineLogin className="" size={30} />
@@ -56,7 +56,7 @@ const Header = () => {
                   alt="proPic"
                   className="w-10 rounded-full cursor-pointer"
                 />
-                <h1 className="text-xs text-secondary mt-1">{user?.name}</h1>
+                <h1 className="text-xs text-secondary mt-1 capitalize">{user?.name}</h1>
               </div>
             </div>
             <div>
@@ -93,7 +93,7 @@ const Header = () => {
                             alt="proPic"
                             className="w-10 rounded-full cursor-pointer"
                           />
-                          <h1>halo</h1>
+                          <h1 className="text-xs text-secondary mt-1 capitalize">{user?.name}</h1>
                         </div>
                       </div>
                     </div>

@@ -14,7 +14,7 @@ const StudentDashboard = () => {
   const [state, setState] = useState([]);
   const [docModal, setDocModal] = useState(false);
   const user = useSelector((state) => state.auth.userInfo);
-  console.log(user)
+  
   useEffect(() => {
     axios
       .get(`${getAnApplicationRoute}/${user?.applicationId}`)

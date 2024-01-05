@@ -42,7 +42,7 @@ const DocModal = ({ setModal, user }) => {
       formData.append("docName", data.docName);
 
       const response = await axios.post(
-        `${uploadDocumentsRoute}/${user?.applicationId}`,
+        `${uploadDocumentsRoute}/${user?.applicationId}/${data?.docName}`,
         formData
       );
       setLoading(false);
@@ -113,7 +113,6 @@ const DocModal = ({ setModal, user }) => {
                         />
                       </svg>
                       <span class="text-sm font-medium text-gray-600">
-                        Drop file, or
                         <span class="text-blue-600 "> browse</span>
                       </span>
                     </span>
