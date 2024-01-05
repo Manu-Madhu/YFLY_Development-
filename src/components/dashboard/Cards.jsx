@@ -6,18 +6,17 @@ const Cards = ({ data }) => {
   const role = userData.role;
   const suffix = role === "admin" ? "Application" : "Task";
 
-  console.log(data)
   return (
-    <div className="flex flex-wrap gap-5  p-8">
+    <div className="flex flex-wrap gap-5 ">
       {data.map((data, index) => (
-        <div className="border p-5 bg-white rounded-lg shadow w-full md:w-[250px]" key={index}>
+        <div className="flex flex-col p-5 bg-white rounded-lg shadow-xl w-full md:w-[220px]" key={index}>
+          <h1 className="text-[30px] font-bold text-primary_colors">{data?.value}</h1>
           <div className="flex">
-            <h4>
+            <h4 className="text-sm font-semibold text-primary_colors">
               {data?.name + " " + 
                 (data.value > 1 ? `${suffix}s` : `${suffix}`)}
             </h4>
           </div>
-          <h1 className="text-[30px] font-bold text-primary_colors">{data?.value}</h1>
         </div>
       ))}
     </div>

@@ -8,7 +8,7 @@ const SideMenu = () => {
 
   const location = useLocation();
   return (
-    <div className={`container mx-auto shadow-right hidden md:w-1/5 h-screen fixed bg-white ${user?.role === "student" ? "hidden" : "md:flex"}`}>
+    <div className={`container mx-auto  hidden md:w-1/5 h-screen fixed bg-gradient-to-l from-white to-[#f5f6f8] ${user?.role === "student" ? "hidden" : "md:flex"}`}>
       <div className="mx-5 md:mx-10 p-5 flex flex-col mt-5 w-full">
         {user?.role === "admin"
           ? Sidebar.map((data) => (
