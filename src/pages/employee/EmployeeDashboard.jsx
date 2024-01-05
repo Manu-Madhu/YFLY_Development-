@@ -45,7 +45,7 @@ const EmployeeDashboard = () => {
             {loading ? <StudentLoader /> : <Cards data={dashData} />}
           </div>
         </div>
-        <div className="flex flex-col md:flex-row w-full mt-8 md:mt-16 gap-5 md:gap-2">
+        <div className="flex flex-col md:flex-row w-full mt-8 md:mt-8 gap-5 md:gap-2">
           <div className=" md:w-1/2 ">
             <div className="border-2 border-primary_colors  p-9  rounded hover:shadow-xl cursor-pointer">
               <div className=" ">
