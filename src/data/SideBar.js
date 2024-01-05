@@ -46,8 +46,6 @@ export const SidebarE = [
     },
     {
         id: 2,
-        name: "Applications",
-        path: "/employee/application" || "/employee/application/6591b74a3b1ed41707ee2930",
         name: "Tasks",
         path: "/employee/task",
         icon: <MdOutlinePeople size={25}/>

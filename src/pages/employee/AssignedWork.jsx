@@ -6,7 +6,7 @@ import Applications from "../../components/employee/Profile/Applications";
 import instance from "../../utils/AxiosInstance";
 
 const AssignedWork = () => {
-  const [words, setWorks] = useState([]);
+  const [works, setWorks] = useState([]);
   const userData = useSelector((state) => state.auth.userInfo);
 
   const getAssignedWorks = async () => {
@@ -28,7 +28,7 @@ const AssignedWork = () => {
     <div className="w-full h-full text-black ">
       <h1 className="text-primary_colors text-2xl font-bold">Tasks</h1>
       <div className="mt-5 w-full ">
-        <Applications data={words} />
+        <Applications data={works} />
       </div>
     </div>
   );

@@ -1,28 +1,33 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import { status } from "../../data/Employee";
 import { toast } from "react-toastify";
 
-import axios from "axios";
+import axios from "../../utils/AxiosInstance"
 import { useSelector } from "react-redux";
+import { changeStepStatus } from "../../utils/Endpoint";
 
-const StatusModal = ({ setModal, user, applicationData }) => {
-  console.log(user,applicationData);
-  const employeeData = useSelector((state)=>state.auth.userInfo)
+const StatusModal = ({ setModal,stepNumber, applicationData , cb}) => {
+  const selectRef = useRef();
+
+  console.log(applicationData);
+  const employeeData = useSelector((state)=>state.auth.userInfo);
 
   const employeeSteps = applicationData?.steps?.filter((items)=> items?.assignee  === employeeData?._id);
   console.log(employeeSteps,employeeData)
 
-  const submitHandle = async (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    const message = {
-      applicationId: user?.applicationId,
-      stepNumber: "",
-      stepStatus: "",
+    const data = {
+      applicationId: applicationData?._id,
+      employeeId:employeeData?._id,
+      stepNumber,
+      stepStatus: selectRef.current.value,
     };
     try {
-      const response = await axios.post("");
+      const response = await axios.put(changeStepStatus, data);
       console.log(response);
+      cb();
       toast.success(response?.data?.msg);
     } catch (error) {
       console.log(error);
@@ -42,26 +47,27 @@ const StatusModal = ({ setModal, user, applicationData }) => {
         <div className="flex flex-col w-full border p-5 rounded shadow">
           <form
             action=""
-            //   onSubmit={onsubmitHandler}
+              onSubmit={submitHandler}
             className="flex flex-col md:flex-row justify-around w-full gap-3"
           >
             {/* File Name and submit */}
             <div className="md:w-1/2">
               <h1 className="text-xs">
-                Before Updating the Status Please complete all other fields*
+                Update the status of step {stepNumber}*
               </h1>
               <label htmlFor="" className="text-sm text-gray-600 font-semibold">
-                Document Name*
+                Step Status*
               </label>
               <div className="mt-1">
                 <select
+                  ref={selectRef}
                   name="stepStatus"
                   id=""
                   className="border p-2 w-full rounded focus:outline-none"
                 >
-                  <option value="">Select a option</option>
+                  <option value="">Select an option</option>
                   {status.map((items) => (
-                    <option value="">{items?.name}</option>
+                    <option value={items?.name} >{items?.name}</option>
                   ))}
                 </select>
               </div>

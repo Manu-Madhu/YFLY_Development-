@@ -24,7 +24,7 @@ const StudentDashboard = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [docModal]);
+  }, [docModal,user?.applicationId]);
 
   return (
     <>

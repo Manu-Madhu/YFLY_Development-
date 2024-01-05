@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getAnApplicationRoute } from "../../utils/Endpoint";
 
@@ -10,17 +10,23 @@ const Application = () => {
   const { id } = useParams();
   const [data, setData] = useState({});
 
-  useEffect(() => {
-    axios
-      .get(`${getAnApplicationRoute}/${id}`)
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const getApplication = async()=>{
+    await axios
+    .get(`${getAnApplicationRoute}/${id}`)
+    .then((res) => {
+      setData(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    })};
 
+  useEffect(() => {
+    getApplication()
   }, [id]);
+
+  const fnToCallGetFn = ()=>{
+    getApplication()
+  }
 
   return (
     <>
@@ -69,7 +75,7 @@ const Application = () => {
             </div>
           </div>
           <div className="rounded-lg bg-[#F9F9F9] w-full md:w-3/4 mt-3 p-5 order-1">
-            <RightSide data={data} />
+            <RightSide data={data} cb={fnToCallGetFn}/>
           </div>
         </div>
       </div>

@@ -4,17 +4,28 @@ import DashCard from "./Profile/DashCard";
 import Applications from "./Profile/Applications";
 import { useParams } from "react-router-dom";
 import axios from "../../utils/AxiosInstance"
-import { getAnEmployeeRoute, getAssignedWorksRoute } from "../../utils/Endpoint";
+import { getAnEmployeeRoute, getAssignedWorksRoute, getEmpTaskMetrics } from "../../utils/Endpoint";
 
 const EmployeeProfile = () => {
   const {id} = useParams();
   const [empData, setEmpData] = useState({});
   const [works,setWorks] = useState([]);
+  const [metrics,setMetrics] = useState([]);
 
   const getEmployee = async()=>{
     await axios.get(`${getAnEmployeeRoute}/${id}`)
     .then((res)=>{
       setEmpData(res.data);
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  };
+
+  const getEmpMetrics = async()=>{
+    await axios.get(`${getEmpTaskMetrics}/${id}`)
+    .then((res)=>{
+      setMetrics(res.data);
     })
     .catch((err)=>{
       console.log(err)
@@ -34,6 +45,7 @@ const EmployeeProfile = () => {
 
   useEffect(()=>{
     getEmployee()
+    getEmpMetrics()
     getAssignedWorks()
   },[])
 
@@ -48,7 +60,7 @@ const EmployeeProfile = () => {
         </div>
         <div className="w-full md:w-4/6 space-y-5">
           <div>
-            <DashCard data={empData}/>
+            <DashCard data={metrics}/>
           </div>
           <div>
             <Applications data={works}/>

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import { toast } from "react-toastify";
-import { uploadDocumentsRoute } from "../../utils/Endpoint";
+import { uploadDocumentRoute } from "../../utils/Endpoint";
 
 import axios from "../../utils/AxiosInstance";
 import StudentLoader from "../loading/StudentLoader";
 
-const DocModal = ({ setModal, user }) => {
+const DocModal = ({ setModal, applicationData, cb }) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     document: null,
@@ -40,13 +40,19 @@ const DocModal = ({ setModal, user }) => {
       const formData = new FormData();
       formData.append("document", data.document);
 
-      const response = await axios.post(
-        `${uploadDocumentsRoute}/${user?.applicationId}/${data?.docName}`,
+      await axios.post(
+        `${uploadDocumentRoute}/${applicationData?._id}/${data?.docName}`,
         formData
-      );
-      setLoading(false);
-      setModal(false);
-      toast.success(response?.data?.msg);
+      )
+      .then((res)=>{
+        setLoading(false);
+        setModal(false);
+        cb();
+        toast.success(res?.data?.msg);
+      })
+      .catch((error)=>{
+        toast.success(error?.response?.data?.msg || "An error occurred");  
+      })
     } catch (error) {
       console.log(error);
       toast.success(error?.response?.data?.msg || "An error occurred");
@@ -130,7 +136,7 @@ const DocModal = ({ setModal, user }) => {
                   type="text"
                   name="docName"
                   className="border w-full p-2 focus:outline-none text-sm rounded mt-1"
-                  placeholder="Eg: Pan Card"
+                  placeholder="Eg: Pancard"
                   onChange={onChangeHandler}
                 />
                 <div className="flex w-full">

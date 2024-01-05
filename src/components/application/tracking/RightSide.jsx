@@ -14,25 +14,32 @@ import DocModal from "../../student/DocModal";
 import Tippy from "@tippyjs/react";
 import StatusModal from "../../employee/StatusModal";
 
-const RightSide = ({ data }) => {
+const RightSide = ({ data, cb }) => {
   const createdDate = new Date(data?.createdAt).toLocaleString();
   const user = useSelector((state) => state?.auth?.userInfo);
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [docModal, setDocModal] = useState(false);
-  const [docData, setDocData] = useState();
-  const [statusUpdate,setStatusUpdate] = useState(false)
+  const [statusUpdate,setStatusUpdate] = useState(false);
+  const [stepNumber , setStepNumber] = useState(null);
 
-  const studentData = async () => {
-    try {
-      const response = await axios.get(
-        `${getAStudentRoute}/${data?.studentId}`
-      );
-      setDocData(response?.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  let empTasks;
+  if(user.role === "admin"){
+    empTasks = data?.steps?.filter((task)=> task?.assignee ? true : false);
+    console.log(empTasks)
+  }
+
+  let myTasks;
+  if(user.role === "employee"){
+    myTasks = data?.steps?.filter((task)=>{
+      if((task?.assignee  === user?._id) && task?.status !== "completed"){
+        return true
+      }else{
+        return false
+      }
+    });
+    console.log(myTasks,user)
+  }
 
   useEffect(() => {
     axios
@@ -44,9 +51,7 @@ const RightSide = ({ data }) => {
         console.log(error);
       });
 
-    studentData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?._id, setComments]);
+  }, [data?._id]);
 
   const submitHandle = async (e) => {
     e.preventDefault();
@@ -72,47 +77,87 @@ const RightSide = ({ data }) => {
   return (
     <>
       {/* Application Info */}
-      <div className="bg-white p-5 rounded-lg">
-        <div className="flex justify-between">
-          <h1 className="text-sm font-semibold">
-            {/* 10/10/2023 - <span>02:30 pm</span> */}
-            {createdDate}
-          </h1>
-          <div>
-            <h1 className="text-sm font-bold ">
-              {/* Case closed - Offer Received Student not interested to Pay */}
-              <span>Status : </span>
-              <span className="text-primary_colors capitalize">
-                {data?.status}
-              </span>
+      {
+        user.role === "employee"
+        ?
+        (myTasks?.map((task,i)=>(
+          <div key={i} className="bg-white p-5 mt-4 rounded-lg">
+            <div className="flex justify-between">
+              <h1 className="text-sm font-semibold">
+                {createdDate}
+              </h1>
+              <div>
+                <h1 className="text-sm font-bold ">
+                  <span>Status : </span>
+                  <span className="text-primary_colors capitalize">
+                    {task?.status}
+                  </span>
+                </h1>
+              </div>
+            </div>
+            <hr className="my-5" />
+            <div className="flex justify-between ">
+              <div className="space-y-1">
+                <h1 className="text-sm text-primary_colors font-semibold">
+                  {data?._id}
+                </h1>
+                <h1 className="text-sm font-semibold capitalize">
+                  {data?.program}
+                </h1>
+                <h1 className="capitalize text-sm">
+                  {data?.university}
+                </h1>
+              </div>
+              <div className="flex flex-col justify-between capitalize">
+                <button onClick={()=>{setStepNumber(task._id);setStatusUpdate(true)}} className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded ">
+                  Update Status
+                </button>
+                <h1 className="font-bold text-end">Step Number: {task?._id}</h1>
+              </div>
+            </div>
+          </div>
+
+        )))
+        :
+        (empTasks?.map((empTask)=>(
+        <div className="bg-white p-5 mt-4 rounded-lg">
+          <div className="flex justify-between">
+            <h1 className="text-sm font-semibold">
+              {createdDate}
             </h1>
+            <div>
+              <h1 className="text-sm font-bold ">
+                <span>Status : </span>
+                <span className="text-primary_colors capitalize">
+                  {empTask?.status}
+                </span>
+              </h1>
+            </div>
+          </div>
+          <hr className="my-5" />
+          <div className="flex justify-between ">
+            <div className="space-y-1">
+              <h1 className="text-sm text-primary_colors font-semibold">
+                Assignee Id : {empTask?.assignee}
+              </h1>
+              <h1 className="text-sm font-semibold capitalize">
+               Step : {empTask?.name}
+              </h1>
+              {/* <h1 className="capitalize text-sm">
+                {data?.university}
+              </h1> */}
+            </div>
+            <div className="flex flex-col justify-between capitalize">
+                {/* <button className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded ">
+                  Click here
+                </button> */}
+              <h1 className="font-bold text-end">Step Number: {empTask?._id}</h1>
+            </div>
           </div>
         </div>
-        <hr className="my-5" />
-        <div className="flex justify-between ">
-          <div className="space-y-1">
-            <h1 className="text-sm text-primary_colors font-semibold">
-              {/* 123456/22-23 */}
-              {data?._id}
-            </h1>
-            <h1 className="text-sm font-semibold capitalize">
-              {/* Msc International Business */}
-              {data?.program}
-            </h1>
-            <h1 className="capitalize text-sm">
-              {/* Canterburry Christ University */}
-              {data?.university}
-            </h1>
-          </div>
-          <div className="flex flex-col justify-between capitalize">
-            <button onClick={()=>setStatusUpdate(true)} className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded ">
-              Update Status
-            </button>
-            {/* Jan 2023 */}
-            <h1 className="font-bold text-end">{data?.intake}</h1>
-          </div>
-        </div>
-      </div>
+
+        )))
+      }
 
       {/* Documents */}
       <h1 className="my-3 font-semibold text-slate-500 text-sm text-gray-600">
@@ -195,8 +240,8 @@ const RightSide = ({ data }) => {
         )}
       </div>
 
-      {docModal && <DocModal setModal={setDocModal} user={docData} />}
-      {statusUpdate && <StatusModal setModal={setStatusUpdate} user={docData} applicationData={data} />}
+      {docModal && <DocModal cb={cb} setModal={setDocModal} applicationData={data} />}
+      {statusUpdate && <StatusModal cb={cb} setModal={setStatusUpdate} stepNumber={stepNumber} applicationData={data} />}
     </>
   );
 };

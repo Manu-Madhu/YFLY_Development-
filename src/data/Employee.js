@@ -72,6 +72,6 @@ export const status =[
   },
   {
     id:1,
-    name:"complete"
+    name:"completed"
   }
 ]

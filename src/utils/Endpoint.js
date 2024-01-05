@@ -88,7 +88,7 @@ export const deleteApplicationRoute = '/api/application/delete'; //<== + Applica
 export const updateApplicationRoute = '/api/application/update';
 
 //Post Upload Documents of an Application;
-export const uploadDocumentsRoute = '/api/application/upload-document'; //<== + ApplicationId
+export const uploadDocumentRoute = '/api/application/upload-document'; //<== + ApplicationId
 
 //Get All comments in an Application;
 export const getAllComments = '/api/comment/get-all'; //<== + ApplicationId
@@ -98,3 +98,6 @@ export const postComment = '/api/comment/add';
 
 // Get Employee Task Metrics;
 export const getEmpTaskMetrics = "/api/employee/get-task-metrics"; //<== + EmployeeId
+
+// Put Change Step Status;
+export const changeStepStatus = "/api/application/change-status";
