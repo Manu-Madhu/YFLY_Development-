@@ -95,3 +95,6 @@ export const getAllComments = '/api/comment/get-all'; //<== + ApplicationId
 
 //Post a Comment;
 export const postComment = '/api/comment/add';
+
+// Get Employee Task Metrics;
+export const getEmpTaskMetrics = "/api/employee/get-task-metrics"; //<== + EmployeeId

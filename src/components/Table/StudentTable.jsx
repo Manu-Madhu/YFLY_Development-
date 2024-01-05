@@ -34,9 +34,11 @@ const StudentTable = ({ data }) => {
               <td className="px-6 py-4">{items?.name}</td>
               <td className="px-6 py-4">{items?.email}</td>
               <td className="px-6 py-4">{items?.phone}</td>
-              <td className="px-6 py-4">{DateFormat(items?.birthDate)}</td>
-              <td className="px-6 py-4">{items?.qualification}</td>
-              <td className="px-6 py-4">{items?.applicationId}</td>
+              <td className="px-6 py-4">{items?.birthDate ? DateFormat(items?.birthDate) : "NIL"}</td>
+              <td className="px-6 py-4">{items?.qualification ? items?.qualification : "NIL"}</td>
+              <td className="px-6 py-4">
+                {items?.applicationId ? items?.applicationId : "NIL" }
+              </td>
             </tr>
           ))}
         </tbody>

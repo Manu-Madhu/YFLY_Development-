@@ -43,7 +43,7 @@ function App() {
             {/* Employee Routes */}
             <Route element={<UserProtectedRoute />}>
               <Route path='employee/dashboard' element={<EmployeeDashboard />} />
-              <Route path='employee/application' element={<AssignedWork />} />
+              <Route path='employee/task' element={<AssignedWork />} />
               <Route path='employee/application/:id' element={<Application />} />
             </Route>
             {/* Student Routes */}

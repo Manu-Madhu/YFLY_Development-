@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { FaUserGraduate } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Cards from "../../components/dashboard/Cards";
+import { getEmpTaskMetrics } from "../../utils/Endpoint";
+import axios  from "../../utils/AxiosInstance"
 
 const EmployeeDashboard = () => {
   const userData = useSelector((state) => state.auth.userInfo);
+  const [dashData,setDashdata] = useState([])
+
+  useEffect(()=>{
+    axios.get(`${getEmpTaskMetrics}/${userData._id}`)
+    .then((res)=>{
+      setDashdata(res.data)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  },[])
 
   return (
     <div>
@@ -19,7 +33,7 @@ const EmployeeDashboard = () => {
             {/* <Filter setData={setData} /> */}
           </div>
           <div className="bg_image">
-              {/* <Cards data={userInfo?.applicationList} /> */}
+              <Cards data={dashData} />
           </div>
         </div>
         <div className="flex flex-col md:flex-row w-full mt-5 md:mt-10 gap-5 md:gap-2">
