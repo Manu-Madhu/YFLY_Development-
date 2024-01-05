@@ -20,25 +20,25 @@ const RightSide = ({ data, cb }) => {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [docModal, setDocModal] = useState(false);
-  const [statusUpdate,setStatusUpdate] = useState(false);
-  const [stepNumber , setStepNumber] = useState(null);
+  const [statusUpdate, setStatusUpdate] = useState(false);
+  const [stepNumber, setStepNumber] = useState(null);
 
   let empTasks;
-  if(user.role === "admin"){
-    empTasks = data?.steps?.filter((task)=> task?.assignee ? true : false);
-    console.log(empTasks)
+  if (user.role === "admin") {
+    empTasks = data?.steps?.filter((task) => (task?.assignee ? true : false));
+    console.log(empTasks);
   }
 
   let myTasks;
-  if(user.role === "employee"){
-    myTasks = data?.steps?.filter((task)=>{
-      if((task?.assignee  === user?._id) && task?.status !== "completed"){
-        return true
-      }else{
-        return false
+  if (user.role === "employee") {
+    myTasks = data?.steps?.filter((task) => {
+      if (task?.assignee === user?._id && task?.status !== "completed") {
+        return true;
+      } else {
+        return false;
       }
     });
-    console.log(myTasks,user)
+    console.log(myTasks, user);
   }
 
   useEffect(() => {
@@ -50,7 +50,6 @@ const RightSide = ({ data, cb }) => {
       .catch((error) => {
         console.log(error);
       });
-
   }, [data?._id]);
 
   const submitHandle = async (e) => {
@@ -73,91 +72,95 @@ const RightSide = ({ data, cb }) => {
     }
   };
 
-
   return (
     <>
       {/* Application Info */}
-      {
-        user.role === "employee"
-        ?
-        (myTasks?.map((task,i)=>(
-          <div key={i} className="bg-white p-5 mt-4 rounded-lg">
-            <div className="flex justify-between">
-              <h1 className="text-sm font-semibold">
-                {createdDate}
-              </h1>
-              <div>
-                <h1 className="text-sm font-bold ">
-                  <span>Status : </span>
-                  <span className="text-primary_colors capitalize">
-                    {task?.status}
-                  </span>
-                </h1>
+      <h1 className="mb-3 font-semibold text-slate-500 text-sm text-gray-600">
+        {
+          user?.role === 'admin' ? "Application Status" : "Task Update"
+        }
+      </h1>
+      <div className="w-full max-h-[220px] overflow-y-scroll space-y-2 border rounded-lg p-4">
+        {user.role === "employee"
+          ? myTasks?.map((task, i) => (
+              <div key={i} className="bg-white p-5  rounded-lg ">
+                <div className="flex justify-between">
+                  <h1 className="text-sm font-semibold">{createdDate}</h1>
+                  <div>
+                    <h1 className="text-sm font-bold ">
+                      <span>Status : </span>
+                      <span className="text-primary_colors capitalize">
+                        {task?.status}
+                      </span>
+                    </h1>
+                  </div>
+                </div>
+                <hr className="my-5" />
+                <div className="flex justify-between ">
+                  <div className="space-y-1">
+                    <h1 className="text-sm text-primary_colors font-semibold">
+                      {data?._id}
+                    </h1>
+                    <h1 className="text-sm font-semibold capitalize">
+                      {data?.program}
+                    </h1>
+                    <h1 className="capitalize text-sm">{data?.university}</h1>
+                  </div>
+                  <div className="flex flex-col justify-between capitalize">
+                    <button
+                      onClick={() => {
+                        setStepNumber(task._id);
+                        setStatusUpdate(true);
+                      }}
+                      className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
+                    >
+                      Update Status
+                    </button>
+                    <h1 className="font-bold text-end">
+                      Step Number: {task?._id}
+                    </h1>
+                  </div>
+                </div>
               </div>
-            </div>
-            <hr className="my-5" />
-            <div className="flex justify-between ">
-              <div className="space-y-1">
-                <h1 className="text-sm text-primary_colors font-semibold">
-                  {data?._id}
-                </h1>
-                <h1 className="text-sm font-semibold capitalize">
-                  {data?.program}
-                </h1>
-                <h1 className="capitalize text-sm">
-                  {data?.university}
-                </h1>
-              </div>
-              <div className="flex flex-col justify-between capitalize">
-                <button onClick={()=>{setStepNumber(task._id);setStatusUpdate(true)}} className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded ">
-                  Update Status
-                </button>
-                <h1 className="font-bold text-end">Step Number: {task?._id}</h1>
-              </div>
-            </div>
-          </div>
-
-        )))
-        :
-        (empTasks?.map((empTask)=>(
-        <div className="bg-white p-5 mt-4 rounded-lg">
-          <div className="flex justify-between">
-            <h1 className="text-sm font-semibold">
-              {createdDate}
-            </h1>
-            <div>
-              <h1 className="text-sm font-bold ">
-                <span>Status : </span>
-                <span className="text-primary_colors capitalize">
-                  {empTask?.status}
-                </span>
-              </h1>
-            </div>
-          </div>
-          <hr className="my-5" />
-          <div className="flex justify-between ">
-            <div className="space-y-1">
-              <h1 className="text-sm text-primary_colors font-semibold">
-                Assignee Id : {empTask?.assignee}
-              </h1>
-              <h1 className="text-sm font-semibold capitalize">
-               Step : {empTask?.name}
-              </h1>
-              {/* <h1 className="capitalize text-sm">
+            ))
+          : empTasks?.map((empTask) => (
+              <div className="bg-white p-5  rounded-lg">
+                <div className="flex justify-between">
+                  <h1 className="text-sm font-semibold">{createdDate}</h1>
+                  <div>
+                    <h1 className="text-sm font-bold ">
+                      <span>Status : </span>
+                      <span className="text-primary_colors capitalize">
+                        {empTask?.status}
+                      </span>
+                    </h1>
+                  </div>
+                </div>
+                <hr className="my-5" />
+                <div className="flex justify-between ">
+                  <div className="space-y-1">
+                    <h1 className="text-sm text-primary_colors font-semibold">
+                      Assignee Id : {empTask?.assignee}
+                    </h1>
+                    <h1 className="text-sm font-semibold capitalize">
+                      Step : {empTask?.name}
+                    </h1>
+                    {/* <h1 className="capitalize text-sm">
                 {data?.university}
               </h1> */}
-            </div>
-            <div className="flex flex-col justify-between capitalize">
-                {/* <button className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded ">
+                  </div>
+                  <div className="flex flex-col justify-between capitalize">
+                    {/* <button className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded ">
                   Click here
                 </button> */}
-              <h1 className="font-bold text-end">Step Number: {empTask?._id}</h1>
-            </div>
-          </div>
-        </div>
-
-        )))
-      }
+                    <h1 className="font-bold text-end">
+                      Step Number: {empTask?._id}
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            ))}
+      </div>
 
       {/* Documents */}
       <h1 className="my-3 font-semibold text-slate-500 text-sm text-gray-600">
@@ -216,7 +219,7 @@ const RightSide = ({ data, cb }) => {
       </div>
 
       {/* Comments */}
-      <div className="mt-3 h-[220px] space-y-3 overflow-scroll border p-3 rounded-lg">
+      <div className="my-3  max-h-[220px] space-y-3 overflow-scroll border p-3 rounded-lg">
         {comments?.length > 0 ? (
           comments?.map((items, i) => (
             <div key={i}>
@@ -240,8 +243,17 @@ const RightSide = ({ data, cb }) => {
         )}
       </div>
 
-      {docModal && <DocModal cb={cb} setModal={setDocModal} applicationData={data} />}
-      {statusUpdate && <StatusModal cb={cb} setModal={setStatusUpdate} stepNumber={stepNumber} applicationData={data} />}
+      {docModal && (
+        <DocModal cb={cb} setModal={setDocModal} applicationData={data} />
+      )}
+      {statusUpdate && (
+        <StatusModal
+          cb={cb}
+          setModal={setStatusUpdate}
+          stepNumber={stepNumber}
+          applicationData={data}
+        />
+      )}
     </>
   );
 };

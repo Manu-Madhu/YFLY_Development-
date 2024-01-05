@@ -56,7 +56,7 @@ const Application = () => {
         </div>
       </div>
       {/* Tracking process */}
-      <div className="w-full p-2 border mt-10 rounded-xl  overflow-hidden">
+      <div className="w-full p-2 border mt-5 rounded-xl bg-white shadow-xl overflow-hidden">
         <h1 className="p-3 px-5 font-bold">Tracking Progress</h1>
         <hr />
         <div className="hidden md:block mt-3 absolute z-20 bg-white text-sm p-3 px-5">
@@ -64,7 +64,7 @@ const Application = () => {
           <h5 className="text-xs"> {data._id}</h5>
         </div>
         {/* Tracking stepper */}
-        <div className="w-full h-[770px] flex flex-col md:flex-row p-3 px-5">
+        <div className="w-full h-[850px] flex flex-col md:flex-row p-3 px-5">
           <div className="w-full md:w-1/4 overflow-scroll order-2 md:order-1">
             <div className="md:mt-20">
               <div className=" md:hidden my-3 z-20 bg-white text-sm">

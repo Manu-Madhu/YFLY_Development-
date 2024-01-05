@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 const SideMenu = () => {
   const user = useSelector((state) => state?.auth?.userInfo);
 
+  
+
   const location = useLocation();
   return (
     <div className={`container mx-auto  hidden md:w-1/5 h-screen fixed bg-gradient-to-l from-white to-[#f5f6f8] ${user?.role === "student" ? "hidden" : "md:flex"}`}>
