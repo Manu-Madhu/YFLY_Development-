@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <>
       <div className="shadow-sm fixed z-50 w-full bg-white top-0">
-        <div className="container mx-auto ">
+        <div className="container mx-auto w-full">
           <div className="mx-1 md:mx-10 flex items-center justify-between p-5">
             <div className="w-full">
               <img
@@ -25,6 +25,7 @@ const Header = () => {
                 className="w-28"
               />
             </div>
+
             <div className="w-full relative hidden md:flex">
               <CiSearch
                 className="absolute text-slate-400 top-2 ms-3 cursor-pointer"
@@ -36,6 +37,7 @@ const Header = () => {
                 placeholder="Search"
               />
             </div>
+
             <div className="hidden md:flex gap-3 w-full items-center justify-end">
               {/* <IoMdNotificationsOutline
                 size={30}
@@ -59,6 +61,7 @@ const Header = () => {
                 <h1 className="text-xs text-secondary mt-1 capitalize">{user?.name}</h1>
               </div>
             </div>
+
             <div>
               {!menu ? (
                 <LuMenu

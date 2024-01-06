@@ -40,22 +40,24 @@ const DocModal = ({ setModal, applicationData, cb }) => {
       const formData = new FormData();
       formData.append("document", data.document);
 
-      await axios.post(
+      console.log(formData);
+      const response = await axios.post(
         `${uploadDocumentRoute}/${applicationData?._id}/${data?.docName}`,
         formData
-      )
-      .then((res)=>{
+      );
+      console.log(response);
+      if (response?.status === 200) {
+        console.log(response);
         setLoading(false);
         setModal(false);
         cb();
-        toast.success(res?.data?.msg);
-      })
-      .catch((error)=>{
-        toast.success(error?.response?.data?.msg || "An error occurred");  
-      })
+        toast.success(response?.data?.msg);
+      } else {
+        toast.error("Data Fetching  error");
+      }
     } catch (error) {
       console.log(error);
-      toast.success(error?.response?.data?.msg || "An error occurred");
+      toast.error(error?.response?.data?.msg || "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -82,14 +84,14 @@ const DocModal = ({ setModal, applicationData, cb }) => {
                   htmlFor="document"
                   className="flex items-center justify-center w-full h-32 px-4 transition bg-blue-50 border-2 border-primary_colors border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none"
                 >
-                <input
-                  id="document"
-                  type="file"
-                  name="document"
-                  className="hidden"
-                  multiple={false}
-                  onChange={onChangeHandler}
-                />
+                  <input
+                    id="document"
+                    type="file"
+                    name="document"
+                    className="hidden"
+                    multiple={false}
+                    onChange={onChangeHandler}
+                  />
                   {data?.document?.name ? (
                     <div className="flex flex-col items-center">
                       <div>
@@ -152,9 +154,7 @@ const DocModal = ({ setModal, applicationData, cb }) => {
           </div>
         </div>
       </div>
-      {
-        loading && <StudentLoader/>
-      }
+      {loading && <StudentLoader />}
     </>
   );
 };

@@ -17,7 +17,7 @@ const Applications = ({ data }) => {
         <div
           key={i}
           // bg-gradient-to-r from-[#52C3FF] to-[#D0EAFF]
-          className="bg-white p-5 flex flex-wrap w-full md:w-[450px] justify-around rounded-xl shadow-xl relative text-black hover:scale-105 ease-in-out duration-300"
+          className="bg-white p-5 flex flex-wrap w-full md:w-[450px] justify-around rounded-xl shadow-xl relative text-black hover:scale-105 ease-in-out duration-300 mb-4"
         >
           <img
             src={require("../../../assets/icon/application_ban.png")}

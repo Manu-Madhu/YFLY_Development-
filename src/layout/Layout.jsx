@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const Layout = () => {
   const user = useSelector((state) => state.auth.userInfo);
   return (
-    <div className="bg-[#F5F6F8]">
+    <div className="bg-[#F5F6F8] w-full">
       <Header />
       <div className="container mx-auto flex w-full h-full mt-24">
         <SideMenu />

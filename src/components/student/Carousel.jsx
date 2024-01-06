@@ -3,7 +3,7 @@ import { Carousel } from "@material-tailwind/react";
 
 const Carousels = ({ banner }) => {
   return (
-    <Carousel className="rounded-xl h-[500px]">
+    <Carousel className="w-full rounded-xl h-[500px]">
       {banner.map((items,i) => (
         <img key={i} src={items?.imag} alt={`banner${items?.id}`} className="h-full w-full object-cover" />
       ))}

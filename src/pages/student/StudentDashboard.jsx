@@ -26,15 +26,16 @@ const StudentDashboard = () => {
       });
   }, [docModal,user?.applicationId]);
 
+  console.log(state)
   return (
     <>
-      <div className="px-5">
+      <div className=" w-full">
         <Carousel banner={Banner} />
-        <div className="">
-          <div className="mt-10 p-5 bg-gradient-to-b from-[#28B5FF] to-[#1B4160] rounded-lg">
-            <div className="flex justify-between">
+        <div className="w-full">
+          <div className="w-full mt-10 p-5 bg-gradient-to-b from-[#28B5FF] to-[#1B4160] rounded-lg">
+            <div className="flex flex-col md:flex-row gap-3 justify-between">
               <div>
-                <h1 className="text-white text-2xl">
+                <h1 className="font-semiBold text-white text-2xl">
                   Welcome{" "}
                   <span className="font-semiBold capitalize">{user?.name}</span>
                 </h1>
@@ -54,7 +55,7 @@ const StudentDashboard = () => {
               </div>
             </div>
             {/* details about the student */}
-            <div className="text-white text-xs mt-8 flex justify-between">
+            <div className="text-white text-xs mt-8 gap-3  flex flex-wrap md:flex-row justify-between">
               <div>
                 <h1 className="font-semibold pb-0.5">Email</h1>
                 <p>{user?.email}</p>
@@ -87,7 +88,7 @@ const StudentDashboard = () => {
           </div>
           
           {/* Tracker for the status */}
-          <div className="mt-10">
+          <div className="mt-10 w-full">
             <h1 className="text-[#0061B2] font-bold text-xl">
               Track your Progress
             </h1>
@@ -140,7 +141,7 @@ const StudentDashboard = () => {
           </div>
         </div>
       </div>
-      {docModal && <DocModal setModal={setDocModal} user={user} />}
+      {docModal && <DocModal setModal={setDocModal} applicationData={state} />}
     </>
   );
 };
