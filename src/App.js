@@ -30,6 +30,7 @@ function App() {
           <Route index path='/' element={<Login />} />
           <Route index path='/logout' element={<Logout />} />
           <Route path='/' element={<Layout />}>
+
             {/* Admin Routes */}
             <Route element={<AdminProtectedRoute />}>
               <Route path='admin/dashboard' element={<Dashboard />} />
@@ -40,12 +41,14 @@ function App() {
               <Route path='admin/application/:id' element={<Application />} />
               <Route path='admin/student' element={<Student />} />
             </Route>
+
             {/* Employee Routes */}
             <Route element={<UserProtectedRoute />}>
               <Route path='employee/dashboard' element={<EmployeeDashboard />} />
               <Route path='employee/task' element={<AssignedWork />} />
               <Route path='employee/application/:id' element={<Application />} />
             </Route>
+            
             {/* Student Routes */}
             <Route element={<StudentProtectedRoute />}>
               <Route path='student/dashboard' element={<StudentDashboard />} />

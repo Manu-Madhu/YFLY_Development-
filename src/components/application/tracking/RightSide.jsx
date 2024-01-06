@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  getAllComments,
-  postComment,
-} from "../../../utils/Endpoint";
+import { getAllComments, postComment } from "../../../utils/Endpoint";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
@@ -13,7 +10,7 @@ import DocModal from "../../student/DocModal";
 import Tippy from "@tippyjs/react";
 import StatusModal from "../../employee/StatusModal";
 
-const  RightSide = ({ data, cb }) => {
+const RightSide = ({ data, cb }) => {
   const createdDate = new Date(data?.createdAt).toLocaleString();
   const user = useSelector((state) => state?.auth?.userInfo);
   const [comments, setComments] = useState([]);
@@ -75,9 +72,7 @@ const  RightSide = ({ data, cb }) => {
     <>
       {/* Application Info */}
       <h1 className="mb-3 font-semibold text-slate-500 text-sm text-gray-600">
-        {
-          user?.role === 'admin' ? "Application Status" : "Task Update"
-        }
+        {user?.role === "admin" ? "Application Status" : "Task Update"}
       </h1>
       <div className="w-full max-h-[220px] overflow-y-scroll space-y-2 border rounded-lg p-4">
         {user.role === "employee"
@@ -144,14 +139,11 @@ const  RightSide = ({ data, cb }) => {
                     <h1 className="text-sm font-semibold capitalize">
                       Step : {empTask?.name}
                     </h1>
-                    {/* <h1 className="capitalize text-sm">
-                {data?.university}
-              </h1> */}
                   </div>
                   <div className="flex flex-col justify-between capitalize">
-                    {/* <button className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded ">
-                  Click here
-                </button> */}
+                    <button className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded ">
+                      Click here
+                    </button>
                     <h1 className="font-bold text-end">
                       Step Number: {empTask?._id}
                     </h1>
