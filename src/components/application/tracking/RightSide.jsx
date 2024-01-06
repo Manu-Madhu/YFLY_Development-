@@ -138,9 +138,6 @@ const RightSide = ({ data, cb }) => {
                     <h1 className="text-sm text-primary_colors font-semibold">
                       Assignee : {data?.assignee}
                     </h1>
-                    <h1 className="text-sm text-primary_colors font-semibold">
-                      Student : {data?.studentName}
-                    </h1>
                     <h1 className="text-sm font-semibold capitalize">
                       Step : {empTask?.name}
                     </h1>

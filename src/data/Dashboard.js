@@ -17,11 +17,10 @@ export const FilterData = [
         type: "",
         name: "intake",
         options: [
-            { id: 1, name: "Fall Intake" },
+            { id: 1, name: "Fall" },
             { id: 2, name: "Spring" },
             { id: 3, name: "Winter" },
             { id: 4, name: "Summer" },
-            { id: 5, name: "Intake" },
         ],
         placeholder: "",
         icon: ""

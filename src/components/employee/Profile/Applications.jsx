@@ -29,7 +29,7 @@ const Applications = ({ data }) => {
           <div className="p-5 flex flex-col w-full capitalize border rounded border-primary_colors/30">
             <h1 className="font-semibold text-primary_colors mb-2 text-sm">
               ID:{" "}
-              <span className="font-thin ps-2">{work?._id}</span>
+              <span className="font-thin ps-2">{work?.applicationId}</span>
             </h1>
             <h1 className="font-semibold text-sm">
               Student Name :{" "}
