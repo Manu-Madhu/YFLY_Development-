@@ -134,7 +134,10 @@ const RightSide = ({ data, cb }) => {
                 <div className="flex justify-between ">
                   <div className="space-y-1">
                     <h1 className="text-sm text-primary_colors font-semibold">
-                      Assignee Id : {empTask?.assignee}
+                      Assignee : {data?.assignee}
+                    </h1>
+                    <h1 className="text-sm text-primary_colors font-semibold">
+                      Student : {data?.studentName}
                     </h1>
                     <h1 className="text-sm font-semibold capitalize">
                       Step : {empTask?.name}
