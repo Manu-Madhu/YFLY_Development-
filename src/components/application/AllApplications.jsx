@@ -45,7 +45,7 @@ const AllApplications = () => {
           <CommonTable data={data} page={page} entries={entries} />
         </div>
       </div>
-      {modal && <AddModal setModal={setModal} />}
+      {modal && <AddModal setModal={setModal} ca={application}/>}
     </>
   );
 };

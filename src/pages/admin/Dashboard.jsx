@@ -1,22 +1,24 @@
-import React, { Suspense, lazy, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { dashData } from "../../utils/Endpoint";
 import { FaUserGraduate } from "react-icons/fa";
 import { MdManageAccounts } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 import Filter from "../../components/dashboard/Filter";
 import axios from "../../utils/AxiosInstance";
 import RegistrationForm from "../../components/dashboard/RegistrationForm";
-import { Link } from "react-router-dom";
-
-const Card = lazy(() => import("../../components/dashboard/Cards"));
+import Cards from "../../components/dashboard/Cards";
+import StudentLoader from "../../components/loading/StudentLoader";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
   const [modal, setModal] = useState(false);
   const [empModal, setEmpModal] = useState(false);
+  const [lording, setLording] = useState(false);
 
   // @DCS All Card Data
   useEffect(() => {
+    setLording(true);
     axios
       .get(dashData)
       .then((res) => {
@@ -25,6 +27,9 @@ const Dashboard = () => {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLording(false);
       });
   }, []);
 
@@ -35,18 +40,17 @@ const Dashboard = () => {
         <h3 className="text-secondary text-[14px]">
           Welcome to Course Finder Portal
         </h3>
+
         <div className="mt-5 md:mt-10 space-y-7">
           <div>
             <Filter setData={setData} />
           </div>
-          <div className="bg_image">
-            <Suspense fallback={<div>Loading...</div>}>
-              <Card data={data} />
-            </Suspense>
+          <div className="">
+            {lording ? <StudentLoader /> : <Cards data={data} />}
           </div>
           <div className="w-full flex items-center justify-end">
             <button
-            onClick={()=> setEmpModal(true)}
+              onClick={() => setEmpModal(true)}
               className="me-2 p-2 px-4 text-normal bg-primary_colors text-white rounded-lg hover:scale-105 ease-in-out duration-200"
             >
               Register a New Employee
@@ -59,8 +63,8 @@ const Dashboard = () => {
               Register a New Student
             </button>
           </div>
-         
         </div>
+
         <div className="flex flex-col md:flex-row w-full mt-5 md:mt-10 gap-5 md:gap-2">
           <div className=" md:w-1/2 ">
             <div className="border-2 border-primary_colors  p-9  rounded hover:shadow-xl cursor-pointer">
@@ -71,12 +75,12 @@ const Dashboard = () => {
                 Students
               </h1>
               <div>
-                <Link to={"#"}>
+                <Link to={"/admin/student"}>
                   <h1 className="hover:underline hover:text-primary_colors">
-                    Manage Student
+                    Track Student
                   </h1>
                 </Link>
-                <Link to={"#"}>
+                <Link to={"/admin/applications"}>
                   <h1 className="hover:underline hover:text-primary_colors">
                     Manage Application
                   </h1>
@@ -107,7 +111,9 @@ const Dashboard = () => {
         </div>
       </div>
       {modal && <RegistrationForm setModal={setModal} entity="Student" />}
-      {empModal && <RegistrationForm setModal={setEmpModal} entity="Employee" />}
+      {empModal && (
+        <RegistrationForm setModal={setEmpModal} entity="Employee" />
+      )}
     </>
   );
 };

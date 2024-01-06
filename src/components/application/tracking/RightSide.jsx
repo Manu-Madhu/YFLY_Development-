@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  getAStudentRoute,
   getAllComments,
   postComment,
 } from "../../../utils/Endpoint";
@@ -14,7 +13,7 @@ import DocModal from "../../student/DocModal";
 import Tippy from "@tippyjs/react";
 import StatusModal from "../../employee/StatusModal";
 
-const RightSide = ({ data, cb }) => {
+const  RightSide = ({ data, cb }) => {
   const createdDate = new Date(data?.createdAt).toLocaleString();
   const user = useSelector((state) => state?.auth?.userInfo);
   const [comments, setComments] = useState([]);

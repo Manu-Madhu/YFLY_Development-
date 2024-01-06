@@ -36,8 +36,8 @@ function App() {
               <Route path='admin/employee' element={<Employee />} />
               <Route path='admin/employee/list/:role' element={<ViewEmployees />} />
               <Route path='admin/employee/profile/:id' element={<EmployeeProfile />} />
-              <Route path='admin/application/:id' element={<Application />} />
               <Route path='admin/applications' element={<AllApplications />} />
+              <Route path='admin/application/:id' element={<Application />} />
               <Route path='admin/student' element={<Student />} />
             </Route>
             {/* Employee Routes */}

@@ -30,34 +30,34 @@ export const FilterData = [
 
 export const FormData = [
     {
-        id:1,
-        name:"name",
-        placeholder:"Name*",
-        type:"text"
+        id: 1,
+        name: "name",
+        placeholder: "Name*",
+        type: "text"
     },
     {
-        id:2,
-        name:"phone",
-        placeholder:"Phone*",
-        type:"text"
+        id: 2,
+        name: "phone",
+        placeholder: "Phone*",
+        type: "text"
     },
     {
-        id:3,
-        name:"email",
-        placeholder:"Email*",
-        type:"email"
+        id: 3,
+        name: "email",
+        placeholder: "Email*",
+        type: "email"
     },
     {
-        id:4,
-        name:"password",
-        placeholder:"Password*",
-        type:"text"
+        id: 4,
+        name: "password",
+        placeholder: "Eg: Password@1*",
+        type: "text"
     },
     {
-        id:5,
-        name:"birthDate",
-        placeholder:"Date Of Birth*",
-        type:"date"
+        id: 5,
+        name: "birthDate",
+        placeholder: "Date Of Birth*",
+        type: "date"
     },
     // {
     //     id:6,
@@ -66,83 +66,91 @@ export const FormData = [
     //     type:"text"
     // },
     {
-        id:7,
-        name:"qualification",
-        placeholder:"Qualification*",
-        type:"text"
+        id: 7,
+        name: "qualification",
+        placeholder: "Qualification*",
+        type: "text"
     },
 ]
 
 export const EmpFormData = [
     {
-        id:1,
-        name:"name",
-        placeholder:"Name*",
-        type:"text"
+        id: 1,
+        name: "name",
+        placeholder: "Name*",
+        type: "text"
     },
     {
-        id:2,
-        name:"phone",
-        placeholder:"Phone*",
-        type:"text"
+        id: 2,
+        name: "phone",
+        placeholder: "Phone*",
+        type: "text"
     },
     {
-        id:3,
-        name:"email",
-        placeholder:"Email*",
-        type:"email"
+        id: 3,
+        name: "email",
+        placeholder: "Email*",
+        type: "email"
     },
     {
-        id:4,
-        name:"password",
-        placeholder:"Password*",
-        type:"text"
+        id: 4,
+        name: "password",
+        placeholder: "Password*",
+        type: "text"
     },
     {
-        id:5,
-        name:"birthDate",
-        placeholder:"Date Of Birth*",
-        type:"date"
+        id: 5,
+        name: "birthDate",
+        placeholder: "Date Of Birth*",
+        type: "date"
     },
     {
-        id:6,
-        name:"education",
-        placeholder:"Education*",
-        type:"text"
+        id: 6,
+        name: "education",
+        placeholder: "Education*",
+        type: "text"
     },
     {
-        id:7,
-        name:"department",
-        placeholder:"Department*",
-        type:"text"
+        id: 7,
+        name: "department",
+        placeholder: "Department*",
+        type: "text"
     },
-   
+
 ]
 
 
-export const Address =[
+export const Address = [
     {
-        id:1,
-        name:"houseName",
-        placeholder:"House Name*",
-        type:"text"
+        id: 1,
+        name: "houseName",
+        placeholder: "House Name*",
+        type: "text"
     },
     {
-        id:2,
-        name:"city",
-        placeholder:"City*",
-        type:"text"
+        id: 2,
+        name: "city",
+        placeholder: "City*",
+        type: "text"
     },
     {
-        id:3,
-        name:"state",
-        placeholder:"State*",
-        type:"test"
+        id: 3,
+        name: "state",
+        placeholder: "State*",
+        type: "test"
     },
     {
-        id:4,
-        name:"pin",
-        placeholder:"PIN*",
-        type:"text"
+        id: 4,
+        name: "pin",
+        placeholder: "PIN*",
+        type: "text"
     },
+]
+
+export const Intake = [
+    { id: 1, name: "Fall Intake" },
+    { id: 2, name: "Spring" },
+    { id: 3, name: "Winter" },
+    { id: 4, name: "Summer" },
+    { id: 5, name: "Intake" },
 ]
