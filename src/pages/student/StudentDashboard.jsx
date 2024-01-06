@@ -85,6 +85,7 @@ const StudentDashboard = () => {
               </div>
             </div>
           </div>
+          
           {/* Tracker for the status */}
           <div className="mt-10">
             <h1 className="text-[#0061B2] font-bold text-xl">
@@ -94,6 +95,7 @@ const StudentDashboard = () => {
               <StudentStepper />
             </div>
           </div>
+
           {/* Document Update and view */}
           <div className="mt-10 flex flex-col justify-end">
             <div className="w-full mb-5">

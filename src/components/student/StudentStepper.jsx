@@ -45,12 +45,12 @@ const TrackingUI = () => {
               className={`step-item text-wrap text-center ${
                 currentStep === i + 1 && "active"
               } ${
-                (i + 1 < currentStep || step?.status === "complete") &&
+                (i + 1 < currentStep || step?.status === "completed") &&
                 "complete"
               } `}
             >
               <div className={`step ${user.role === "student" && "me-10"}`}>
-                {i + 1 < currentStep || step?.status === "complete" ? (
+                {i + 1 < currentStep || step?.status === "completed" ? (
                   <TiTick size={24} />
                 ) : (
                   i + 1

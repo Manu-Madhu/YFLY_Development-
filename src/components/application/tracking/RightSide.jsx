@@ -9,6 +9,7 @@ import EmptyData from "../../loading/EmptyData";
 import DocModal from "../../student/DocModal";
 import Tippy from "@tippyjs/react";
 import StatusModal from "../../employee/StatusModal";
+import AdminModal from "../../Admin/AdminModal";
 
 const RightSide = ({ data, cb }) => {
   const createdDate = new Date(data?.createdAt).toLocaleString();
@@ -17,6 +18,7 @@ const RightSide = ({ data, cb }) => {
   const [comment, setComment] = useState("");
   const [docModal, setDocModal] = useState(false);
   const [statusUpdate, setStatusUpdate] = useState(false);
+  const [assigneeUpdate, setAssigneeUpdate] = useState(false);
   const [stepNumber, setStepNumber] = useState(null);
 
   let empTasks;
@@ -74,7 +76,7 @@ const RightSide = ({ data, cb }) => {
       <h1 className="mb-3 font-semibold text-slate-500 text-sm text-gray-600">
         {user?.role === "admin" ? "Application Status" : "Task Update"}
       </h1>
-      <div className="w-full max-h-[220px] overflow-y-scroll space-y-2 border rounded-lg p-4">
+      <div className="w-full max-h-[220px] overflow-y-scroll space-y-2 ">
         {user.role === "employee"
           ? myTasks?.map((task, i) => (
               <div key={i} className="bg-white p-5  rounded-lg ">
@@ -110,7 +112,7 @@ const RightSide = ({ data, cb }) => {
                     >
                       Update Status
                     </button>
-                    <h1 className="font-bold text-end">
+                    <h1 className="font-semibold text-sm mt-1 text-end">
                       Step Number: {task?._id}
                     </h1>
                   </div>
@@ -141,10 +143,16 @@ const RightSide = ({ data, cb }) => {
                     </h1>
                   </div>
                   <div className="flex flex-col justify-between capitalize">
-                    <button className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded ">
-                      Click here
+                    <button
+                      onClick={() => {
+                        setStepNumber(empTask._id);
+                        setAssigneeUpdate(true);
+                      }}
+                      className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
+                    >
+                      Assign Next
                     </button>
-                    <h1 className="font-bold text-end">
+                    <h1 className="font-semibold text-sm mt-1 text-end">
                       Step Number: {empTask?._id}
                     </h1>
                   </div>
@@ -237,10 +245,20 @@ const RightSide = ({ data, cb }) => {
       {docModal && (
         <DocModal cb={cb} setModal={setDocModal} applicationData={data} />
       )}
+
       {statusUpdate && (
         <StatusModal
           cb={cb}
           setModal={setStatusUpdate}
+          stepNumber={stepNumber}
+          applicationData={data}
+        />
+      )}
+
+      {assigneeUpdate && (
+        <AdminModal
+          cb={cb}
+          setModal={setAssigneeUpdate}
           stepNumber={stepNumber}
           applicationData={data}
         />
