@@ -14,7 +14,7 @@ const StudentDashboard = () => {
   const [state, setState] = useState([]);
   const [docModal, setDocModal] = useState(false);
   const user = useSelector((state) => state.auth.userInfo);
-  
+
   useEffect(() => {
     axios
       .get(`${getAnApplicationRoute}/${user?.applicationId}`)
@@ -24,9 +24,13 @@ const StudentDashboard = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [docModal,user?.applicationId]);
+  }, [docModal, user?.applicationId]);
 
-  console.log(state)
+  const fnToCallGetFn = () => {
+    console.log("halo i am cd");
+  };
+
+  console.log(state);
   return (
     <>
       <div className=" w-full">
@@ -39,19 +43,19 @@ const StudentDashboard = () => {
                   Welcome{" "}
                   <span className="font-semiBold capitalize">{user?.name}</span>
                 </h1>
-                
+
                 <p className="text-white text-[11px]">
                   <span className="font-bold">DOB :</span>{" "}
                   {DateFormat(user?.birthDate)}
                 </p>
               </div>
               <div>
-                
                 <p className="text-white font-semibold">
                   Application ID :{" "}
-                  <span className="font-thin capitalize">{user?.applicationId}</span>
+                  <span className="font-thin capitalize">
+                    {user?.applicationId}
+                  </span>
                 </p>
-                
               </div>
             </div>
             {/* details about the student */}
@@ -86,7 +90,7 @@ const StudentDashboard = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Tracker for the status */}
           <div className="mt-10 w-full">
             <h1 className="text-[#0061B2] font-bold text-xl">
@@ -141,7 +145,13 @@ const StudentDashboard = () => {
           </div>
         </div>
       </div>
-      {docModal && <DocModal setModal={setDocModal} applicationData={state} />}
+      {docModal && (
+        <DocModal
+          setModal={setDocModal}
+          applicationData={state}
+          cb={fnToCallGetFn}
+        />
+      )}
     </>
   );
 };
