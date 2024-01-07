@@ -33,6 +33,11 @@ const Dashboard = () => {
       });
   }, []);
 
+
+  useEffect(()=>{
+    window.scroll(0,0)
+  },[])
+
   return (
     <>
       <div className="w-full h-full text-black ">

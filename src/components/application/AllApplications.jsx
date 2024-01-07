@@ -26,6 +26,7 @@ const AllApplications = () => {
   };
 
   useState(() => {
+    window.scroll(0,0)
     application();
   }, []);
 

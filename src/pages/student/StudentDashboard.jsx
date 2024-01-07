@@ -16,6 +16,7 @@ const StudentDashboard = () => {
   const user = useSelector((state) => state.auth.userInfo);
 
   useEffect(() => {
+    window.scroll(0,0)
     axios
       .get(`${getAnApplicationRoute}/${user?.applicationId}`)
       .then((res) => {

@@ -14,6 +14,7 @@ const EmployeeDashboard = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    window.scroll(0,0)
     setLoading(true);
     axios
       .get(`${getEmpTaskMetrics}/${userData._id}`)

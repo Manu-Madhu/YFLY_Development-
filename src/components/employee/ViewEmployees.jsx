@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Table from "../Table/Table";
 
 const ViewEmployees = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
   const params = useParams();
   return (
     <div className="w-full h-full text-black">
@@ -10,7 +14,7 @@ const ViewEmployees = () => {
         {params?.role}
       </h1>
       <div className="mt-5 ">
-        <Table department={params?.role}/>
+        <Table department={params?.role} />
       </div>
     </div>
   );

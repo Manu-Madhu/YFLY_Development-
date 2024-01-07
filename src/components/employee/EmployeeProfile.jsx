@@ -44,6 +44,7 @@ const EmployeeProfile = () => {
   }
 
   useEffect(()=>{
+    window.scroll(0,0)
     getEmployee()
     getEmpMetrics()
     getAssignedWorks()

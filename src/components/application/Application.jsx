@@ -21,6 +21,7 @@ const Application = () => {
     })};
 
   useEffect(() => {
+    window.scroll(0,0)
     getApplication()
   }, [id]);
 

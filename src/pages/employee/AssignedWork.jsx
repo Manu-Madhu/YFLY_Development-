@@ -21,6 +21,7 @@ const AssignedWork = () => {
   };
 
   useState(() => {
+    window.scroll(0,0)
     getAssignedWorks();
   }, []);
 
