@@ -103,7 +103,7 @@ const Dashboard = () => {
               </h1>
               <div>
                 <Link
-                  to={"#"}
+                  to={"/admin/employee"}
                   className="hover:underline hover:text-primary_colors"
                 >
                   <h1 className="flex-wrap">
