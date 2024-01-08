@@ -58,12 +58,6 @@ export const FormData = [
         placeholder: "Date Of Birth*",
         type: "date"
     },
-    // {
-    //     id:6,
-    //     name:"age",
-    //     placeholder:"Age*",
-    //     type:"text"
-    // },
     {
         id: 7,
         name: "qualification",
@@ -109,12 +103,12 @@ export const EmpFormData = [
         placeholder: "Education*",
         type: "text"
     },
-    {
-        id: 7,
-        name: "department",
-        placeholder: "Department*",
-        type: "text"
-    },
+    // {
+    //     id: 7,
+    //     name: "department",
+    //     placeholder: "Department*",
+    //     type: "text"
+    // },
 
 ]
 

@@ -6,7 +6,7 @@ const Input = ({ name, placeholder, type, changeHandler, value,required }) => {
       <input
         type={type}
         name={name}
-        className={`border text-xs p-3 focus:outline-none w-full rounded-lg`}
+        className={`border border-primary_colors/50 text-xs p-3 focus:outline-none w-full rounded-lg`}
         placeholder={placeholder}
         onChange={changeHandler}
         value={value}

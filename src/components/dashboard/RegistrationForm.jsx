@@ -3,7 +3,6 @@ import { Address, EmpFormData, FormData } from "../../data/Dashboard";
 import { IoClose } from "react-icons/io5";
 
 import Input from "../formField/Input";
-import TrackingUI from "../stepper/TrackingUI";
 
 import axios from "../../utils/AxiosInstance";
 import {
@@ -11,6 +10,7 @@ import {
   studentRegisterRoute,
 } from "../../utils/Endpoint";
 import { toast } from "react-toastify";
+import { EmployeeCards } from "../../data/Employee";
 
 const RegistrationForm = ({ setModal, entity }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -137,127 +137,69 @@ const RegistrationForm = ({ setModal, entity }) => {
           className="absolute right-3 top-3 rounded bg-primary_colors text-white cursor-pointer"
         />
         <div className="flex flex-col w-full mt-5">
-          {/* <div className="flex items-center  my-8">
-            <TrackingUI
-              currentStep={currentStep}
-              complete={complete}
-              steps={steps}
-            />
-          </div> */}
           <form action="" onSubmit={submitHandler}>
             <div className="w-full flex flex-wrap">
-              {/* Student Info */}
-              {/* {currentStep === 1 && ( */}
-                <>
-                  {entity === "Student" &&
-                    FormData.map((data) => (
-                      <div key={data?.id} className="w-full md:w-1/2 p-1 py-2">
-                        <Input
-                          name={data?.name}
-                          placeholder={data?.placeholder}
-                          type={data?.type}
-                          changeHandler={changeHandler}
-                          value={formData[data?.name]}
-                          
-                        />
-                      </div>
-                    ))}
-                  {entity === "Employee" &&
-                    EmpFormData.map((data) => (
-                      <div key={data?.id} className="w-full md:w-1/2 p-1 py-2">
-                        <Input
-                          name={data?.name}
-                          placeholder={data?.placeholder}
-                          type={data?.type}
-                          changeHandler={changeHandler}
-                          value={empFormData[data?.name]}
-                          required={"required"}
-                        />
-                      </div>
-                    ))}
-                  {Address.map((data) => (
+              <>
+                {entity === "Student" &&
+                  FormData.map((data) => (
                     <div key={data?.id} className="w-full md:w-1/2 p-1 py-2">
                       <Input
                         name={data?.name}
                         placeholder={data?.placeholder}
                         type={data?.type}
                         changeHandler={changeHandler}
-                        value={
-                          entity === "Student"
-                            ? formData?.address?.[data?.name]
-                            : empFormData?.address?.[data?.name]
-                        }
+                        value={formData[data?.name]}
                       />
                     </div>
                   ))}
-                </>
-              {/* )} */}
-              {/* {currentStep === 2 &&
-                (entity === "Student" ? (
-                  <div className="flex flex-col  border w-full rounded p-5 ">
-                    <h1>
-                      Name : <span>{formData?.name}</span>
-                    </h1>
-                    <h1>
-                      Email : <span>{formData?.email}</span>
-                    </h1>
-                    <h1>
-                      Phone : <span>{formData?.phone}</span>
-                    </h1>
-                    <h1>
-                      DOB : <span>{formData?.birthDate}</span>
-                    </h1>
-                    <h1>
-                      Qualification : <span>{formData?.qualification}</span>
-                    </h1>
-                    <h1>
-                      House Name : <span>{formData?.address?.houseName}</span>
-                    </h1>
-                    <h1>
-                      City : <span>{formData?.address?.city}</span>
-                    </h1>
-                    <h1>
-                      State : <span>{formData?.address?.state}</span>
-                    </h1>
-                    <h1>
-                      Pin : <span>{formData?.address?.pin}</span>
-                    </h1>
+
+                {entity === "Employee" &&
+                  EmpFormData.map((data) => (
+                    <div key={data?.id} className="w-full md:w-1/2 p-1 py-2">
+                      <Input
+                        name={data?.name}
+                        placeholder={data?.placeholder}
+                        type={data?.type}
+                        changeHandler={changeHandler}
+                        value={empFormData[data?.name]}
+                        required={"required"}
+                      />
+                    </div>
+                  ))}
+                {entity === "Employee" && (
+                  <select
+                    className={`border border-primary_colors/50 text-gray-400 text-xs p-3 focus:outline-none w-full rounded-lg`}
+                    name="department"
+                    id=""
+                    onChange={changeHandler}
+                  >
+                    <option className="" value="">
+                      Select A Department
+                    </option>
+                    {EmployeeCards.map((items, index) => (
+                      <option key={index} className="" value={items?.path}>
+                        {items?.name}
+                      </option>
+                    ))}
+                  </select>
+                )}
+
+                {Address.map((data) => (
+                  <div key={data?.id} className="w-full md:w-1/2 p-1 py-2">
+                    <Input
+                      name={data?.name}
+                      placeholder={data?.placeholder}
+                      type={data?.type}
+                      changeHandler={changeHandler}
+                      value={
+                        entity === "Student"
+                          ? formData?.address?.[data?.name]
+                          : empFormData?.address?.[data?.name]
+                      }
+                    />
                   </div>
-                ) : (
-                  <div className="flex flex-col  border w-full rounded p-5 ">
-                    <h1>
-                      Name : <span>{empFormData?.name}</span>
-                    </h1>
-                    <h1>
-                      Email : <span>{empFormData?.email}</span>
-                    </h1>
-                    <h1>
-                      Phone : <span>{empFormData?.phone}</span>
-                    </h1>
-                    <h1>
-                      DOB : <span>{empFormData?.birthDate}</span>
-                    </h1>
-                    <h1>
-                      Education : <span>{empFormData?.education}</span>
-                    </h1>
-                    <h1>
-                      Department : <span>{empFormData?.department}</span>
-                    </h1>
-                    <h1>
-                      House Name :{" "}
-                      <span>{empFormData?.address?.houseName}</span>
-                    </h1>
-                    <h1>
-                      City : <span>{empFormData?.address?.city}</span>
-                    </h1>
-                    <h1>
-                      State : <span>{empFormData?.address?.state}</span>
-                    </h1>
-                    <h1>
-                      Pin : <span>{empFormData?.address?.pin}</span>
-                    </h1>
-                  </div>
-                ))} */}
+                ))}
+              </>
             </div>
 
             {/* BUTTON */}
@@ -285,12 +227,12 @@ const RegistrationForm = ({ setModal, entity }) => {
                 </button>
               )} */}
               {/* {complete && ( */}
-                <button
-                  type="submit"
-                  className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"
-                >
-                  Submit
-                </button>
+              <button
+                type="submit"
+                className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"
+              >
+                Submit
+              </button>
               {/* )} */}
             </div>
           </form>
