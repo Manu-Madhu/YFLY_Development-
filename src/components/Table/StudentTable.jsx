@@ -15,7 +15,7 @@ const StudentTable = ({ data }) => {
             <th className="px-6 py-4">Name</th>
             <th className="px-6 py-4">Email</th>
             <th className="px-6 py-4">Phone</th>
-            <th className="px-6 py-4">Birth Date</th>
+            {/* <th className="px-6 py-4">Birth Date</th> */}
             <th className="px-6 py-4">Qualification</th>
             <th className="px-6 py-4">application Id</th>
           </tr>
@@ -24,21 +24,20 @@ const StudentTable = ({ data }) => {
           {data?.length > 0 ? (
             data?.map((items, i) => (
               <tr
-                //   onClick={(e) => navigate(`/admin/application/${items._id}`)}
                 key={items?._id}
                 className="bg-white border-b  hover:bg-gray-50 text-black cursor-pointer capitalize"
               >
                 <td className="px-6 py-4">{i + 1}</td>
-                <td className="px-6 py-4">{items?.name}</td>
+                <td className="px-6 py-4 truncate">{items?.name}</td>
                 <td className="px-6 py-4">{items?.email}</td>
                 <td className="px-6 py-4">{items?.phone}</td>
-                <td className="px-6 py-4">
+                {/* <td className="px-6 py-4 truncate">
                   {items?.birthDate ? DateFormat(items?.birthDate) : "NIL"}
-                </td>
+                </td> */}
                 <td className="px-6 py-4">
                   {items?.qualification ? items?.qualification : "NIL"}
                 </td>
-                <td className="px-6 py-4 ">
+                <td className="px-6 py-4 truncate">
                   {items?.applicationId ? items?.applicationId : "NIL"}
                 </td>
               </tr>

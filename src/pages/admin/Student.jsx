@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { getAllStudent } from "../../utils/Endpoint";
+
 import StudentTable from "../../components/Table/StudentTable";
 import instance from "../../utils/AxiosInstance";
-import { getAllStudent } from "../../utils/Endpoint";
+// import Pagination from "../../components/Pagination";
 
 const Student = () => {
   const [data, setData] = useState();
@@ -14,6 +16,7 @@ const Student = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     window.scroll(0,0)
     studentTable();
@@ -24,6 +27,7 @@ const Student = () => {
       <div className="w-full mt-5 flex flex-col md:flex-row gap-5">
         <StudentTable data={data} />
       </div>
+      {/* <Pagination/> */}
     </div>
   );
 };

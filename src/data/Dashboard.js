@@ -145,5 +145,4 @@ export const Intake = [
     { id: 2, name: "Spring" },
     { id: 3, name: "Winter" },
     { id: 4, name: "Summer" },
-    { id: 5, name: "Intake" },
 ]

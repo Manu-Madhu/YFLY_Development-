@@ -7,7 +7,7 @@ import EmptyData from "../loading/EmptyData";
 const CommonTable = ({ data, page, entries }) => {
   const navigate = useNavigate();
   return (
-    <div className="relative min-h-screen shadow-md md:rounded-lg overflow-x-scroll md:overflow-hidden mb-3 w-full">
+    <div className="relative md:min-h-screen shadow-md md:rounded-lg overflow-x-scroll md:overflow-hidden mb-3 w-full">
       <table className="w-full  text-sm text-left ">
         <thead className="text-xs text-white uppercase bg ">
           <tr className="bg-primary_colors border-b  ">

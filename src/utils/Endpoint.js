@@ -1,3 +1,4 @@
+// export const baseUrl = "https://server.emtsolutions.online"
 export const baseUrl = "http://localhost:8800"
 
 // Login page

@@ -61,7 +61,7 @@ const Login = () => {
       console.log(error);
       toast.error(error?.response?.data?.msg);
     }
-  };
+  }
 
   // @DSC Input Changes
   const changeHandler = (e) => {
