@@ -9,7 +9,7 @@ import Pagination from "../../components/Pagination";
 const Student = () => {
   const [data, setData] = useState();
   const [page, setPage] = useState(1);
-  const [entries, setEntries] = useState(1);
+  const [entries, setEntries] = useState(10);
 
   const studentTable = async () => {
     try {
