@@ -87,7 +87,7 @@ const Table = ({ department }) => {
           Data={data}
           page={page}
           setPage={setPage}
-          application={getData}
+          getMethod={getData}
         />
       </div>
     </>
