@@ -225,7 +225,7 @@ const RightSide = ({ data, cb }) => {
             <div key={i}>
               <div className="flex justify-between">
                 <h1 className="text-xs font-medium text-gray-500 capitalize">
-                  {items?.commentorDetails?.name}
+                  {items?.commentor}
                 </h1>
                 <h1 className="text-xs text-gray-500">
                   {new Date(items?.createdAt).toLocaleString()}
