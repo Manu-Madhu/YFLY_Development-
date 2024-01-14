@@ -41,7 +41,7 @@ const RightSide = ({ data, cb }) => {
 
   useEffect(() => {
     axios
-      .get(`${getAllComments}/${data?._id}`)
+      .get(`${getAllComments}/application/${data?._id}`)
       .then((res) => {
         setComments(res?.data);
       })
@@ -54,7 +54,8 @@ const RightSide = ({ data, cb }) => {
     e.preventDefault();
     console.log(comment);
     const message = {
-      applicationId: data?._id,
+      resourceId: data?._id,
+      resourceType:"application",
       commentorId: user?._id,
       comment: comment,
     };

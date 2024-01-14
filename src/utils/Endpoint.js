@@ -92,7 +92,7 @@ export const updateApplicationRoute = '/api/application/update';
 export const uploadDocumentRoute = '/api/application/upload-document'; //<== + ApplicationId
 
 //Get All comments in an Application;
-export const getAllComments = '/api/comment/get-all'; //<== + ApplicationId
+export const getAllComments = '/api/comment/get-all'; //<== + /resourceType + /resourceId;
 
 //Post a Comment;
 export const postComment = '/api/comment/add';
@@ -102,3 +102,18 @@ export const getEmpTaskMetrics = "/api/employee/get-task-metrics"; //<== + Emplo
 
 // Put Change Step Status;
 export const changeStepStatus = "/api/application/change-status";
+
+// Create Project
+export const createProject = "/api/project/create";
+
+// Get all Projects
+export const getAllProjects = "/api/project/get-all";
+
+// Get Project
+export const getProject = "/api/project/get"; //<== + Projectid
+
+// Delete Project
+export const deleteProject = "/api/project/delete"; //<== + Projectid
+
+// Update Project Status
+export const updateProjectStatus = "/api/project/update-status";
