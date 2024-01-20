@@ -100,8 +100,8 @@ export const postComment = '/api/comment/add';
 // Get Employee Task Metrics;
 export const getEmpTaskMetrics = "/api/employee/get-task-metrics"; //<== + EmployeeId
 
-// Put Change Step Status;
-export const changeStepStatus = "/api/application/change-status";
+// Put Update Stepper;
+export const changeStepStatus = "/api/stepper/update"
 
 // Create Project
 export const createProject = "/api/project/create";
@@ -117,3 +117,15 @@ export const deleteProject = "/api/project/delete"; //<== + Projectid
 
 // Update Project Status
 export const updateProjectStatus = "/api/project/update-status";
+
+// Create a stepper
+export const createStepper = "/api/stepper/create";
+
+// Create a stepper
+export const getStepper = "/api/stepper/get"; //<== + stepperid
+
+// Create a stepper
+export const getAllSteppers = "/api/stepper/get-all"; //<== + applicationid
+
+// Create a stepper
+export const deleteStepper = "/api/stepper/delete"; //<== + stepperid
