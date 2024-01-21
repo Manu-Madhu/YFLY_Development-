@@ -92,7 +92,7 @@ export const updateApplicationRoute = '/api/application/update';
 export const uploadDocumentRoute = '/api/application/upload-document'; //<== + ApplicationId
 
 //Get All comments in an Application;
-export const getAllComments = '/api/comment/get-all'; //<== + ApplicationId
+export const getAllComments = '/api/comment/get-all'; //<== + /resourceType + /resourceId;
 
 //Post a Comment;
 export const postComment = '/api/comment/add';
@@ -100,5 +100,32 @@ export const postComment = '/api/comment/add';
 // Get Employee Task Metrics;
 export const getEmpTaskMetrics = "/api/employee/get-task-metrics"; //<== + EmployeeId
 
-// Put Change Step Status;
-export const changeStepStatus = "/api/application/change-status";
+// Put Update Stepper;
+export const changeStepStatus = "/api/stepper/update"
+
+// Create Project
+export const createProject = "/api/project/create";
+
+// Get all Projects
+export const getAllProjects = "/api/project/get-all";
+
+// Get Project
+export const getProject = "/api/project/get"; //<== + Projectid
+
+// Delete Project
+export const deleteProject = "/api/project/delete"; //<== + Projectid
+
+// Update Project Status
+export const updateProjectStatus = "/api/project/update-status";
+
+// Create a stepper
+export const createStepper = "/api/stepper/create";
+
+// Create a stepper
+export const getStepper = "/api/stepper/get"; //<== + stepperid
+
+// Create a stepper
+export const getAllSteppers = "/api/stepper/get-all"; //<== + applicationid
+
+// Create a stepper
+export const deleteStepper = "/api/stepper/delete"; //<== + stepperid

@@ -11,6 +11,9 @@ const StatusModal = ({ setModal, stepNumber, applicationData, cb }) => {
   const selectRef = useRef();
   const employeeData = useSelector((state) => state.auth.userInfo);
 
+  // change below 
+  const stepper = ""
+
   const employeeSteps = applicationData?.steps?.filter(
     (items) => items?.assignee === employeeData?._id
   );
@@ -19,8 +22,8 @@ const StatusModal = ({ setModal, stepNumber, applicationData, cb }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const data = {
-      applicationId: applicationData?._id,
-      employeeId: employeeData?._id,
+      stepperId: stepper?._id,
+      stepAssignee: employeeData?._id,
       stepNumber,
       stepStatus: selectRef.current.value,
     };

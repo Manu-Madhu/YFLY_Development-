@@ -86,7 +86,7 @@ const AllApplications = () => {
             Data={data}
             page={page}
             setPage={setPage}
-            application={application}
+            getMethod={application}
           />
         </div>
       </div>

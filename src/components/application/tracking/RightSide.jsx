@@ -40,7 +40,7 @@ const RightSide = ({ data, cb }) => {
 
   useEffect(() => {
     axios
-      .get(`${getAllComments}/${data?._id}`)
+      .get(`${getAllComments}/application/${data?._id}`)
       .then((res) => {
         setComments(res?.data);
       })
@@ -52,7 +52,8 @@ const RightSide = ({ data, cb }) => {
   const submitHandle = async (e) => {
     e.preventDefault();
     const message = {
-      applicationId: data?._id,
+      resourceId: data?._id,
+      resourceType:"application",
       commentorId: user?._id,
       comment: comment,
     };
@@ -230,7 +231,7 @@ const RightSide = ({ data, cb }) => {
             <div key={i}>
               <div className="flex justify-between">
                 <h1 className="text-xs font-medium text-gray-500 capitalize">
-                  {items?.commentorDetails?.name}
+                  {items?.commentor}
                 </h1>
                 <h1 className="text-xs text-gray-500">
                   {new Date(items?.createdAt).toLocaleString()}

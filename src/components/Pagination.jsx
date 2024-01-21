@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const Pagination = ({ Data, page, setPage, application }) => {
+const Pagination = ({ Data, page, setPage, getMethod }) => {
   const prevHandler = () => {
     if (page > 1) {
       setPage((prevPage) => prevPage - 1);
@@ -15,7 +15,7 @@ const Pagination = ({ Data, page, setPage, application }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await application();
+      await getMethod();
     };
 
     fetchData();
@@ -27,7 +27,15 @@ const Pagination = ({ Data, page, setPage, application }) => {
       <button
         type="button"
         onClick={prevHandler}
-        className="border px-5 py-2 text-white border-primary_colors/50 bg-primary_colors rounded-s "
+        className={`border px-5 py-2 text-white
+          ${
+            page > 1 
+            ?
+            "border-primary_colors/50 bg-primary_colors"
+            :
+            "border-gray-300 bg-gray-300" 
+          }
+         rounded-s`}
       >
         Prev
       </button>
