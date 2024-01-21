@@ -37,7 +37,7 @@ const CommonTable = ({ data, page, entries }) => {
                 <td className="px-6 py-4">{items?.studentName}</td>
                 <td className="px-6 py-4">{items?.university}</td>
                 <td className="px-6 py-4">{items?.program}</td>
-                <td className="px-6 py-4">{items?.intake}</td>
+                <td className="px-6 py-4 truncate">{items?.intake}</td>
                 {/* <td className="px-6 py-4">
                 {items?.steps.length > 0
                   ? (items?.steps?.filter((items)=>items?.status !== ""))[items?.steps?.length-1]

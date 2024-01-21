@@ -39,7 +39,6 @@ const AdminModal = ({ setModal, applicationData, cb }) => {
     setLoading(true);
     try {
       const response = await axios.put(workAssignRoute, formData);
-      console.log(response)
       if (response?.status === 200) {
         setModal(false);
         cb();
@@ -97,8 +96,8 @@ const AdminModal = ({ setModal, applicationData, cb }) => {
                     <option className="text-sm" value="">
                       Select a step
                     </option>
-                    {availableSteps.map((items) => (
-                      <option className="text-gray-900" value={items?._id}>
+                    {availableSteps.map((items,i) => (
+                      <option key={i} className="text-gray-900" value={items?._id}>
                         {items?.name}
                       </option>
                     ))}
@@ -124,8 +123,8 @@ const AdminModal = ({ setModal, applicationData, cb }) => {
                     <option className="text-sm" value="">
                       Select an Category
                     </option>
-                    {EmployeeCards.map((items) => (
-                      <option className="text-gray-900" value={items?.path}>
+                    {EmployeeCards.map((items,i) => (
+                      <option key={i} className="text-gray-900" value={items?.path}>
                         {items?.name}
                       </option>
                     ))}

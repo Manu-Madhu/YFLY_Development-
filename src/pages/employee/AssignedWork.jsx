@@ -26,7 +26,7 @@ const AssignedWork = () => {
   }, []);
 
   return (
-    <div className="w-full h-screen text-black ">
+    <div className="w-full min-h-screen text-black ">
       <h1 className="text-primary_colors text-2xl font-bold">Tasks</h1>
       <div className="mt-5 w-full flex flex-wrap gap-4">
         <Applications data={works} />

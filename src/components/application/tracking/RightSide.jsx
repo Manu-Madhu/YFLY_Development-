@@ -24,7 +24,6 @@ const RightSide = ({ data, cb }) => {
   let empTasks;
   if (user.role === "admin") {
     empTasks = data?.steps?.filter((task) => (task?.assignee ? true : false));
-    console.log(empTasks);
   }
 
   let myTasks;
@@ -52,7 +51,6 @@ const RightSide = ({ data, cb }) => {
 
   const submitHandle = async (e) => {
     e.preventDefault();
-    console.log(comment);
     const message = {
       applicationId: data?._id,
       commentorId: user?._id,
@@ -60,7 +58,6 @@ const RightSide = ({ data, cb }) => {
     };
     try {
       const response = await axios.post(postComment, message);
-      console.log(response);
       toast.success(response?.data?.msg);
       setComments([response?.data?.data, ...comments]);
       setComment("");
@@ -102,7 +99,7 @@ const RightSide = ({ data, cb }) => {
                     </h1>
                     <h1 className="capitalize text-sm">{data?.university}</h1>
                   </div>
-                  <div className="flex flex-col justify-between capitalize">
+                  <div className="flex flex-col justify-between capitalize gap-2">
                     <button
                       onClick={() => {
                         setStepNumber(task._id);
@@ -112,6 +109,15 @@ const RightSide = ({ data, cb }) => {
                     >
                       Update Status
                     </button>
+                    {/* <button
+                      onClick={() => {
+                        setStepNumber(task._id);
+                        setAssigneeUpdate(true);
+                      }}
+                      className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
+                    >
+                      Assign Next
+                    </button> */}
                     <h1 className="font-semibold text-sm mt-1 text-end">
                       Step Number: {task?._id}
                     </h1>
