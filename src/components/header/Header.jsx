@@ -19,7 +19,7 @@ const Header = () => {
     <>
       <div className="shadow-sm fixed z-50 w-full bg-white top-0">
         <div className="container mx-auto w-full">
-          <div className="mx-1 md:mx-10 flex items-center justify-between p-5">
+          <div className="mx-1 flex items-center justify-between p-5">
             <div className="w-full">
               <img
                 src={require("../../assets/logo/logo.png")}

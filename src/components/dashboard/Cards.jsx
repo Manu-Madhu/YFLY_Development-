@@ -9,7 +9,7 @@ const Cards = ({ data }) => {
   return (
     <div className="flex flex-wrap gap-3 ">
       {data.map((data, index) => (
-        <div className="flex flex-col p-5 bg-white rounded-lg shadow-xl w-full md:w-[225px]" key={index}>
+        <div className="flex flex-col p-5 bg-white rounded-lg shadow-xl w-full md:w-[210px]" key={index}>
           <h1 className="text-[30px] font-bold text-primary_colors">{data?.value}</h1>
           <div className="flex">
             <h4 className="text-sm font-semibold text-primary_colors">

@@ -14,16 +14,16 @@ const SideMenu = () => {
   const location = useLocation();
   return (
     <div
-      className={`container mx-auto  hidden  h-screen fixed bg-gradient-to-l from-white to-[#f5f6f8] ${
-        sideArrow ? "md:w-1/5" : "w-[200px] flex flex-col items-center"
+      className={`hidden pt-10 min-h-screen bg-gradient-to-l from-white to-[#f5f6f8] ${
+        sideArrow ? "md:w-1/5 " : "w-[120px] flex flex-col items-center"
       } ${user?.role === "student" ? "hidden" : "md:flex"}`}
     >
-      <div className={`mx-5 md:mx-10 p-5 flex flex-col items-center  mt-5 w-full`}>
+      <div className={`mx-5 md:mx-10 flex flex-col w-full  ${sideArrow ? "" : "items-center"}`}>
         {user?.role === "admin" ? (
           Sidebar.map((data) => (
             <Link key={data?.id} to={data.path}>
               <div
-                className={`flex items-center gap-3 cursor-pointer mb-4 ${
+                className={` flex items-center gap-3 cursor-pointer mb-4 ${sideArrow ? "w-[200px]" : "w-10"} ${
                   data.path === location.pathname &&
                   "bg-[#058BD2] w-full text-white p-2 rounded hover:scale-105 ease-in-out duration-300"
                 }`}
@@ -60,6 +60,8 @@ const SideMenu = () => {
         ) : (
           <div className="hidden"></div>
         )}
+
+        {/* Arrow */}
         <div className="w-full flex items-end justify-end mt-10">
           {sideArrow ? (
             <MdOutlineKeyboardDoubleArrowLeft

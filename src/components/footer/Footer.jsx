@@ -2,9 +2,9 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="container mx-auto right-0 w-full md:pt-10">
-      <div className="mt-20">
-        <footer class="bg-primary_colors  shadow z-50">
+    <div className="right-0 w-full ">
+      <div className="">
+        <footer class="bg-primary_colors shadow z-50">
           <div class="w-full mx-auto max-w-screen-xl p-4 flex flex-col md:items-center md:justify-center">
             <span class="text-sm text-white sm:text-center ">
               © 2024{" "}

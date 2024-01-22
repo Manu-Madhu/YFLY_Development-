@@ -40,7 +40,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="w-full h-full text-black ">
+      <div className="container mx-auto w-full h-full text-black pt-10  pb-28">
         <h1 className="text-primary_colors text-2xl font-bold">Dashboard</h1>
         <h3 className="text-secondary text-[14px]">
           Welcome to Course Finder Portal
