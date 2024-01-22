@@ -4,15 +4,17 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { LuMenu } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineLogin } from "react-icons/ai";
 
 import profile from "../../assets/icon/profileicon.png";
-import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  
   const [menu, setMenu] = useState(false);
   const user = useSelector((state) => state.auth.userInfo);
   const navigate = useNavigate();
+
   return (
     <>
       <div className="shadow-sm fixed z-50 w-full bg-white top-0">
@@ -44,14 +46,14 @@ const Header = () => {
                 className=" cursor-pointer text-slate-500"
               /> */}
 
-              <div onClick={() => navigate("/logout")} className="mt-2 flex flex-col justify-end hover:text-primary_colors cursor-pointer">
+              {/* <div onClick={() => navigate("/logout")} className="mt-2 flex flex-col justify-end hover:text-primary_colors cursor-pointer">
                 <AiOutlineLogin className="" size={30} />
                 <h1
                   className="text-xs text-secondary mt-1 cursor-pointer hover:text-primary_colors"
                 >
                   Logout
                 </h1>
-              </div>
+              </div> */}
               <div className="flex flex-col items-center">
                 <img
                   src={`${user?.image ? user?.image : profile}`}
