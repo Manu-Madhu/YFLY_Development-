@@ -26,7 +26,7 @@ const Student = () => {
     studentTable();
   }, []);
   return (
-    <div className="w-full h-full text-black ">
+    <div className="w-full h-full text-black pt-10 pb-28">
       <h1 className="text-primary_colors text-2xl font-bold">Track Student</h1>
       <div className="w-full mt-5 flex flex-col md:flex-row gap-5">
         <StudentTable data={data} />

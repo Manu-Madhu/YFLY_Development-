@@ -34,7 +34,7 @@ const StudentDashboard = () => {
   console.log(state);
   return (
     <>
-      <div className=" w-full">
+      <div className=" w-full mb-20">
         <Carousel banner={Banner} />
         <div className="w-full">
           <div className="w-full mt-10 p-5 bg-gradient-to-b from-[#28B5FF] to-[#1B4160] rounded-lg">

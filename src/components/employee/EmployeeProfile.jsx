@@ -51,7 +51,7 @@ const EmployeeProfile = () => {
   },[])
 
   return (
-    <div className="w-full text-black">
+    <div className="w-full text-black pt-10 pb-28">
       <h1 className="text-primary_colors text-2xl font-bold capitalize">
         Profile
       </h1>

@@ -30,7 +30,7 @@ const Application = () => {
   }
 
   return (
-    <>
+    <div className="container mx-auto w-full h-full pt-10 pb-28 ">
       {/* welcome Card */}
       <div className="application_card p-5 rounded-xl ">
         <h1 className="text-white md:text-2xl font-bold my-3">
@@ -81,7 +81,7 @@ const Application = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

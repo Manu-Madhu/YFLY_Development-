@@ -3,6 +3,8 @@ import { MdOutlinePeople } from "react-icons/md";
 import { PiStudentFill } from "react-icons/pi";
 import { TbBrowserCheck } from "react-icons/tb";
 import { AiOutlineLogin } from "react-icons/ai";
+import { AiOutlineFundProjectionScreen } from "react-icons/ai";
+
 
 export const Sidebar = [
     {
@@ -31,10 +33,16 @@ export const Sidebar = [
     },
     {
         id: 5,
-        name: "Log Out",
-        path: "/logout",
-        icon: <AiOutlineLogin size={25}/>
+        name: "Project",
+        path: "/admin/project",
+        icon: <AiOutlineFundProjectionScreen size={25}/>
     },
+    // {
+    //     id: 6,
+    //     name: "Log Out",
+    //     path: "/logout",
+    //     icon: <AiOutlineLogin size={25}/>
+    // },
 ]
 
 export const SidebarE = [
@@ -50,10 +58,10 @@ export const SidebarE = [
         path: "/employee/task",
         icon: <MdOutlinePeople size={25}/>
     },
-    {
-        id: 5,
-        name: "Log Out",
-        path: "/logout",
-        icon: <AiOutlineLogin size={25}/>
-    },
+    // {
+    //     id: 5,
+    //     name: "Log Out",
+    //     path: "/logout",
+    //     icon: <AiOutlineLogin size={25}/>
+    // },
 ]

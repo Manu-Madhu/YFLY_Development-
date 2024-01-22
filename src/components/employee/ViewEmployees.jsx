@@ -9,11 +9,11 @@ const ViewEmployees = () => {
 
   const params = useParams();
   return (
-    <div className="w-full h-full text-black">
+    <div className="w-full h-full text-black pt-10 pb-28 ">
       <h1 className="text-primary_colors text-2xl font-bold capitalize">
         {params?.role}
       </h1>
-      <div className="mt-5 ">
+      <div className="mt-5 w-full">
         <Table department={params?.role} />
       </div>
     </div>

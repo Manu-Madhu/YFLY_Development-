@@ -45,7 +45,7 @@ const AllApplications = () => {
 
   return (
     <>
-      <div className="w-full h-full text-black ">
+      <div className="w-full h-full text-black pt-10 pb-28">
         <div className="flex flex-col md:flex-row justify-between">
           <h1 className="text-primary_colors text-2xl font-bold">
             Applications

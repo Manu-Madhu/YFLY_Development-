@@ -20,6 +20,7 @@ import AssignedWork from './pages/employee/AssignedWork'
 
 import StudentProtectedRoute from './routes/StudentProtectedRoute';
 import StudentDashboard from './pages/student/StudentDashboard';
+import Project from './pages/admin/Project';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
               <Route path='admin/applications' element={<AllApplications />} />
               <Route path='admin/application/:id' element={<Application />} />
               <Route path='admin/student' element={<Student />} />
+              <Route path='admin/project' element={<Project />} />
             </Route>
 
             {/* Employee Routes */}

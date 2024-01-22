@@ -10,14 +10,12 @@ const Layout = () => {
   return (
     <div className="bg-[#F5F6F8] w-full">
       <Header />
-      <div className="flex w-full min-h-screen mt-24">
+      <div className="flex min-w-screen min-h-screen mt-24  ">
         <div
-          className={`container mx-auto flex gap-10 w-full px-5${
-            user?.role === "student" ? "w-full" : " "
-          }`}
+          className={`container mx-auto flex w-full gap-10 px-5 `}
         >
           <SideMenu />
-          {<Outlet />}
+          <div className="w-full">{<Outlet />}</div>
         </div>
       </div>
       <Footer />
