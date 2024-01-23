@@ -35,7 +35,7 @@ const Student = () => {
   // Search Student
   const searchHandler = async () => {
     try {
-      const response = await instance.get(`${getAllStudent}?name=${search}`);
+      const response = await instance.get(`${getAllStudent}?search=${search}`);
       console.log(response.data);
       setData(response.data)
     } catch (error) {
