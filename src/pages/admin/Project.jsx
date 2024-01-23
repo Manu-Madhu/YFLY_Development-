@@ -23,12 +23,16 @@ const Project = () => {
       </div>
 
       {/* project modal */}
-
       {modal && (
         <div className="fixed left-0 top-0 z-50 bg-black/60 w-full h-full flex items-center justify-center p-5">
           <div className="bg-white flex p-2 w-full h-full md:w-1/2 md:h-1/2 rounded relative">
-          <IoClose onClick={()=>setModal(false)} className="absolute bg-primary_colors text-white right-2 cursor-pointer"/>
-          <h1>Hi iam modal </h1>
+            <IoClose
+              onClick={() => setModal(false)}
+              className="absolute bg-primary_colors text-white right-2 cursor-pointer"
+            />
+            <div className="flex justify-center w-full mt-5 ">
+              <h1>New Project</h1>
+            </div>
           </div>
         </div>
       )}
