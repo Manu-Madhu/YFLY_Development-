@@ -6,13 +6,16 @@ import CommonTable from "../Table/Commontable";
 import instance from "../../utils/AxiosInstance";
 import AddModal from "./AddModal";
 import Pagination from "../Pagination";
+import { useSelector } from "react-redux";
 
 const AllApplications = () => {
   const [data, setData] = useState();
   const [page, setPage] = useState(1);
   const [entries, setEntries] = useState(10);
   const [modal, setModal] = useState(false);
+  const selector = useSelector((state) => state.search.searchData);
 
+  console.log(selector);
   // Table loading Data
   const application = async () => {
     try {

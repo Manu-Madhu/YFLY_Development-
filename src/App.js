@@ -21,6 +21,7 @@ import AssignedWork from './pages/employee/AssignedWork'
 import StudentProtectedRoute from './routes/StudentProtectedRoute';
 import StudentDashboard from './pages/student/StudentDashboard';
 import Project from './pages/admin/Project';
+import SearchApplication from "./components/search/Application"
 import Team from './components/projeect/Team';
 
 
@@ -43,6 +44,7 @@ function App() {
               <Route path='admin/application/:id' element={<Application />} />
               <Route path='admin/student' element={<Student />} />
               <Route path='admin/project' element={<Project />} />
+              <Route path='admin/applications/search' element={<SearchApplication />} />
               {/* <Route path='admin/project/team' element={<Team />} /> */}
             </Route>
 

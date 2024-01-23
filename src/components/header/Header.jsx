@@ -3,17 +3,43 @@ import { CiSearch } from "react-icons/ci";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { LuMenu } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLogin } from "react-icons/ai";
+import { getAllApplications } from "../../utils/Endpoint";
+import { toast } from "react-toastify";
+import { setSearchData } from "../../redux/slices/SearchSlicer";
 
 import profile from "../../assets/icon/profileicon.png";
+import instance from "../../utils/AxiosInstance";
 
 const Header = () => {
-  
   const [menu, setMenu] = useState(false);
+  const [search, setSearch] = useState("");
   const user = useSelector((state) => state.auth.userInfo);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const searchHandler = async () => {
+    try {
+      const response = await instance.get(
+        `${getAllApplications}?search=${search}`
+      );
+      console.log(response.data);
+      dispatch(setSearchData(response.data))
+      navigate("/admin/applications/search")
+    } catch (error) {
+      console.log(error)
+      toast.warning("Something Wrong...");
+    } finally {
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      searchHandler();
+    }
+  };
 
   return (
     <>
@@ -30,13 +56,17 @@ const Header = () => {
 
             <div className="w-full relative hidden md:flex">
               <CiSearch
+                onClick={searchHandler}
                 className="absolute text-slate-400 top-2 ms-3 cursor-pointer"
                 size={25}
               />
               <input
                 type="text"
+                name="search"
+                onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={handleKeyPress}
                 className="border w-full ps-10 p-2 rounded-lg shadow-sm outline-none ring-0 text-sm text-slate-400"
-                placeholder="Search"
+                placeholder="Search Application"
               />
             </div>
 
@@ -46,11 +76,12 @@ const Header = () => {
                 className=" cursor-pointer text-slate-500"
               /> */}
 
-              <div onClick={() => navigate("/logout")} className="mt-2 flex flex-col justify-end hover:text-primary_colors cursor-pointer">
+              <div
+                onClick={() => navigate("/logout")}
+                className="mt-2 flex flex-col justify-end hover:text-primary_colors cursor-pointer"
+              >
                 <AiOutlineLogin className="" size={30} />
-                <h1
-                  className="text-xs text-secondary mt-1 cursor-pointer hover:text-primary_colors"
-                >
+                <h1 className="text-xs text-secondary mt-1 cursor-pointer hover:text-primary_colors">
                   Logout
                 </h1>
               </div>
@@ -60,7 +91,9 @@ const Header = () => {
                   alt="proPic"
                   className="w-10 rounded-full cursor-pointer"
                 />
-                <h1 className="text-xs text-secondary mt-1 capitalize">{user?.name}</h1>
+                <h1 className="text-xs text-secondary mt-1 capitalize">
+                  {user?.name}
+                </h1>
               </div>
             </div>
 
@@ -98,7 +131,9 @@ const Header = () => {
                             alt="proPic"
                             className="w-10 rounded-full cursor-pointer"
                           />
-                          <h1 className="text-xs text-secondary mt-1 capitalize">{user?.name}</h1>
+                          <h1 className="text-xs text-secondary mt-1 capitalize">
+                            {user?.name}
+                          </h1>
                         </div>
                       </div>
                     </div>
