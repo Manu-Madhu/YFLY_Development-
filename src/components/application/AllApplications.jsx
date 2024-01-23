@@ -7,15 +7,14 @@ import instance from "../../utils/AxiosInstance";
 import AddModal from "./AddModal";
 import Pagination from "../Pagination";
 import { useSelector } from "react-redux";
+import Filter from "../dashboard/Filter";
 
 const AllApplications = () => {
   const [data, setData] = useState();
   const [page, setPage] = useState(1);
   const [entries, setEntries] = useState(10);
   const [modal, setModal] = useState(false);
-  const selector = useSelector((state) => state.search.searchData);
 
-  console.log(selector);
   // Table loading Data
   const application = async () => {
     try {
@@ -28,18 +27,6 @@ const AllApplications = () => {
     }
   };
 
-  // Filter Part
-  const filterHandler = async (e) => {
-    try {
-      const response = await instance.get(
-        `${getAllApplications}?page=${page}&entries=${entries}&intake=${e.target.value}`
-      );
-      console.log(response);
-      setData(response?.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useState(() => {
     window.scroll(0, 0);
@@ -56,24 +43,12 @@ const AllApplications = () => {
 
           {/* filter & Application */}
           <div className="flex flex-col md:flex-row gap-3 mt-5 md:mt-0">
-            <select
-              name="intake"
-              id=""
-              onChange={filterHandler}
-              className="px-5 text-sm text-gray-700 p-2 rounded-lg border border-primary_colors  focus:outline-none"
-            >
-              <option value="">Intake</option>
-              {Intake.map((items, i) => (
-                <option key={i} value={items?.name}>
-                  {items?.name}
-                </option>
-              ))}
-            </select>
+            <Filter setData={setData} endPoint={getAllApplications}/>
             <button
               onClick={() => setModal(true)}
               className="p-2 px-5 text-normal bg-primary_colors text-white rounded-lg hover:scale-105 ease-in-out duration-200"
             >
-              Add New Application
+              Application
             </button>
           </div>
         </div>

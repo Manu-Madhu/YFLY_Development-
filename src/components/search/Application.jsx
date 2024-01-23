@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import CommonTable from "../Table/Commontable";
 import Pagination from "../Pagination";
 import { useSelector } from "react-redux";
-import { Intake } from "../../data/Dashboard";
 
 const Application = () => {
   //   const [data, setData] = useState();
