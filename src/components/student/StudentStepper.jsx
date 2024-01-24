@@ -9,7 +9,7 @@ import "tippy.js/dist/tippy.css";
 import axios from "../../utils/AxiosInstance";
 import "../stepper/TrackingUI.css";
 
-const TrackingUI = () => {
+const TrackingUI = ({stepper}) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [complete, setComplete] = useState(false);
   const [state, setState] = useState([]);
@@ -38,8 +38,8 @@ const TrackingUI = () => {
             : "flex  justify-between"
         }`}
       >
-        {state?.steps?.length > 0 ? (
-          state?.steps?.map((step, i) => (
+        {stepper?.steps?.length > 0 ? (
+          stepper?.steps?.map((step, i) => (
             <div
               key={i}
               className={`step-item text-wrap text-center ${
