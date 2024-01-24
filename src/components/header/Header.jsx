@@ -27,7 +27,7 @@ const Header = () => {
       );
       console.log(response.data);
       dispatch(setSearchData(response.data))
-      navigate("/admin/applications/search")
+      navigate("/applications/search")
     } catch (error) {
       console.log(error)
       toast.warning("Something Wrong...");

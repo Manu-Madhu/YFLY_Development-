@@ -35,13 +35,14 @@ function App() {
           <Route index path='/logout' element={<Logout />} />
           <Route path='/' element={<Layout />}>
 
+            <Route path='/applications/search' element={<SearchApplication />} />
+            
             {/* Admin Routes */}
             <Route element={<AdminProtectedRoute />}>
               <Route path='admin/dashboard' element={<Dashboard />} />
               <Route path='admin/employee' element={<Employee />} />
               <Route path='admin/employee/list/:role' element={<ViewEmployees />} />
               <Route path='admin/employee/profile/:id' element={<EmployeeProfile />} />
-              <Route path='admin/applications/search' element={<SearchApplication />} />
               <Route path='admin/applications' element={<AllApplications />} />
               <Route path='admin/application/stepper/:id' element={<Stepper />} />
               <Route path='admin/application/:id/:stepperId' element={<Application />} />
