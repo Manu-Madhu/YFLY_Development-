@@ -95,11 +95,13 @@ const Project = () => {
 
   const deleteHandler = async (proId) => {
     try {
-      const response = await instance.delete(`${deleteProject}/${proId}`)
+      const response = await instance.delete(`${deleteProject}/${proId}`);
       console.log(response.data);
-      
+      toast.success("Successfully Deleted");
+      allProject();
     } catch (error) {
       console.log(error);
+      toast.error("Something went Wrong");
     }
   };
 
