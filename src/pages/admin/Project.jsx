@@ -12,6 +12,7 @@ import {
 } from "../../utils/Endpoint";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import EmptyData from "../../components/loading/EmptyData";
 
 const Project = () => {
   const [modal, setModal] = useState(false);
@@ -136,9 +137,13 @@ const Project = () => {
         </div>
 
         <div className="mt-5 flex flex-col gap-5">
-          {projectData?.map((items, i) => (
-            <ProjectCard key={i} data={items} deleteHandler={deleteHandler} user={user}/>
-          ))}
+          {projectData.length ?
+            projectData?.map((items, i) => (
+              <ProjectCard key={i} data={items} deleteHandler={deleteHandler} user={user}/>
+            ))
+            :
+            <EmptyData data="No Projects Available"/>
+          }
         </div>
       </div>
 
