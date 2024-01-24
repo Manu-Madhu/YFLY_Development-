@@ -56,7 +56,7 @@ const Applications = ({ data }) => {
                 </button>
               </Link>
             ) : (
-              <Link to={`/employee/application/${work?.applicationId}`}>
+              <Link to={`/employee/application/${work?.applicationId}/${work?.stepperId}`}>
                 <button className="p-2 px-10 h-10 text-sm text-white rounded bg-primary_colors w-full hover:scale-105 ease-in-out duration-200">
                   View
                 </button>
