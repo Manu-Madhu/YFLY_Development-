@@ -30,9 +30,8 @@ const StatusModal = ({ setModal, stepNumber, applicationData, cb }) => {
     try {
       const response = await axios.put(changeStepStatus, data);
       setModal(false)
-      console.log(response);
       cb();
-      toast.success(response?.data?.msg);
+      toast.success(response?.data?.msg || "Status Update Successfully");
     } catch (error) {
       console.log(error);
       toast.warning(error?.response?.data?.msg);

@@ -1,15 +1,18 @@
 import React, { useRef, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import { EmployeeCards } from "../../data/Employee";
-import { getEmployeesRoute, workAssignRoute } from "../../utils/Endpoint";
+import {
+  getEmployeesRoute,
+  workAssignRoute,
+  workEmployeeAssignRoute,
+} from "../../utils/Endpoint";
 
 import axios from "../../utils/AxiosInstance";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
 const AdminModal = ({ setModal, applicationData, cb }) => {
-  const userInfo = useSelector(items=>items.auth.userInfo)
-  console.log(userInfo)
+  const userInfo = useSelector((items) => items.auth.userInfo);
   const [employee, setEmployee] = useState([]);
   const [loading, setLoading] = useState(false);
   const selectRef = useRef();
@@ -42,7 +45,14 @@ const AdminModal = ({ setModal, applicationData, cb }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.put(workAssignRoute, formData);
+      const response = await axios.put(
+        `${
+          userInfo?.role === "employee"
+            ? workEmployeeAssignRoute
+            : workAssignRoute
+        }`,
+        formData
+      );
       if (response?.status === 200) {
         setModal(false);
         cb();

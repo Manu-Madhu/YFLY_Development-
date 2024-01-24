@@ -117,7 +117,6 @@ const Project = () => {
     }
   };
 
-  console.log(projectData);
 
   return (
     <>
