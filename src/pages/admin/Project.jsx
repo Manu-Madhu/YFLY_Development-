@@ -84,7 +84,14 @@ const Project = () => {
     instance
       .get(getAllProjects)
       .then((response) => {
-        setProjectData(response?.data);
+        if(user?.role === "admin"){
+          setProjectData(response?.data);
+        }
+        else if(user?.role === "employee"){
+          const allProjects = response?.data;
+          const myProjects = allProjects.filter((project)=> project?.members?.includes(user?._id))
+          setProjectData(myProjects)
+        }
         console.log(response.data);
       })
       .catch((error) => {

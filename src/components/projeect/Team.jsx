@@ -67,7 +67,16 @@ const Team = () => {
     instance
       .get(`${getAllTask}/${proId}`)
       .then((res) => {
-        setTaskData(res.data);
+        if(user?.role === "admin"){
+          setTaskData(res.data);
+        }else if(user?.role === "employee") {
+          console.log("user",user)
+          const allTasks = res.data;
+          console.log("allTasks",allTasks)
+          const myTasks = allTasks.filter((task)=> task._id === user._id);
+          setTaskData(myTasks)
+        }
+
         setLoader(false);
       })
       .catch((error) => {
@@ -84,9 +93,8 @@ const Team = () => {
         <h1 className="text-primary_colors text-2xl font-bold">Task</h1>
         <button
           onClick={() => setaModal(true)}
-          className={`bg-primary_colors px-5 text-white rounded  text-sm p-2 ${
-            user?.role === "admin" ? "block" : "hidden"
-          }`}
+          className={`bg-primary_colors px-5 text-white rounded  text-sm p-2 ${user?.role === "admin" ? "block" : "hidden"
+            }`}
         >
           Add Task
         </button>

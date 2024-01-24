@@ -58,6 +58,7 @@ function App() {
               <Route path='employee/applications' element={<AllApplications />} />
               <Route path='employee/students' element={<Student />} />
               <Route path='employee/projects' element={<Project />} />
+              <Route path='employee/project/team/:proId' element={<Team />} />
             </Route>
             
             {/* Student Routes */}

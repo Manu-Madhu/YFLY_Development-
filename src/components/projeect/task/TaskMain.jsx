@@ -3,7 +3,8 @@ import TaskCard from "./TaskCard";
 import { TbHemispherePlus } from "react-icons/tb";
 
 const TaskMain = ({ user, data }) => {
-    console.log(data)
+    console.log("taskmaindata",data)
+
   return (
     <div className="w-[280px] h-full shadow-lg bg-white rounded-lg p-5">
       <div className="flex justify-between text-normalText text-sm font-medium">

@@ -2,6 +2,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import React from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
+import { LuMoveDiagonal } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 
 const ProjectCard = ({ data, deleteHandler, user }) => {
@@ -67,6 +68,18 @@ const ProjectCard = ({ data, deleteHandler, user }) => {
             }}
             size={23}
             className="cursor-pointer hover:scale-105 ease-in-out duration-400 text-red-700"
+          />
+        </div>
+      }
+
+      {
+        user?.role === "employee"
+        &&
+        <div className="flex items-center justify-between md:justify-center gap-3">
+          <LuMoveDiagonal
+          onClick={() => navigate(`/employee/project/team/${data?._id}`)}
+          size={23}
+          className="cursor-pointer hover:scale-105 ease-in-out duration-400"
           />
         </div>
       }
