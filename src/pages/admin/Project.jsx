@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 
 import Multiselect from "multiselect-react-dropdown";
 import ProjectCard from "../../components/projeect/ProjectCard";
 import instance from "../../utils/AxiosInstance";
-import { createProject, getEmployeesRoute } from "../../utils/Endpoint";
+import {
+  createProject,
+  getAllProjects,
+  getEmployeesRoute,
+} from "../../utils/Endpoint";
 import { toast } from "react-toastify";
 
 const Project = () => {
   const [modal, setModal] = useState(false);
   const [employee, setEmployee] = useState([]);
+  const [projectData, setProjectData] = useState([]);
 
   // Setting the input values to the state
   const [team, setTeam] = useState({
@@ -38,16 +43,24 @@ const Project = () => {
   };
 
   // Submit modal
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    const response = await instance.post(createProject, team);
-    if (response?.status === 200) {
-      toast.success("Project Successfully Created");
-      setModal(false)
-    } else {
-      toast.warning("Something Went Wrong");
-    }
-  };
+  const submitHandler = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        const response = await instance.post(createProject, team);
+        if (response?.status === 200) {
+          toast.success("Project Successfully Created");
+          setModal(false);
+        } else {
+          toast.warning("Something Went Wrong");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        toast.error("Error occurred");
+      }
+    },
+    [createProject, team, setModal]
+  );
 
   // fetch data from employee
   useEffect(() => {
@@ -60,6 +73,22 @@ const Project = () => {
         console.log(error);
       });
   }, []);
+
+  // fetch project Data
+  useEffect(() => {
+    instance
+      .get(getAllProjects)
+      .then((response) => {
+        setProjectData(response?.data);
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [submitHandler]);
+
+
+  console.log(projectData)
 
   return (
     <>
@@ -74,8 +103,10 @@ const Project = () => {
           </button>
         </div>
 
-        <div className="mt-5 ">
-          <ProjectCard />
+        <div className="mt-5 flex flex-col gap-5">
+          {projectData?.map((items,i) => (
+            <ProjectCard key={i} data={items} />
+          ))}
         </div>
       </div>
 

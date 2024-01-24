@@ -1,25 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "../../utils/AxiosInstance";
 import { useParams } from "react-router-dom";
 import { getAnApplicationRoute } from "../../utils/Endpoint";
+import ApplicationCard from "../../components/application/ApplicationCard";
+import EmptyData from "../../components/loading/EmptyData";
 
-import TrackerVertical from "../stepper/TrackerVertical";
-import RightSide from "./tracking/RightSide";
-import axios from "../../utils/AxiosInstance";
-
-const Application = () => {
-  const { id, stepperId } = useParams();
+const Stepper = () => {
+  const { id } = useParams();
   const [data, setData] = useState({});
-  const [stepper, setStepper] = useState([]);
 
   const getApplication = async () => {
     await axios
       .get(`${getAnApplicationRoute}/${id}`)
       .then((res) => {
-        setData(res?.data);
-        console.log(res?.data);
-        const data = res?.data?.steppers?.find((items) => stepperId === items?._id);
-        console.log(typeof(data))
-        setStepper(data)
+        setData(res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -31,13 +25,9 @@ const Application = () => {
     getApplication();
   }, [id]);
 
-  const fnToCallGetFn = () => {
-    getApplication();
-  };
-
   return (
     <div className="container mx-auto w-full h-full pt-10 pb-28 ">
-      {/* welcome Card */}
+      {/* page intro */}
       <div className="application_card p-5 rounded-xl ">
         <h1 className="text-white md:text-2xl font-bold my-3">
           Welcome To The Application Of{" "}
@@ -63,32 +53,22 @@ const Application = () => {
         </div>
       </div>
 
-      {/* Tracking process */}
-      <div className="w-full p-2 border mt-5 rounded-xl bg-white shadow-xl overflow-hidden">
-        <h1 className="p-3 px-5 font-bold">Tracking Progress</h1>
-        <hr />
-        <div className="hidden md:block mt-3 absolute z-20 bg-white text-sm p-3 px-5">
-          <h1 className="font-semibold ">#Acknowledgement Number: </h1>
-          <h5 className="text-xs"> {data._id}</h5>
-        </div>
-        {/* Tracking  */}
-        <div className="w-full h-[850px] flex flex-col md:flex-row p-3 px-5">
-          <div className="w-full md:w-1/4 overflow-scroll order-2 md:order-1">
-            <div className="md:mt-20">
-              <div className=" md:hidden my-3 z-20 bg-white text-sm">
-                <h1 className="font-semibold ">#Acknowledgement Number:</h1>
-                <h5>{data._id}</h5>
-              </div>
-              <TrackerVertical data={stepper} />
+      {/* cards */}
+      <div className="mt-5 w-full flex flex-wrap gap-5">
+        {data?.steppers && data?.steppers.length > 0 ? (
+          data?.steppers.map((items,i) => (
+            <div className="w-full md:w-[310px]">
+              <ApplicationCard data={items} />
             </div>
+          ))
+        ) : (
+          <div>
+            <EmptyData data={"No Application Available....."}/>
           </div>
-          <div className="rounded-lg bg-[#F9F9F9] w-full md:w-3/4 mt-3 p-5 order-1">
-            <RightSide data={stepper} cb={fnToCallGetFn} />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default Application;
+export default Stepper;

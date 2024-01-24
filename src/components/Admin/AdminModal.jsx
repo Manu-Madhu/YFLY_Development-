@@ -7,13 +7,15 @@ import axios from "../../utils/AxiosInstance";
 import { toast } from "react-toastify";
 
 const AdminModal = ({ setModal, applicationData, cb }) => {
+  console.log(applicationData);
   const [employee, setEmployee] = useState([]);
   const [loading, setLoading] = useState(false);
   const selectRef = useRef();
   const [formData, setFormData] = useState({
-    applicationId: applicationData?._id,
+    applicationId: applicationData?.applicationId,
     employeeId: "",
     stepNumber: "",
+    stepperId: applicationData?._id,
   });
 
   const onChangeCata = async (e) => {
@@ -48,6 +50,7 @@ const AdminModal = ({ setModal, applicationData, cb }) => {
       }
     } catch (error) {
       console.log(error);
+      toast.error(error?.response?.data?.msg);
     } finally {
       setLoading(false);
     }
@@ -96,8 +99,12 @@ const AdminModal = ({ setModal, applicationData, cb }) => {
                     <option className="text-sm" value="">
                       Select a step
                     </option>
-                    {availableSteps.map((items,i) => (
-                      <option key={i} className="text-gray-900" value={items?._id}>
+                    {availableSteps.map((items, i) => (
+                      <option
+                        key={i}
+                        className="text-gray-900"
+                        value={items?._id}
+                      >
                         {items?.name}
                       </option>
                     ))}
@@ -123,8 +130,12 @@ const AdminModal = ({ setModal, applicationData, cb }) => {
                     <option className="text-sm" value="">
                       Select an Category
                     </option>
-                    {EmployeeCards.map((items,i) => (
-                      <option key={i} className="text-gray-900" value={items?.path}>
+                    {EmployeeCards.map((items, i) => (
+                      <option
+                        key={i}
+                        className="text-gray-900"
+                        value={items?.path}
+                      >
                         {items?.name}
                       </option>
                     ))}

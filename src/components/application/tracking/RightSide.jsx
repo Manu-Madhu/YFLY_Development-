@@ -53,7 +53,7 @@ const RightSide = ({ data, cb }) => {
     e.preventDefault();
     const message = {
       resourceId: data?._id,
-      resourceType:"application",
+      resourceType: "application",
       commentorId: user?._id,
       comment: comment,
     };
@@ -68,6 +68,8 @@ const RightSide = ({ data, cb }) => {
     }
   };
 
+  console.log(data)
+
   return (
     <>
       {/* Application Info */}
@@ -75,97 +77,46 @@ const RightSide = ({ data, cb }) => {
         {user?.role === "admin" ? "Application Status" : "Task Update"}
       </h1>
       <div className="w-full max-h-[220px] overflow-y-scroll space-y-2 ">
-        {user.role === "employee"
-          ? myTasks?.map((task, i) => (
-              <div key={i} className="bg-white p-5  rounded-lg ">
-                <div className="flex justify-between">
-                  <h1 className="text-sm font-semibold">{createdDate}</h1>
-                  <div>
-                    <h1 className="text-sm font-bold ">
-                      <span>Status : </span>
-                      <span className="text-primary_colors capitalize">
-                        {task?.status}
-                      </span>
-                    </h1>
-                  </div>
-                </div>
-                <hr className="my-5" />
-                <div className="flex justify-between ">
-                  <div className="space-y-1">
-                    <h1 className="text-sm text-primary_colors font-semibold">
-                      {data?._id}
-                    </h1>
-                    <h1 className="text-sm font-semibold capitalize">
-                      {data?.program}
-                    </h1>
-                    <h1 className="capitalize text-sm">{data?.university}</h1>
-                  </div>
-                  <div className="flex flex-col justify-between capitalize gap-2">
-                    <button
-                      onClick={() => {
-                        setStepNumber(task._id);
-                        setStatusUpdate(true);
-                      }}
-                      className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
-                    >
-                      Update Status
-                    </button>
-                    {/* <button
-                      onClick={() => {
-                        setStepNumber(task._id);
-                        setAssigneeUpdate(true);
-                      }}
-                      className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
-                    >
-                      Assign Next
-                    </button> */}
-                    <h1 className="font-semibold text-sm mt-1 text-end">
-                      Step Number: {task?._id}
-                    </h1>
-                  </div>
-                </div>
+        {empTasks?.map((empTask) => (
+          <div className="bg-white p-5  rounded-lg">
+            <div className="flex justify-between">
+              <h1 className="text-sm font-semibold">{createdDate}</h1>
+              <div>
+                <h1 className="text-sm font-bold ">
+                  <span>Status : </span>
+                  <span className="text-primary_colors capitalize">
+                    {empTask?.status}
+                  </span>
+                </h1>
               </div>
-            ))
-          : empTasks?.map((empTask) => (
-              <div className="bg-white p-5  rounded-lg">
-                <div className="flex justify-between">
-                  <h1 className="text-sm font-semibold">{createdDate}</h1>
-                  <div>
-                    <h1 className="text-sm font-bold ">
-                      <span>Status : </span>
-                      <span className="text-primary_colors capitalize">
-                        {empTask?.status}
-                      </span>
-                    </h1>
-                  </div>
-                </div>
-                <hr className="my-5" />
-                <div className="flex justify-between ">
-                  <div className="space-y-1">
-                    <h1 className="text-sm text-primary_colors font-semibold">
-                      Assignee : {data?.assignee}
-                    </h1>
-                    <h1 className="text-sm font-semibold capitalize">
-                      Step : {empTask?.name}
-                    </h1>
-                  </div>
-                  <div className="flex flex-col justify-between capitalize">
-                    <button
-                      onClick={() => {
-                        setStepNumber(empTask._id);
-                        setAssigneeUpdate(true);
-                      }}
-                      className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
-                    >
-                      Assign Next
-                    </button>
-                    <h1 className="font-semibold text-sm mt-1 text-end">
-                      Step Number: {empTask?._id}
-                    </h1>
-                  </div>
-                </div>
+            </div>
+            <hr className="my-5" />
+            <div className="flex justify-between ">
+              <div className="space-y-1">
+                <h1 className="text-sm text-primary_colors font-semibold">
+                  Assignee : {empTask?.assignee}
+                </h1>
+                <h1 className="text-sm font-semibold capitalize">
+                  Step : {empTask?.name}
+                </h1>
               </div>
-            ))}
+              <div className="flex flex-col justify-between capitalize">
+                <button
+                  onClick={() => {
+                    setStepNumber(empTask._id);
+                    setAssigneeUpdate(true);
+                  }}
+                  className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
+                >
+                  Assign Next
+                </button>
+                <h1 className="font-semibold text-sm mt-1 text-end">
+                  Step Number: {empTask?._id}
+                </h1>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Documents */}

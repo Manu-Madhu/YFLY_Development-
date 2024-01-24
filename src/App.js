@@ -23,6 +23,7 @@ import StudentDashboard from './pages/student/StudentDashboard';
 import Project from './pages/admin/Project';
 import SearchApplication from "./components/search/Application"
 import Team from './components/projeect/Team';
+import Stepper from './pages/admin/Stepper';
 
 
 function App() {
@@ -42,7 +43,8 @@ function App() {
               <Route path='admin/employee/profile/:id' element={<EmployeeProfile />} />
               <Route path='admin/applications/search' element={<SearchApplication />} />
               <Route path='admin/applications' element={<AllApplications />} />
-              <Route path='admin/application/:id' element={<Application />} />
+              <Route path='admin/application/stepper/:id' element={<Stepper />} />
+              <Route path='admin/application/:id/:stepperId' element={<Application />} />
               <Route path='admin/student' element={<Student />} />
               <Route path='admin/project' element={<Project />} />
               {/* <Route path='admin/project/team' element={<Team />} /> */}
