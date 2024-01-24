@@ -44,14 +44,14 @@ const Filter = ({ setData,endPoint }) => {
           type="date"
           name="start_date"
           placeholder=""
-          className="border border-primary_colors p-2  rounded-lg text-secondary text-normal"
+          className="border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none "
         />
         <input
           onChange={changeHandler}
           type="date"
           name="end_date"
           placeholder=""
-          className="border border-primary_colors p-2  rounded-lg text-secondary text-normal"
+          className="border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none "
         />
         {FilterData.map((data) => (
           <select
@@ -59,7 +59,7 @@ const Filter = ({ setData,endPoint }) => {
             onChange={changeHandler}
             name={data?.name}
             id=""
-            className="border border-primary_colors p-2  rounded-lg text-secondary text-normal"
+            className="border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none "
           >
             <option value="">Select {data.name}</option>
             {data?.options?.map((data) => (

@@ -40,11 +40,11 @@ function App() {
               <Route path='admin/employee' element={<Employee />} />
               <Route path='admin/employee/list/:role' element={<ViewEmployees />} />
               <Route path='admin/employee/profile/:id' element={<EmployeeProfile />} />
+              <Route path='admin/applications/search' element={<SearchApplication />} />
               <Route path='admin/applications' element={<AllApplications />} />
               <Route path='admin/application/:id' element={<Application />} />
               <Route path='admin/student' element={<Student />} />
               <Route path='admin/project' element={<Project />} />
-              <Route path='admin/applications/search' element={<SearchApplication />} />
               {/* <Route path='admin/project/team' element={<Team />} /> */}
             </Route>
 
