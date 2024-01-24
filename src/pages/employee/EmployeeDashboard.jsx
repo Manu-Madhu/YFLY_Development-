@@ -32,8 +32,8 @@ const EmployeeDashboard = () => {
   return (
     <div>
       {" "}
-      <div className="w-full h-full text-black ">
-        <h1 className="text-primary_colors text-2xl font-bold mt-3">
+      <div className="w-full h-full text-black mt-[5vh] pb-28">
+        <h1 className="text-primary_colors text-2xl font-bold ">
           Dashboard
         </h1>
         <h3 className="text-secondary text-[14px] capitalize">

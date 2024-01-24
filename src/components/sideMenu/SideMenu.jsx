@@ -42,7 +42,7 @@ const SideMenu = () => {
           SidebarE.map((data) => (
             <Link key={data?.id} to={data.path}>
               <div
-                className={`flex items-center gap-3 cursor-pointer mb-4 ${
+                className={`flex items-center gap-3 cursor-pointer mb-4 ${sideArrow ? "w-[200px]" : "w-10"} ${
                   data.path === location.pathname &&
                   "bg-[#058BD2] w-full text-white p-2 rounded hover:scale-105 ease-in-out duration-300"
                 }`}

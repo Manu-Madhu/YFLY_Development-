@@ -9,6 +9,7 @@ const Stepper = () => {
   const { id } = useParams();
   const [data, setData] = useState({});
 
+  // Get Application Data
   const getApplication = async () => {
     await axios
       .get(`${getAnApplicationRoute}/${id}`)
@@ -20,6 +21,7 @@ const Stepper = () => {
       });
   };
 
+  // DOM Mounting Hook
   useEffect(() => {
     window.scroll(0, 0);
     getApplication();
@@ -43,8 +45,12 @@ const Stepper = () => {
             <h5 className="text-sm capitalize">{data?.country}</h5>
           </div>
           <div className="flex  flex-col justify-start w-full">
-            <h5 className="font-bold">University</h5>
-            <h5 className="text-sm capitalize">{data?.university}</h5>
+            <h5 className="font-bold">Assignee</h5>
+            <h5 className="text-sm capitalize">{data?.assignee}</h5>
+          </div>
+          <div className="flex  flex-col justify-start w-full">
+            <h5 className="font-bold">Program</h5>
+            <h5 className="text-sm capitalize">{data?.program}</h5>
           </div>
           <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">Intake</h5>
@@ -56,14 +62,14 @@ const Stepper = () => {
       {/* cards */}
       <div className="mt-5 w-full flex flex-wrap gap-5">
         {data?.steppers && data?.steppers.length > 0 ? (
-          data?.steppers.map((items,i) => (
+          data?.steppers.map((items, i) => (
             <div className="w-full md:w-[310px]">
               <ApplicationCard data={items} />
             </div>
           ))
         ) : (
           <div>
-            <EmptyData data={"No Application Available....."}/>
+            <EmptyData data={"No Application Available....."} />
           </div>
         )}
       </div>

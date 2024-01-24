@@ -21,7 +21,7 @@ const RightSide = ({ data, cb }) => {
   const [assigneeUpdate, setAssigneeUpdate] = useState(false);
   const [stepNumber, setStepNumber] = useState(null);
 
-  console.log(data)
+  console.log(data);
   let empTasks;
   if (user.role === "admin") {
     empTasks = data?.steps?.filter((task) => (task?.assignee ? true : false));
@@ -58,8 +58,8 @@ const RightSide = ({ data, cb }) => {
       commentorId: user?._id,
       comment: comment,
     };
-    console.log("data", data)
-    console.log("message", message)
+    console.log("data", data);
+    console.log("message", message);
     try {
       const response = await axios.post(postComment, message);
       toast.success(response?.data?.msg);
@@ -71,7 +71,7 @@ const RightSide = ({ data, cb }) => {
     }
   };
 
-  console.log(data)
+  console.log(data);
 
   return (
     <>
@@ -79,6 +79,7 @@ const RightSide = ({ data, cb }) => {
       <h1 className="mb-3 font-semibold text-slate-500 text-sm text-gray-600">
         {user?.role === "admin" ? "Application Status" : "Task Update"}
       </h1>
+
       <div className="w-full max-h-[220px] overflow-y-scroll space-y-2 ">
         {empTasks?.map((empTask) => (
           <div className="bg-white p-5  rounded-lg">
@@ -113,6 +114,57 @@ const RightSide = ({ data, cb }) => {
                 >
                   Assign Next
                 </button>
+                <h1 className="font-semibold text-sm mt-1 text-end">
+                  Step Number: {empTask?._id}
+                </h1>
+              </div>
+            </div>
+          </div>
+        ))}
+        {myTasks?.map((empTask) => (
+          <div className="bg-white p-5  rounded-lg">
+            <div className="flex justify-between">
+              <h1 className="text-sm font-semibold">{createdDate}</h1>
+              <div>
+                <h1 className="text-sm font-bold ">
+                  <span>Status : </span>
+                  <span className="text-primary_colors capitalize">
+                    {empTask?.status}
+                  </span>
+                </h1>
+              </div>
+            </div>
+            <hr className="my-5" />
+            <div className="flex justify-between ">
+              <div className="space-y-1">
+                <h1 className="text-sm text-primary_colors font-semibold">
+                  Assignee : {empTask?.assignee}
+                </h1>
+                <h1 className="text-sm font-semibold capitalize">
+                  Step : {empTask?.name}
+                </h1>
+              </div>
+              <div className="flex flex-col justify-between capitalize">
+                <div className="flex flex-col gap-2">
+                  <button
+                    onClick={() => {
+                      setStatusUpdate(true);
+                    }}
+                    className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
+                  >
+                    Update Status
+                  </button>
+                  <button
+                    onClick={() => {
+                      setStepNumber(empTask._id);
+                      setAssigneeUpdate(true);
+                    }}
+                    className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
+                  >
+                    Assign Next
+                  </button>
+                </div>
+
                 <h1 className="font-semibold text-sm mt-1 text-end">
                   Step Number: {empTask?._id}
                 </h1>
