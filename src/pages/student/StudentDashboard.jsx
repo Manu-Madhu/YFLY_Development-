@@ -15,10 +15,10 @@ const StudentDashboard = () => {
   const [docModal, setDocModal] = useState(false);
   const user = useSelector((state) => state.auth.userInfo);
 
-  const [currStepper,setCurrStepper] = useState(null)
+  const [currStepper, setCurrStepper] = useState(null);
 
   useEffect(() => {
-    window.scroll(0,0)
+    window.scroll(0, 0);
     axios
       .get(`${getAnApplicationRoute}/${user?.applicationId}`)
       .then((res) => {
@@ -99,27 +99,24 @@ const StudentDashboard = () => {
             <h1 className="text-[#0061B2] font-bold text-xl">
               Track your Progress
             </h1>
-            <div className="w-full mt-10 flex flex-col gap-[8vh]">
-              <div className="w-full overflow-x-auto mt-10 flex justify-around">
-                {
-                  state?.steppers?.map((stepper,i)=>(
-                    <div key={i}
-                    onClick={()=> setCurrStepper(stepper)}
+            <div className="w-full flex flex-col gap-[8vh] ">
+              <div className="w-full overflow-x-auto flex gap-5 p-2 py-10 ">
+                {state?.steppers?.map((stepper, i) => (
+                  <div
+                    key={i}
+                    onClick={() => setCurrStepper(stepper)}
                     className="flex flex-col p-5 bg-white rounded-lg shadow-xl w-full md:w-[210px] cursor-pointer"
-                    >
-                      <h1 className="text-primary_colors">University: </h1>
-                      <h4>{stepper.university}</h4>
-                    </div>  
-                    ))
-                  }
+                  >
+                    <h1 className="text-primary_colors">University: </h1>
+                    <h4>{stepper.university}</h4>
+                  </div>
+                ))}
               </div>
-                {currStepper && 
-                <div className="w-full overflow-x-auto mt-10 flex justify-around">
+              {currStepper && (
+                <div className="w-full overflow-x-auto flex justify-around">
                   <StudentStepper stepper={currStepper} />
-
                 </div>
-                
-                }
+              )}
             </div>
           </div>
 
