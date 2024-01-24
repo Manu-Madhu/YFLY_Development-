@@ -1,6 +1,5 @@
 import React from "react";
-import DateFormat from "../../utils/DateFormat";
-import EmptyData from "../loading/EmptyData";
+import LoadingData from "../loading/LoadingData";
 
 const StudentTable = ({ data }) => {
   //   const navigate = useNavigate();
@@ -43,8 +42,8 @@ const StudentTable = ({ data }) => {
               </tr>
             ))
           ) : (
-            <div className="w-full h-full absolute justify-center">
-              <EmptyData data={"No Available Students "} />
+            <div className="w-full top-40 absolute items-center justify-center">
+              <LoadingData />
             </div>
           )}
         </tbody>

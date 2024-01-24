@@ -2,7 +2,7 @@ import React from "react";
 import DateFormat from "../../utils/DateFormat";
 
 import { useNavigate } from "react-router-dom";
-import EmptyData from "../loading/EmptyData";
+import LoadingData from "../loading/LoadingData";
 
 const CommonTable = ({ data, page, entries }) => {
   const navigate = useNavigate();
@@ -53,8 +53,8 @@ const CommonTable = ({ data, page, entries }) => {
               </tr>
             ))
           ) : (
-            <div className="w-full h-full absolute justify-center">
-              <EmptyData data={"No Available Applications "} />
+            <div className="w-full top-40 absolute items-center justify-center">
+              <LoadingData />
             </div>
           )}
         </tbody>
