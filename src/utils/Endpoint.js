@@ -76,6 +76,9 @@ export const updateAdminRoute = '/api/admin/update';
 //Put Assign Work;
 export const workAssignRoute = '/api/admin/assign-work';
 
+//Put Assign Work;
+export const workEmployeeAssignRoute = '/api/employee/assign-work';
+
 //Put Remove Assignee;
 export const removeAssigneeRoute = '/api/admin/remove-assignee';
 

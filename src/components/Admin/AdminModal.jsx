@@ -5,9 +5,11 @@ import { getEmployeesRoute, workAssignRoute } from "../../utils/Endpoint";
 
 import axios from "../../utils/AxiosInstance";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const AdminModal = ({ setModal, applicationData, cb }) => {
-  console.log(applicationData);
+  const userInfo = useSelector(items=>items.auth.userInfo)
+  console.log(userInfo)
   const [employee, setEmployee] = useState([]);
   const [loading, setLoading] = useState(false);
   const selectRef = useRef();
