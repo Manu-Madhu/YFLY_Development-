@@ -55,6 +55,9 @@ function App() {
               <Route path='employee/dashboard' element={<EmployeeDashboard />} />
               <Route path='employee/task' element={<AssignedWork />} />
               <Route path='employee/application/:id/:stepperId' element={<Application />} />
+              <Route path='employee/applications' element={<AllApplications />} />
+              <Route path='employee/students' element={<Student />} />
+              <Route path='employee/projects' element={<Project />} />
             </Route>
             
             {/* Student Routes */}

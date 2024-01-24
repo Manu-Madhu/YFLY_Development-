@@ -53,8 +53,8 @@ const Application = () => {
             <h5 className="text-sm capitalize">{data?.country}</h5>
           </div>
           <div className="flex  flex-col justify-start w-full">
-            <h5 className="font-bold">University</h5>
-            <h5 className="text-sm capitalize">{data?.university}</h5>
+            <h5 className="font-bold">Program</h5>
+            <h5 className="text-sm capitalize">{data?.program}</h5>
           </div>
           <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">Intake</h5>

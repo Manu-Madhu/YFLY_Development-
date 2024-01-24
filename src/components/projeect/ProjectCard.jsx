@@ -4,7 +4,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-const ProjectCard = ({ data, deleteHandler }) => {
+const ProjectCard = ({ data, deleteHandler, user }) => {
   const navigate = useNavigate();
 
   const totalTask = data?.tasks?.length;
@@ -47,25 +47,29 @@ const ProjectCard = ({ data, deleteHandler }) => {
       </div>
 
       {/* {Options} */}
-      <div className="flex items-center justify-between md:justify-center gap-3">
-        <FaRegEdit
-          onClick={() => navigate(`/admin/project/team/${data?._id}`)}
-          size={23}
-          className="cursor-pointer hover:scale-105 ease-in-out duration-400"
-        />
-        <MdDeleteOutline
-          onClick={() => {
-            const userConfirmed = window.confirm(
-              "Are you sure you want to delete?"
-            );
-            if (userConfirmed) {
-              deleteHandler(data?._id);
-            }
-          }}
-          size={23}
-          className="cursor-pointer hover:scale-105 ease-in-out duration-400 text-red-700"
-        />
-      </div>
+      {
+        user?.role === "admin"
+        &&
+        <div className="flex items-center justify-between md:justify-center gap-3">
+          <FaRegEdit
+            onClick={() => navigate(`/admin/project/team/${data?._id}`)}
+            size={23}
+            className="cursor-pointer hover:scale-105 ease-in-out duration-400"
+          />
+          <MdDeleteOutline
+            onClick={() => {
+              const userConfirmed = window.confirm(
+                "Are you sure you want to delete?"
+              );
+              if (userConfirmed) {
+                deleteHandler(data?._id);
+              }
+            }}
+            size={23}
+            className="cursor-pointer hover:scale-105 ease-in-out duration-400 text-red-700"
+          />
+        </div>
+      }
     </div>
   );
 };

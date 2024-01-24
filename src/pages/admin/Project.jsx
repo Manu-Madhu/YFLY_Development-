@@ -11,11 +11,15 @@ import {
   getEmployeesRoute,
 } from "../../utils/Endpoint";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const Project = () => {
   const [modal, setModal] = useState(false);
   const [employee, setEmployee] = useState([]);
   const [projectData, setProjectData] = useState([]);
+
+  const user = useSelector((state) => state?.auth?.userInfo);
+
 
   // Setting the input values to the state
   const [team, setTeam] = useState({
@@ -112,17 +116,21 @@ const Project = () => {
       <div className="container mx-auto w-full h-full  pt-10 pb-28">
         <div className="flex  justify-between">
           <h1 className="text-primary_colors text-2xl font-bold">Project</h1>
-          <button
-            onClick={() => setModal(true)}
-            className="bg-primary_colors text-white text-sm p-2 px-10 rounded-md hover:scale-105 ease-in-out duration-300"
-          >
-            New Project
-          </button>
+          {
+            user?.role === "admin"
+            &&
+            <button
+              onClick={() => setModal(true)}
+              className="bg-primary_colors text-white text-sm p-2 px-10 rounded-md hover:scale-105 ease-in-out duration-300"
+            >
+              New Project
+            </button>
+          }
         </div>
 
         <div className="mt-5 flex flex-col gap-5">
           {projectData?.map((items, i) => (
-            <ProjectCard key={i} data={items} deleteHandler={deleteHandler} />
+            <ProjectCard key={i} data={items} deleteHandler={deleteHandler} user={user}/>
           ))}
         </div>
       </div>

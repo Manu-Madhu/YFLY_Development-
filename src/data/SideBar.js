@@ -58,10 +58,23 @@ export const SidebarE = [
         path: "/employee/task",
         icon: <MdOutlinePeople size={25}/>
     },
-    // {
-    //     id: 5,
-    //     name: "Log Out",
-    //     path: "/logout",
-    //     icon: <AiOutlineLogin size={25}/>
-    // },
+    {
+        id: 3,
+        name: "Applications",
+        path: "/employee/applications",
+        icon: <PiStudentFill size={25}/>
+    },
+    {
+        id: 4,
+        name: "Track Student",
+        path: "/employee/students",
+        icon: <TbBrowserCheck size={25}/>
+    },
+    {
+        id: 5,
+        name: "Project",
+        path: "/employee/projects",
+        icon: <AiOutlineFundProjectionScreen size={25}/>
+    },
+    
 ]

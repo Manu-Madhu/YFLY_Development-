@@ -15,6 +15,9 @@ const AllApplications = () => {
   const [entries, setEntries] = useState(10);
   const [modal, setModal] = useState(false);
 
+  const user = useSelector((state) => state?.auth?.userInfo);
+
+
   // Table loading Data
   const application = async () => {
     try {
@@ -44,12 +47,17 @@ const AllApplications = () => {
           {/* filter & Application */}
           <div className="flex flex-col md:flex-row gap-3 mt-5 md:mt-0">
             <Filter setData={setData} endPoint={getAllApplications}/>
-            <button
-              onClick={() => setModal(true)}
-              className="p-2 px-5 text-normal bg-primary_colors text-white rounded-lg hover:scale-105 ease-in-out duration-200"
-            >
-              Application
-            </button>
+
+            {
+              user?.role === "admin"
+              &&
+              <button
+                onClick={() => setModal(true)}
+                className="p-2 px-5 text-normal bg-primary_colors text-white rounded-lg hover:scale-105 ease-in-out duration-200"
+              >
+                Application
+              </button>
+            }
           </div>
         </div>
 
