@@ -66,6 +66,14 @@ export const FormData = [
     },
 ]
 
+
+export const Office =[
+    {
+        id:1,
+        name:"Head Office"
+    },
+]
+
 export const EmpFormData = [
     {
         id: 1,
