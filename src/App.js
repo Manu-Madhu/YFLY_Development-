@@ -47,7 +47,7 @@ function App() {
               <Route path='admin/application/:id/:stepperId' element={<Application />} />
               <Route path='admin/student' element={<Student />} />
               <Route path='admin/project' element={<Project />} />
-              {/* <Route path='admin/project/team' element={<Team />} /> */}
+              <Route path='admin/project/team/:proId' element={<Team />} />
             </Route>
 
             {/* Employee Routes */}

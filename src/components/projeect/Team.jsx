@@ -1,65 +1,58 @@
-import React from "react";
-import TaskCard from "./task/TaskCard";
+import React, { useEffect, useState } from "react";
 import TaskManagingCard from "./task/TaskManagingCard";
+import TaskMain from "./task/TaskMain";
+
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import instance from "../../utils/AxiosInstance";
+import { getAllTask, getProject } from "../../utils/Endpoint";
+import EmptyData from "../loading/EmptyData";
 
 const Team = () => {
+  const [taskData, setTaskData] = useState();
+  const [project, setProject] = useState();
+  const { proId } = useParams();
+  const user = useSelector((state) => state.auth.userInfo);
+
+  const projectData = async () => {
+    try {
+      const response = await instance.get(`${getProject}/${proId}`);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    projectData();
+    instance
+      .get(`${getAllTask}/${proId}`)
+      .then((res) => {
+        setTaskData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [proId]);
+
+  console.log(taskData);
+
   return (
     <div className="container mx-auto w-full h-full  pt-10 pb-28">
-      Task Manager
-      <div className="container mx-auto w-full py-5 flex gap-5 overflow-auto">
-        <div className="w-[280px] h-full bg-white rounded-lg p-5">
-          {/* <div className="flex justify-between text-normalText text-sm font-medium">
-            <h2>{team?.project?.projectTitle}</h2>
-            <h2>
-              Task
-              <span className="ps-2">
-                {completedTask.length}/{task.length}
-              </span>
-            </h2>
-          </div>
-          <div className="w-full py-5">
-            {task.length !== 0 ? (
-              task.map((items) => {
-                return (
-                  <TaskCard
-                    key={items?._id}
-                    editTask={setEditTaskData}
-                    data={items}
-                    updateTaskHandler={updateTaskHandler}
-                  />
-                );
-              })
-            ) : (
-              <div className="flex flex-col items-center ">
-                <PropagateLoader color="#36d7b7" size={10} />
-              </div>
-            )}
-          </div> */}
-
-          {/* Task Add button */}
-          {/* {userInfo?.role === "Lead" && (
-            <div
-              className="flex items-center gap-3 text-normalText font-semibold hover:cursor-pointer 
-              p-3 hover:rounded hover:bg-blue-200 hover:text-white ease-in-out duration-200"
-              onClick={addNewTaskHandler}
-            >
-              <HiPlus size={20} className="hover:scale-105" />
-              <h2>Add a task</h2>
-            </div>
-          )} */}
-        </div>
-
-        {/* Team members card */}
-        {/* {team?.members &&
-          team?.members.map((items) => (
-            <TaskManagingCard
-              key={items._id}
-              editTask={setEditTaskData}
-              modal={setModal}
-              task={task}
-              team={items}
-            />
-          ))} */}
+      <div className="flex  justify-between">
+        <h1 className="text-primary_colors text-2xl font-bold">Task</h1>
+        <button className="bg-primary_colors px-5 text-white rounded  text-sm p-2">
+          Add Task
+        </button>
+      </div>
+      <div className={`container mx-auto w-full py-5 flex flex-wrap gap-5 overflow-auto`}>
+        {taskData && taskData?.length > 0 ? (
+          taskData?.map((items, i) => (
+            <TaskMain key={i} user={user} data={items} />
+          ))
+        ) : (
+          <EmptyData data={"No Available Task..."} />
+        )}
       </div>
     </div>
   );

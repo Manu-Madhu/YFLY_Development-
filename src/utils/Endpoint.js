@@ -100,6 +100,9 @@ export const postComment = '/api/comment/add';
 // Get Employee Task Metrics;
 export const getEmpTaskMetrics = "/api/employee/get-task-metrics"; //<== + EmployeeId
 
+// Get All task from a project
+export const getAllTask = '/api/project/get-all-tasks'; //<== + ProjectId
+
 // Put Update Stepper;
 export const changeStepStatus = "/api/stepper/update"
 

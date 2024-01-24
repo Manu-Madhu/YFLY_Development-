@@ -50,6 +50,7 @@ const Project = () => {
         const response = await instance.post(createProject, team);
         if (response?.status === 200) {
           toast.success("Project Successfully Created");
+          allProject()
           setModal(false);
         } else {
           toast.warning("Something Went Wrong");
@@ -74,21 +75,24 @@ const Project = () => {
       });
   }, []);
 
-  // fetch project Data
-  useEffect(() => {
+  const allProject = () => {
     instance
       .get(getAllProjects)
       .then((response) => {
         setProjectData(response?.data);
-        console.log(response.data)
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [submitHandler]);
+  };
 
+  // fetch project Data
+  useEffect(() => {
+    allProject()
+  }, []);
 
-  console.log(projectData)
+  console.log(projectData);
 
   return (
     <>
@@ -104,7 +108,7 @@ const Project = () => {
         </div>
 
         <div className="mt-5 flex flex-col gap-5">
-          {projectData?.map((items,i) => (
+          {projectData?.map((items, i) => (
             <ProjectCard key={i} data={items} />
           ))}
         </div>
