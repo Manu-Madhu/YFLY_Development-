@@ -35,6 +35,8 @@ const Application = () => {
     getApplication();
   };
 
+  console.log(data)
+
   return (
     <div className="container mx-auto w-full h-full pt-10 pb-28 ">
       {/* welcome Card */}
@@ -47,6 +49,10 @@ const Application = () => {
           <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">Name</h5>
             <h5 className="text-sm capitalize">{data?.studentName}</h5>
+          </div>
+          <div className="flex  flex-col justify-start w-full">
+            <h5 className="font-bold">Assignee</h5>
+            <h5 className="text-sm capitalize">{data?.assignee}</h5>
           </div>
           <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">Country</h5>
