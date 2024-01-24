@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Address, EmpFormData, FormData } from "../../data/Dashboard";
+import { Address, EmpFormData, FormData, Office } from "../../data/Dashboard";
 import { IoClose } from "react-icons/io5";
 
 import Input from "../formField/Input";
@@ -13,9 +13,6 @@ import { toast } from "react-toastify";
 import { EmployeeCards } from "../../data/Employee";
 
 const RegistrationForm = ({ setModal, entity }) => {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [complete, setComplete] = useState(false);
-  const steps = ["Student Info", "Over View"];
 
   const [formData, setFormData] = useState({
     name: "",
@@ -26,6 +23,7 @@ const RegistrationForm = ({ setModal, entity }) => {
     age: "",
     image: "",
     qualification: "",
+    office: "",
     address: {
       houseName: "",
       city: "",
@@ -149,9 +147,27 @@ const RegistrationForm = ({ setModal, entity }) => {
                         type={data?.type}
                         changeHandler={changeHandler}
                         value={formData[data?.name]}
+                        required={"required"}
                       />
                     </div>
                   ))}
+                {entity === "Student" && (
+                  <select
+                    className={`border border-primary_colors/50 text-gray-400 text-xs p-3 focus:outline-none w-full rounded-lg`}
+                    name="office"
+                    id=""
+                    onChange={changeHandler}
+                  >
+                    <option className="" value="">
+                      Select A office
+                    </option>
+                    {Office.map((items, index) => (
+                      <option key={index} className="" value={items?.name}>
+                        {items?.name}
+                      </option>
+                    ))}
+                  </select>
+                )}
 
                 {entity === "Employee" &&
                   EmpFormData.map((data) => (
@@ -167,21 +183,38 @@ const RegistrationForm = ({ setModal, entity }) => {
                     </div>
                   ))}
                 {entity === "Employee" && (
-                  <select
-                    className={`border border-primary_colors/50 text-gray-400 text-xs p-3 focus:outline-none w-full rounded-lg`}
-                    name="department"
-                    id=""
-                    onChange={changeHandler}
-                  >
-                    <option className="" value="">
-                      Select A Department
-                    </option>
-                    {EmployeeCards.map((items, index) => (
-                      <option key={index} className="" value={items?.path}>
-                        {items?.name}
+                  <div className="flex w-full gap-2">
+                    <select
+                      className={`border border-primary_colors/50 text-gray-400 text-xs p-3 focus:outline-none w-full rounded-lg`}
+                      name="department"
+                      id=""
+                      onChange={changeHandler}
+                    >
+                      <option className="" value="">
+                        Select A Department
                       </option>
-                    ))}
-                  </select>
+                      {EmployeeCards.map((items, index) => (
+                        <option key={index} className="" value={items?.path}>
+                          {items?.name}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      className={`border border-primary_colors/50 text-gray-400 text-xs p-3 focus:outline-none w-full rounded-lg`}
+                      name="office"
+                      id=""
+                      onChange={changeHandler}
+                    >
+                      <option className="" value="">
+                        Select A office
+                      </option>
+                      {Office.map((items, index) => (
+                        <option key={index} className="" value={items?.name}>
+                          {items?.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 )}
 
                 {Address.map((data) => (

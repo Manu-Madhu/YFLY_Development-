@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ name, placeholder, type, changeHandler, value,required }) => {
+const Input = ({ name, placeholder, type, changeHandler, value, required }) => {
   return (
     <>
       <input

@@ -21,12 +21,25 @@ const AddModal = ({ setModal, ca }) => {
     creator: user?._id,
     studentId: "",
     country: "",
-    university: "",
+    uniBased: [
+      {
+        university: "",
+        partnership: "",
+      },
+    ],
     program: "",
     intake: "",
     partnership: "",
     assignee: "",
   });
+
+  // State for managing dynamic university inputs
+  const [dynamicUniInputs, setDynamicUniInputs] = useState([
+    {
+      university: "",
+      partnership: "",
+    },
+  ]);
 
   // tracking the input changes
   const ChangeHandler = (e) => {
@@ -36,7 +49,7 @@ const AddModal = ({ setModal, ca }) => {
     });
   };
 
-  // For department wise employee data fetching
+  // For department-wise employee data fetching
   const employeeCataChange = async (e) => {
     try {
       const response = await axios.get(
@@ -48,7 +61,25 @@ const AddModal = ({ setModal, ca }) => {
     }
   };
 
-  // initial time student fetching
+  // Handle changes in dynamic university inputs
+  const handleDynamicUniChange = (index, e) => {
+    const newDynamicUniInputs = [...dynamicUniInputs];
+    newDynamicUniInputs[index][e.target.name] = e.target.value;
+    setDynamicUniInputs(newDynamicUniInputs);
+  };
+
+  // Add a new set of university inputs
+  const handleAddUniInput = () => {
+    setDynamicUniInputs([
+      ...dynamicUniInputs,
+      {
+        university: "",
+        partnership: "",
+      },
+    ]);
+  };
+
+  // initial-time student fetching
   useEffect(() => {
     axios
       .get(getAllStudent)
@@ -64,13 +95,21 @@ const AddModal = ({ setModal, ca }) => {
   const SubmitHandler = async (e) => {
     e.preventDefault();
 
-    const response = await axios.post(createApplicationRoute, formData);
-    if (response?.status === 200) {
-      toast.success(response?.data?.msg);
-      ca();
-      setModal(false);
-    } else {
-      toast.error(response?.data?.msg || "Something Went Wrong");
+    // Update formData with dynamicUniInputs
+    setFormData({
+      ...formData,
+      uniBased: dynamicUniInputs,
+    });
+
+    try {
+      const response = await axios.post(createApplicationRoute, formData);
+      if (response?.status === 200) {
+        toast.success(response?.data?.msg);
+        ca();
+        setModal(false);
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.msg || "Something Went Wrong");
     }
   };
 
@@ -106,20 +145,6 @@ const AddModal = ({ setModal, ca }) => {
                 ))}
               </select>
 
-              <select
-                name="partnership"
-                id=""
-                className="w-full border rounded p-2 focus:outline-none"
-                required
-                onChange={ChangeHandler}
-              >
-                <option value="">Choose The Type</option>
-                <option value="partnered">Partnered</option>
-                <option value="non-partnered">Non-partnered</option>
-              </select>
-            </div>
-
-            <div className="w-full flex flex-col md:flex-row gap-3">
               <input
                 type="text"
                 name="country"
@@ -128,14 +153,45 @@ const AddModal = ({ setModal, ca }) => {
                 required
                 onChange={ChangeHandler}
               />
-              <input
-                type="text"
-                placeholder="University*"
-                name="university"
-                className="w-full p-2 border rounded focus:outline-none"
-                required
-                onChange={ChangeHandler}
-              />
+            </div>
+
+            <div className="w-full gap-3">
+
+              {/* Dynamic university inputs */}
+              {dynamicUniInputs.map((input, index) => (
+                <div key={index} className="w-full flex flex-col md:flex-row gap-3 pb-3">
+                  <input
+                    type="text"
+                    placeholder="University*"
+                    name="university"
+                    className="w-full p-2 border rounded focus:outline-none"
+                    required
+                    value={input.university}
+                    onChange={(e) => handleDynamicUniChange(index, e)}
+                  />
+                  <select
+                    name="partnership"
+                    id=""
+                    className="w-full border rounded p-2 focus:outline-none"
+                    required
+                    value={input.partnership}
+                    onChange={(e) => handleDynamicUniChange(index, e)}
+                  >
+                    <option value="">Choose The Type</option>
+                    <option value="partnered">Partnered</option>
+                    <option value="non-partnered">Non-partnered</option>
+                  </select>
+                </div>
+              ))}
+
+              {/* Button to add new university inputs */}
+              <button
+                type="button"
+                onClick={handleAddUniInput}
+                className="bg-primary_colors px-5 text-white rounded p-2"
+              >
+                Add
+              </button>
             </div>
 
             <div className="w-full flex flex-col md:flex-row gap-3">
@@ -162,8 +218,6 @@ const AddModal = ({ setModal, ca }) => {
                 ))}
               </select>
             </div>
-
-            {/* <div className="w-full flex flex-col md:flex-row gap-3"></div> */}
 
             <div className="w-full flex flex-col md:flex-row gap-3">
               <select
