@@ -25,16 +25,16 @@ const StudentTable = ({ data }) => {
             data?.map((items, i) => (
               <tr
                 key={items?._id}
-                className="bg-white border-b  hover:bg-gray-50 text-black cursor-pointer capitalize"
+                className="bg-white border-b  hover:bg-gray-50 text-black cursor-pointer "
               >
-                <td className="px-6 py-4">{i + 1}</td>
-                <td className="px-6 py-4 truncate">{items?.name}</td>
+                <td className="px-6 py-4 ">{i + 1}</td>
+                <td className="px-6 py-4 truncate capitalize">{items?.name}</td>
                 <td className="px-6 py-4">{items?.email}</td>
                 <td className="px-6 py-4">{items?.phone}</td>
                 {/* <td className="px-6 py-4 truncate">
                   {items?.birthDate ? DateFormat(items?.birthDate) : "NIL"}
                 </td> */}
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 capitalize">
                   {items?.qualification ? items?.qualification : "NIL"}
                 </td>
                 <td className="px-6 py-4 truncate">
