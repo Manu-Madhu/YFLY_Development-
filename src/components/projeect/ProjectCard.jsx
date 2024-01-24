@@ -4,7 +4,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-const ProjectCard = ({ data }) => {
+const ProjectCard = ({ data, deleteHandler }) => {
   const navigate = useNavigate();
 
   const totalTask = data?.tasks?.length;
@@ -14,11 +14,13 @@ const ProjectCard = ({ data }) => {
 
   const percentage = (completedTask / totalTask) * 100;
 
+ 
+
   console.log(data);
   return (
     <div
       onClick={() => navigate(`/admin/project/team/${data?._id}`)}
-      className="w-full bg-white p-5 rounded-lg shadow-xl flex flex-col md:flex-row items-center md:justify-between gap-3 md:gap-10"
+      className="w-full cursor-pointer bg-white p-5 rounded-lg shadow-xl flex flex-col md:flex-row items-center md:justify-between gap-3 md:gap-10"
     >
       {/* Project Name */}
       <div className="w-full  font-semibold">
@@ -36,9 +38,7 @@ const ProjectCard = ({ data }) => {
       <div className="w-full ">
         <div className="flex justify-between mb-1">
           <h1 className="text-sm">Task</h1>
-          <h1 className="text-sm">
-            {percentage ? Math.floor(percentage) : 0} %
-          </h1>
+          <h1 className="text-sm">{completedTask + "/" + totalTask}</h1>
         </div>
         <ProgressBar
           completed={Math.floor(percentage)}
@@ -53,11 +53,12 @@ const ProjectCard = ({ data }) => {
 
       {/* {Options} */}
       <div className="flex items-center justify-between md:justify-center gap-3">
-        <FaRegEdit
+        {/* <FaRegEdit
           size={23}
           className="cursor-pointer hover:scale-105 ease-in-out duration-400"
-        />
+        /> */}
         <MdDeleteOutline
+          onClick={()=>deleteHandler(data?._id)}
           size={23}
           className="cursor-pointer hover:scale-105 ease-in-out duration-400 text-red-700"
         />

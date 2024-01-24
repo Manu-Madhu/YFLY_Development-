@@ -6,6 +6,7 @@ import ProjectCard from "../../components/projeect/ProjectCard";
 import instance from "../../utils/AxiosInstance";
 import {
   createProject,
+  deleteProject,
   getAllProjects,
   getEmployeesRoute,
 } from "../../utils/Endpoint";
@@ -50,7 +51,7 @@ const Project = () => {
         const response = await instance.post(createProject, team);
         if (response?.status === 200) {
           toast.success("Project Successfully Created");
-          allProject()
+          allProject();
           setModal(false);
         } else {
           toast.warning("Something Went Wrong");
@@ -89,8 +90,18 @@ const Project = () => {
 
   // fetch project Data
   useEffect(() => {
-    allProject()
+    allProject();
   }, []);
+
+  const deleteHandler = async (proId) => {
+    try {
+      const response = await instance.delete(`${deleteProject}/${proId}`)
+      console.log(response.data);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   console.log(projectData);
 
@@ -109,7 +120,7 @@ const Project = () => {
 
         <div className="mt-5 flex flex-col gap-5">
           {projectData?.map((items, i) => (
-            <ProjectCard key={i} data={items} />
+            <ProjectCard key={i} data={items} deleteHandler={deleteHandler} />
           ))}
         </div>
       </div>
