@@ -36,7 +36,6 @@ const RightSide = ({ data, cb }) => {
         return false;
       }
     });
-    console.log(myTasks, user);
   }
 
   useEffect(() => {
@@ -71,7 +70,7 @@ const RightSide = ({ data, cb }) => {
     }
   };
 
-  console.log(data);
+  console.log(myTasks)
 
   return (
     <>
@@ -121,7 +120,7 @@ const RightSide = ({ data, cb }) => {
             </div>
           </div>
         ))}
-        {myTasks?.map((empTask) => (
+        {myTasks?.map((myTasks) => (
           <div className="bg-white p-5  rounded-lg">
             <div className="flex justify-between">
               <h1 className="text-sm font-semibold">{createdDate}</h1>
@@ -129,7 +128,7 @@ const RightSide = ({ data, cb }) => {
                 <h1 className="text-sm font-bold ">
                   <span>Status : </span>
                   <span className="text-primary_colors capitalize">
-                    {empTask?.status}
+                    {myTasks?.status}
                   </span>
                 </h1>
               </div>
@@ -138,25 +137,23 @@ const RightSide = ({ data, cb }) => {
             <div className="flex justify-between ">
               <div className="space-y-1">
                 <h1 className="text-sm text-primary_colors font-semibold">
-                  Assignee : {empTask?.assignee}
+                  Assignee : {myTasks?.assignee}
                 </h1>
                 <h1 className="text-sm font-semibold capitalize">
-                  Step : {empTask?.name}
+                  Step : {myTasks?.name}
                 </h1>
               </div>
               <div className="flex flex-col justify-between capitalize">
                 <div className="flex flex-col gap-2">
                   <button
-                    onClick={() => {
-                      setStatusUpdate(true);
-                    }}
+                    onClick={() => (setStepNumber(myTasks._id),setStatusUpdate(true))}
                     className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
                   >
                     Update Status
                   </button>
                   <button
                     onClick={() => {
-                      setStepNumber(empTask._id);
+                      setStepNumber(myTasks._id);
                       setAssigneeUpdate(true);
                     }}
                     className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
@@ -166,7 +163,7 @@ const RightSide = ({ data, cb }) => {
                 </div>
 
                 <h1 className="font-semibold text-sm mt-1 text-end">
-                  Step Number: {empTask?._id}
+                  Step Number: {myTasks?._id}
                 </h1>
               </div>
             </div>

@@ -17,12 +17,12 @@ const StatusModal = ({ setModal, stepNumber, applicationData, cb }) => {
   const employeeSteps = applicationData?.steps?.filter(
     (items) => items?.assignee === employeeData?._id
   );
-  console.log(employeeSteps, employeeData);
+  console.log(employeeSteps, employeeData, applicationData);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     const data = {
-      stepperId: stepper?._id,
+      stepperId: applicationData?._id,
       stepAssignee: employeeData?._id,
       stepNumber,
       stepStatus: selectRef.current.value,
