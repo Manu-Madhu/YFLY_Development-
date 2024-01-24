@@ -8,6 +8,7 @@ import AddModal from "./AddModal";
 import Pagination from "../Pagination";
 import { useSelector } from "react-redux";
 import Filter from "../dashboard/Filter";
+import LoadingData from "../loading/LoadingData";
 
 const AllApplications = () => {
   const [data, setData] = useState();
@@ -27,9 +28,8 @@ const AllApplications = () => {
       setData(response?.data);
     } catch (error) {
       console.log(error);
-    }
+    } 
   };
-
 
   useState(() => {
     window.scroll(0, 0);
@@ -46,7 +46,7 @@ const AllApplications = () => {
 
           {/* filter & Application */}
           <div className="flex flex-col md:flex-row gap-3 mt-5 md:mt-0">
-            <Filter setData={setData} endPoint={getAllApplications}/>
+            <Filter setData={setData} endPoint={getAllApplications} />
 
             {
               user?.role === "admin"
@@ -77,6 +77,7 @@ const AllApplications = () => {
         </div>
       </div>
       {modal && <AddModal setModal={setModal} ca={application} />}
+      
     </>
   );
 };

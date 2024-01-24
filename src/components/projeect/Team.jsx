@@ -2,15 +2,21 @@ import React, { useEffect, useState } from "react";
 import TaskMain from "./task/TaskMain";
 import instance from "../../utils/AxiosInstance";
 import EmptyData from "../loading/EmptyData";
+import LoadingData from "../loading/LoadingData";
 
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { createTask, getAllMembersFromProject, getAllTask } from "../../utils/Endpoint";
+import {
+  createTask,
+  getAllMembersFromProject,
+  getAllTask,
+} from "../../utils/Endpoint";
 import { IoClose } from "react-icons/io5";
 import { toast } from "react-toastify";
 
 const Team = () => {
   const [taskData, setTaskData] = useState();
+  const [loader, setLoader] = useState(false);
   const [modal, setaModal] = useState(false);
   const [employee, setEmployee] = useState();
   const user = useSelector((state) => state.auth.userInfo);
@@ -35,11 +41,11 @@ const Team = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await instance.post(createTask,formData);
-      console.log(response.data)
-      if(response?.status === 200){
+      const response = await instance.post(createTask, formData);
+      console.log(response.data);
+      if (response?.status === 200) {
         toast.success("Successfully Created");
-        setaModal(false)
+        setaModal(false);
       }
     } catch (error) {
       console.log(error);
@@ -57,15 +63,20 @@ const Team = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     employeeData();
+    setLoader(true);
     instance
       .get(`${getAllTask}/${proId}`)
       .then((res) => {
         setTaskData(res.data);
+        setLoader(false);
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoader(false);
       });
-  }, [proId,modal]);
+  }, [proId, modal]);
 
   return (
     <div className="container mx-auto w-full h-full  pt-10 pb-28">
@@ -147,6 +158,8 @@ const Team = () => {
           </div>
         </div>
       )}
+
+      {loader && <LoadingData />}
     </div>
   );
 };
