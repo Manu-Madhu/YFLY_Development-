@@ -7,6 +7,7 @@ import axios from "../../utils/AxiosInstance";
 import StudentLoader from "../loading/StudentLoader";
 
 const DocModal = ({ setModal, applicationData, cb }) => {
+  console.log(applicationData)
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     document: null,

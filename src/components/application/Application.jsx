@@ -9,6 +9,7 @@ import axios from "../../utils/AxiosInstance";
 const Application = () => {
   const { id, stepperId } = useParams();
   const [data, setData] = useState({});
+  const [application,setApplication] = useState({})
   const [stepper, setStepper] = useState([]);
 
   const getApplication = async () => {
@@ -17,6 +18,7 @@ const Application = () => {
       .then((res) => {
         setData(res?.data);
         console.log(res?.data);
+        setApplication(res?.data)
         const data = res?.data?.steppers?.find((items) => stepperId === items?._id);
         console.log(typeof(data))
         setStepper(data)
@@ -35,7 +37,7 @@ const Application = () => {
     getApplication();
   };
 
-  console.log(data)
+  console.log(application)
 
   return (
     <div className="container mx-auto w-full h-full pt-10 pb-28 ">
@@ -89,7 +91,7 @@ const Application = () => {
             </div>
           </div>
           <div className="rounded-lg bg-[#F9F9F9] w-full md:w-3/4 mt-3 p-5 order-1">
-            <RightSide data={stepper} cb={fnToCallGetFn} />
+            <RightSide data={stepper} cb={fnToCallGetFn} application={application}/>
           </div>
         </div>
       </div>

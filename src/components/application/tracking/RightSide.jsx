@@ -11,7 +11,7 @@ import Tippy from "@tippyjs/react";
 import StatusModal from "../../employee/StatusModal";
 import AdminModal from "../../Admin/AdminModal";
 
-const RightSide = ({ data, cb }) => {
+const RightSide = ({ data, cb, application }) => {
   const createdDate = new Date(data?.createdAt).toLocaleString();
   const user = useSelector((state) => state?.auth?.userInfo);
   const [comments, setComments] = useState([]);
@@ -69,8 +69,6 @@ const RightSide = ({ data, cb }) => {
       toast.warning(error?.response?.data?.msg);
     }
   };
-
-  console.log(myTasks)
 
   return (
     <>
@@ -176,8 +174,8 @@ const RightSide = ({ data, cb }) => {
         Documents
       </h1>
       <div className="bg-white p-4 rounded-lg flex gap-2 relative overflow-x-scroll capitalize">
-        {data?.documents?.length > 0 ? (
-          data?.documents?.map((items, i) => (
+        {application?.documents?.length > 0 ? (
+          application?.documents?.map((items, i) => (
             <Tippy key={i} className="" content={<div>{items?.name}</div>}>
               <div className="flex flex-col text-center text-[11px] cursor-pointer">
                 <Link to={items?.location}>
@@ -253,7 +251,7 @@ const RightSide = ({ data, cb }) => {
       </div>
 
       {docModal && (
-        <DocModal cb={cb} setModal={setDocModal} applicationData={data} />
+        <DocModal cb={cb} setModal={setDocModal} applicationData={application} />
       )}
 
       {statusUpdate && (
