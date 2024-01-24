@@ -14,14 +14,9 @@ const ProjectCard = ({ data, deleteHandler }) => {
 
   const percentage = (completedTask / totalTask) * 100;
 
- 
-
   console.log(data);
   return (
-    <div
-      onClick={() => navigate(`/admin/project/team/${data?._id}`)}
-      className="w-full cursor-pointer bg-white p-5 rounded-lg shadow-xl flex flex-col md:flex-row items-center md:justify-between gap-3 md:gap-10"
-    >
+    <div className="w-full bg-white p-5 rounded-lg shadow-xl flex flex-col md:flex-row items-center md:justify-between gap-3 md:gap-10">
       {/* Project Name */}
       <div className="w-full  font-semibold">
         <h1>{data?.name}</h1>
@@ -53,12 +48,20 @@ const ProjectCard = ({ data, deleteHandler }) => {
 
       {/* {Options} */}
       <div className="flex items-center justify-between md:justify-center gap-3">
-        {/* <FaRegEdit
+        <FaRegEdit
+          onClick={() => navigate(`/admin/project/team/${data?._id}`)}
           size={23}
           className="cursor-pointer hover:scale-105 ease-in-out duration-400"
-        /> */}
+        />
         <MdDeleteOutline
-          onClick={()=>deleteHandler(data?._id)}
+          onClick={() => {
+            const userConfirmed = window.confirm(
+              "Are you sure you want to delete?"
+            );
+            if (userConfirmed) {
+              deleteHandler(data?._id);
+            }
+          }}
           size={23}
           className="cursor-pointer hover:scale-105 ease-in-out duration-400 text-red-700"
         />
