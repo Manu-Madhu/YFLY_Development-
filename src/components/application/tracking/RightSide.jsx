@@ -21,6 +21,7 @@ const RightSide = ({ data, cb }) => {
   const [assigneeUpdate, setAssigneeUpdate] = useState(false);
   const [stepNumber, setStepNumber] = useState(null);
 
+  console.log(data)
   let empTasks;
   if (user.role === "admin") {
     empTasks = data?.steps?.filter((task) => (task?.assignee ? true : false));
@@ -52,7 +53,7 @@ const RightSide = ({ data, cb }) => {
   const submitHandle = async (e) => {
     e.preventDefault();
     const message = {
-      resourceId: data?._id,
+      resourceId: data?.applicationId,
       resourceType: "application",
       commentorId: user?._id,
       comment: comment,

@@ -35,7 +35,7 @@ const TaskCard = ({ data }) => {
                     {data?.comments[data?.comments.length - 1]?.comment}
                   </div>
                 ) : (
-                  <EmptyData />
+                  <EmptyData data={"No comments yet"}/>
                 )}
               </li>
             </ul>
@@ -56,7 +56,7 @@ const TaskCard = ({ data }) => {
           </div>
           <BsArrowRight size={20} />
           <div className="flex items-center gap-2">
-            <h2>{}</h2>
+            <h2>{data?.taskStatus}</h2>
             <div
               className={`w-3 p-2 rounded-full ${
                 data?.taskStatus === "pending"

@@ -100,6 +100,9 @@ export const postComment = '/api/comment/add';
 // Get Employee Task Metrics;
 export const getEmpTaskMetrics = "/api/employee/get-task-metrics"; //<== + EmployeeId
 
+// Create task
+export const createTask = '/api/project/add-task'; 
+
 // Get All task from a project
 export const getAllTask = '/api/project/get-all-tasks'; //<== + ProjectId
 
@@ -132,3 +135,6 @@ export const getAllSteppers = "/api/stepper/get-all"; //<== + applicationid
 
 // Create a stepper
 export const deleteStepper = "/api/stepper/delete"; //<== + stepperid
+
+// get All Members From Project
+export const getAllMembersFromProject = "/api/project/get-members"; //<== + project id

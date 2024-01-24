@@ -7,9 +7,9 @@ const TaskMain = ({ user, data }) => {
   return (
     <div className="w-[280px] h-full shadow-lg bg-white rounded-lg p-5">
       <div className="flex justify-between text-normalText text-sm font-medium">
-        <h2>{}</h2>
+        <h2>{data?.assigneeName}</h2>
         <h2>
-          Task
+          Tasks
           <span className="ps-2"></span>
         </h2>
       </div>
