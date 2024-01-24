@@ -41,7 +41,7 @@ const RightSide = ({ data, cb }) => {
 
   useEffect(() => {
     axios
-      .get(`${getAllComments}/application/${data?._id}`)
+      .get(`${getAllComments}/application/${data?.applicationId}`)
       .then((res) => {
         setComments(res?.data);
       })
@@ -58,6 +58,8 @@ const RightSide = ({ data, cb }) => {
       commentorId: user?._id,
       comment: comment,
     };
+    console.log("data", data)
+    console.log("message", message)
     try {
       const response = await axios.post(postComment, message);
       toast.success(response?.data?.msg);
