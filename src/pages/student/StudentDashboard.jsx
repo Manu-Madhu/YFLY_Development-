@@ -15,6 +15,8 @@ const StudentDashboard = () => {
   const [docModal, setDocModal] = useState(false);
   const user = useSelector((state) => state.auth.userInfo);
 
+  const [currStepper,setCurrStepper] = useState(null)
+
   useEffect(() => {
     window.scroll(0,0)
     axios
@@ -77,10 +79,10 @@ const StudentDashboard = () => {
                 <h1 className="font-semibold pb-0.5">Country</h1>
                 <p>{state?.country}</p>
               </div>
-              <div>
+              {/* <div>
                 <h1 className="font-semibold pb-0.5">University</h1>
                 <p>{state?.university}</p>
-              </div>
+              </div> */}
               <div>
                 <h1 className="font-semibold pb-0.5">Course</h1>
                 <p>{state?.program}</p>
@@ -97,8 +99,27 @@ const StudentDashboard = () => {
             <h1 className="text-[#0061B2] font-bold text-xl">
               Track your Progress
             </h1>
-            <div className="w-full overflow-y-auto mt-10">
-              <StudentStepper />
+            <div className="w-full mt-10 flex flex-col gap-[8vh]">
+              <div className="w-full overflow-x-auto mt-10 flex justify-around">
+                {
+                  state?.steppers?.map((stepper,i)=>(
+                    <div key={i}
+                    onClick={()=> setCurrStepper(stepper)}
+                    className="flex flex-col p-5 bg-white rounded-lg shadow-xl w-full md:w-[210px] cursor-pointer"
+                    >
+                      <h1 className="text-primary_colors">University: </h1>
+                      <h4>{stepper.university}</h4>
+                    </div>  
+                    ))
+                  }
+              </div>
+                {currStepper && 
+                <div className="w-full overflow-x-auto mt-10 flex justify-around">
+                  <StudentStepper stepper={currStepper} />
+
+                </div>
+                
+                }
             </div>
           </div>
 

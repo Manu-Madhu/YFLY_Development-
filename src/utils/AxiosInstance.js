@@ -7,6 +7,7 @@ const instance = axios.create({
     baseURL: baseUrl
 });
 
+let retryCount = 0;
 
 instance.interceptors.response.use(
     async (response) => {
@@ -15,7 +16,7 @@ instance.interceptors.response.use(
     async (err) => {
       console.log(err);
   
-      let retryCount = 0;
+      // let retryCount = 0;
       const maxRetries = 3;
   
       if (err.response?.status === 401) {
