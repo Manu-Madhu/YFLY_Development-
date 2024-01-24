@@ -114,13 +114,17 @@ const TaskCard = ({ data }) => {
                 <h1 className="mb-2 text-sm text-gray-900">
                   Previous Comments
                 </h1>
-                {data?.comments?.map((items, i) => (
-                  <div className="flex flex-col items-start text-sm w-full max-h-[80px] overflow-y-scroll">
-                    <div className="border w-full p-2 shadow mb-2 text-gray-600">
-                      {items?.comment}
+                {userInfo?.role === "admin" &&
+                  data?.comments?.map((items, i) => (
+                    <div
+                      key={i}
+                      className="flex flex-col items-start text-sm w-full max-h-[80px] overflow-y-scroll"
+                    >
+                      <div className="border w-full p-2 shadow mb-2 text-gray-600">
+                        {items?.comment}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
               <form
                 onSubmit={submitHandler}
