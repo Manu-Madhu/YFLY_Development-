@@ -2,9 +2,7 @@ import React from "react";
 import TaskCard from "./TaskCard";
 import { TbHemispherePlus } from "react-icons/tb";
 
-const TaskMain = ({ user, data }) => {
-    console.log("taskmaindata",data)
-
+const TaskMain = ({ user, data, setaModal }) => {
   return (
     <div className="w-[280px] h-full shadow-lg bg-white rounded-lg p-5">
       <div className="flex justify-between text-normalText text-sm font-medium">
@@ -23,6 +21,7 @@ const TaskMain = ({ user, data }) => {
       {/* Task Add button */}
       {user?.role === "admin" && (
         <div
+          onClick={() => setaModal(true)}
           className="flex items-center gap-3 text-sm font-semibold hover:cursor-pointer 
               p-3 hover:rounded hover:bg-blue-200 hover:text-white ease-in-out duration-200"
         >

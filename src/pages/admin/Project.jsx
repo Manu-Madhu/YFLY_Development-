@@ -189,7 +189,7 @@ const Project = () => {
                   <div>
                     <label htmlFor="" className="text-xs ">
                       {" "}
-                      Starting Date
+                      Ending Date
                     </label>
                     <input
                       onChange={inputChangeHandler}

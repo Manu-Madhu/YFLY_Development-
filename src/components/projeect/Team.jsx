@@ -104,7 +104,7 @@ const Team = () => {
       >
         {taskData && taskData?.length > 0 ? (
           taskData?.map((items, i) => (
-            <TaskMain key={i} user={user} data={items} />
+            <TaskMain key={i} user={user} data={items} setaModal={setaModal} />
           ))
         ) : (
           <EmptyData data={"No Available Task..."} />

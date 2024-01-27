@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Sidebar, SidebarE } from "../../data/SideBar";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   MdOutlineKeyboardDoubleArrowLeft,
@@ -11,7 +11,8 @@ const SideMenu = () => {
   const user = useSelector((state) => state?.auth?.userInfo);
   const [sideArrow, setSideArrow] = useState(true);
 
-  const location = useLocation();
+  // const location = useLocation();
+  const params = useLocation()
   return (
     <div
       className={`hidden relative pt-10 min-h-screen bg-gradient-to-l from-white to-[#f5f6f8] ${
@@ -24,7 +25,8 @@ const SideMenu = () => {
             <Link key={data?.id} to={data.path}>
               <div
                 className={` flex items-center gap-3 cursor-pointer mb-4 ${sideArrow ? "w-[200px]" : "w-10"} ${
-                  data.path === location.pathname &&
+                  params?.pathname.includes(data?.path) &&
+                  // data.path === location.pathname &&
                   "bg-[#058BD2] w-full text-white p-2 rounded hover:scale-105 ease-in-out duration-300"
                 }`}
               >
@@ -43,7 +45,8 @@ const SideMenu = () => {
             <Link key={data?.id} to={data.path}>
               <div
                 className={`flex items-center gap-3 cursor-pointer mb-4 ${sideArrow ? "w-[200px]" : "w-10"} ${
-                  data.path === location.pathname &&
+                  params?.pathname.includes(data?.path) &&
+                  // data.path === location.pathname &&
                   "bg-[#058BD2] w-full text-white p-2 rounded hover:scale-105 ease-in-out duration-300"
                 }`}
               >
