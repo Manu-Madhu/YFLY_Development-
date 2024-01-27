@@ -95,11 +95,17 @@ const AddModal = ({ setModal, ca }) => {
   const SubmitHandler = async (e) => {
     e.preventDefault();
 
+    const uniBasedArray = dynamicUniInputs.map((input) => ({
+      university: input.university,
+      partnership: input.partnership,
+    }));
+
     // Update formData with dynamicUniInputs
     setFormData({
       ...formData,
-      uniBased: dynamicUniInputs,
+      uniBased: uniBasedArray,
     });
+    console.log(formData);
 
     try {
       const response = await axios.post(createApplicationRoute, formData);
@@ -156,10 +162,12 @@ const AddModal = ({ setModal, ca }) => {
             </div>
 
             <div className="w-full gap-3">
-
               {/* Dynamic university inputs */}
               {dynamicUniInputs.map((input, index) => (
-                <div key={index} className="w-full flex flex-col md:flex-row gap-3 pb-3">
+                <div
+                  key={index}
+                  className="w-full flex flex-col md:flex-row gap-3 pb-3"
+                >
                   <input
                     type="text"
                     placeholder="University*"

@@ -18,7 +18,6 @@ const AllApplications = () => {
 
   const user = useSelector((state) => state?.auth?.userInfo);
 
-
   // Table loading Data
   const application = async () => {
     try {

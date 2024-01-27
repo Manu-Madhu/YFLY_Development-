@@ -28,7 +28,7 @@ const CommonTable = ({ data, page, entries }) => {
           {data?.length > 0 ? (
             data?.map((items, i) => (
               <tr
-                onClick={(e) => navigate(`/admin/application/stepper/${items._id}`)}
+                onClick={(e) => navigate(`/admin/applications/stepper/${items._id}`)}
                 key={items?._id}
                 className="bg-white border-b  hover:bg-gray-50 text-black cursor-pointer capitalize"
               >
