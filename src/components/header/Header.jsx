@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { LuMenu } from "react-icons/lu";
@@ -6,12 +6,14 @@ import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLogin } from "react-icons/ai";
-import { getAllApplications } from "../../utils/Endpoint";
+import { getAllApplications, userLogout } from "../../utils/Endpoint";
 import { toast } from "react-toastify";
 import { setSearchData } from "../../redux/slices/SearchSlicer";
+import { logout } from "../../redux/slices/AuthSlicer";
 
 import profile from "../../assets/icon/profileicon.png";
 import instance from "../../utils/AxiosInstance";
+import axios from "../../utils/AxiosInstance";
 
 const Header = () => {
   const [menu, setMenu] = useState(false);
@@ -26,10 +28,10 @@ const Header = () => {
         `${getAllApplications}?search=${search}`
       );
       console.log(response.data);
-      dispatch(setSearchData(response.data))
-      navigate("/applications/search")
+      dispatch(setSearchData(response.data));
+      navigate("/applications/search");
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.warning("Something Wrong...");
     } finally {
     }
@@ -39,6 +41,18 @@ const Header = () => {
     if (e.key === "Enter") {
       searchHandler();
     }
+  };
+
+  const LogoutHandler = async() => {
+   await axios
+      .get(userLogout)
+      .then((res) => {
+        dispatch(logout());
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -71,13 +85,8 @@ const Header = () => {
             </div>
 
             <div className="hidden md:flex gap-3 w-full items-center justify-end">
-              {/* <IoMdNotificationsOutline
-                size={30}
-                className=" cursor-pointer text-slate-500"
-              /> */}
-
               <div
-                onClick={() => navigate("/logout")}
+                onClick={LogoutHandler}
                 className="mt-2 flex flex-col justify-end hover:text-primary_colors cursor-pointer"
               >
                 <AiOutlineLogin className="" size={30} />

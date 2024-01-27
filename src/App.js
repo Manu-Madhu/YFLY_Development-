@@ -2,7 +2,6 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Login from './pages/Login';
-import Logout from './pages/Logout';
 import Layout from './layout/Layout';
 
 import AdminProtectedRoute from './routes/AdminProtectedRoute';
@@ -32,7 +31,6 @@ function App() {
       <Router>
         <Routes>
           <Route index path='/' element={<Login />} />
-          <Route index path='/logout' element={<Logout />} />
           <Route path='/' element={<Layout />}>
 
             <Route path='/applications/search' element={<SearchApplication />} />
