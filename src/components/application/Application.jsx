@@ -20,7 +20,6 @@ const Application = () => {
         console.log(res?.data);
         setApplication(res?.data)
         const data = res?.data?.steppers?.find((items) => stepperId === items?._id);
-        console.log(typeof(data))
         setStepper(data)
       })
       .catch((error) => {

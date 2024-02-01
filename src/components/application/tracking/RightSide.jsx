@@ -12,7 +12,7 @@ import StatusModal from "../../employee/StatusModal";
 import AdminModal from "../../Admin/AdminModal";
 
 const RightSide = ({ data, cb, application }) => {
-  const createdDate = new Date(data?.createdAt).toLocaleString();
+  const createdDate = application?.createdAt?.split("T")[0];
   const user = useSelector((state) => state?.auth?.userInfo);
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
@@ -69,6 +69,8 @@ const RightSide = ({ data, cb, application }) => {
       toast.warning(error?.response?.data?.msg);
     }
   };
+
+  // console.log("createdDate",createdDate)
 
   return (
     <>
