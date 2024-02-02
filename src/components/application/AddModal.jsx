@@ -64,6 +64,7 @@ const AddModal = ({ setModal, ca }) => {
 
   // Handle changes in dynamic university inputs
   const handleDynamicUniChange = (index, e) => {
+    console.log("dynamicIndex", index)
     const newDynamicUniInputs = [...dynamicUniInputs];
     newDynamicUniInputs[index][e.target.name] = e.target.value;
 
@@ -84,6 +85,25 @@ const AddModal = ({ setModal, ca }) => {
         partnership: "",
       },
     ]);
+  };
+
+  const handleRemoveUniInput = (input, index) => {
+
+    const dupliUniBased = [...formData?.uniBased];
+
+    const iofub = dupliUniBased?.findIndex((elem)=>  elem.program === input.program && elem.university === input.university && elem.partnership === input.partnership)
+
+    dupliUniBased.splice(iofub, 1);
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      uniBased: [...dupliUniBased],
+    }));
+
+    console.log("removeIndex", index)
+    const newArray = dynamicUniInputs.filter((inp,i)=> i !== index);
+    setDynamicUniInputs([...newArray]);
+
   };
 
   // initial-time student fetching
@@ -169,7 +189,8 @@ const AddModal = ({ setModal, ca }) => {
 
             <div className="w-full gap-3">
               {/* Dynamic university inputs */}
-              {dynamicUniInputs.map((input, index) => (
+
+              {dynamicUniInputs?.map((input, index) => (
                 <div
                   key={index}
                   className="w-full flex flex-col gap-3 pb-3"
@@ -200,7 +221,7 @@ const AddModal = ({ setModal, ca }) => {
 
                   </div>
 
-
+                  <div className="w-full flex flex-col md:flex-row gap-3 pb-3">
                     <input
                       type="text"
                       name="program"
@@ -211,6 +232,19 @@ const AddModal = ({ setModal, ca }) => {
                       onChange={(e) => handleDynamicUniChange(index, e)}
                     />
 
+                    {
+                      (index !== 0)
+                      &&
+                      <button
+                        type="button"
+                        onClick={()=>handleRemoveUniInput(input,index)}
+                        className="bg-red-500 px-5 text-white rounded p-2"
+                      >
+                        Remove
+                      </button>
+                    }
+
+                  </div>
                 </div>
               ))}
 
