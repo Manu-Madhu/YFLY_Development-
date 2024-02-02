@@ -43,19 +43,17 @@ const Header = () => {
     }
   };
 
-  const LogoutHandler = async () => {
-    console.log("first");
-    dispatch(logout());
-    navigate("/");
-    //  await axios
-    //     .get(userLogout)
-    //     .then((res) => {
-    //       dispatch(logout());
-    //       navigate("/");
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
+  const LogoutHandler = async() => {
+    console.log("first")
+   await axios
+      .get(userLogout)
+      .then((res) => {
+        dispatch(logout());
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
