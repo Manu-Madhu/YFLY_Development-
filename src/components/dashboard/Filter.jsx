@@ -10,6 +10,7 @@ const Filter = ({ setData,endPoint }) => {
     end_date: "",
     country: "",
     intake: "",
+    status: "",
   });
   
   //   @DCS updating the form data
@@ -23,10 +24,10 @@ const Filter = ({ setData,endPoint }) => {
   //   @DCS Submitting the data
   const submitData = async (e) => {
     e.preventDefault();
-    const { start_date, end_date, country, intake } = form;
+    const { start_date, end_date, country, intake, status } = form;
     try {
       const res = await axios.get(
-        `${endPoint}?start_date=${start_date}&end_date=${end_date}&country=${country}&intake=${intake}`
+        `${endPoint}?start_date=${start_date}&end_date=${end_date}&country=${country}&intake=${intake}&status=${status}`
       );
       // console.log(res);
       setData(res.data);

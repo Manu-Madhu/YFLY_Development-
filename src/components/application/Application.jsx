@@ -52,20 +52,24 @@ const Application = () => {
             <h5 className="text-sm capitalize">{data?.studentName}</h5>
           </div>
           <div className="flex  flex-col justify-start w-full">
-            <h5 className="font-bold">Assignee</h5>
-            <h5 className="text-sm capitalize">{data?.assignee}</h5>
-          </div>
-          <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">Country</h5>
             <h5 className="text-sm capitalize">{data?.country}</h5>
           </div>
           <div className="flex  flex-col justify-start w-full">
-            <h5 className="font-bold">Program</h5>
-            <h5 className="text-sm capitalize">{data?.program}</h5>
-          </div>
-          <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">Intake</h5>
             <h5 className="text-sm capitalize">{data?.intake}</h5>
+          </div>
+          <div className="flex  flex-col justify-start w-full">
+            <h5 className="font-bold">Assignee</h5>
+            <h5 className="text-sm capitalize">{data?.assignee}</h5>
+          </div>
+          <div className="flex  flex-col justify-start w-full">
+            <h5 className="font-bold">University</h5>
+            <h5 className="text-sm capitalize">{stepper?.university}</h5>
+          </div>
+          <div className="flex  flex-col justify-start w-full">
+            <h5 className="font-bold">Program</h5>
+            <h5 className="text-sm capitalize">{stepper?.program}</h5>
           </div>
         </div>
       </div>

@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../utils/AxiosInstance";
-import { getEmployeesRoute } from "../../utils/Endpoint";
+import { deactivateEmployeeRoute, getEmployeesRoute } from "../../utils/Endpoint";
 import { useNavigate } from "react-router-dom";
 import EmptyData from "../loading/EmptyData";
 import Pagination from "../Pagination";
+import DeleteModal from "../modals/DeleteModal";
 
 const Table = ({ department }) => {
   const [data, setData] = useState([]);
+  const [empData, setEmpData] = useState([]);
   const [page, setPage] = useState(1);
   const [entries, setEntries] = useState(10);
   const navigate = useNavigate();
+  const [deleteModal, setDeleteModal] = useState(false)
 
   console.log("department", department);
 
@@ -31,6 +34,11 @@ const Table = ({ department }) => {
     getData();
   }, []);
 
+  const handleDelete = (data)=>{
+    setEmpData(data)
+    setDeleteModal(true)
+  }
+
   console.log(data);
   return (
     <>
@@ -44,6 +52,7 @@ const Table = ({ department }) => {
               <th className="px-6 py-4">department</th>
               <th className="px-6 py-4">email</th>
               <th className="px-6 py-4">phoneNumber</th>
+              <th className="px-6 py-4">Delete</th>
               <th className="px-6 py-4  t">
                 <div className="font-bold text-white  hover:underline-none hover:text-blue-800 hover:cursor-pointer">
                   More
@@ -56,9 +65,7 @@ const Table = ({ department }) => {
               data?.map((emp, i) => (
                 <tr
                   key={i}
-                  onClick={(e) =>
-                    navigate(`/admin/employee/profile/${emp._id}`)
-                  }
+                  
                   className="bg-white border-b  hover:bg-gray-50 text-black cursor-pointer"
                 >
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
@@ -68,8 +75,25 @@ const Table = ({ department }) => {
                   <td className="px-6 py-4">{emp?.email}</td>
                   <td className="px-6 py-4">{emp?.phone}</td>
                   <td className="px-6 py-4  t">
+                    <div className="font-medium text-red-600 dark:text-red-500 hover:underline-none hover:text-red-800 hover:cursor-pointer">
+                      <span
+                      onClick={()=>handleDelete(emp)}
+                      >
+                      Delete
+
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4  t">
                     <div className="font-medium text-blue-600 dark:text-blue-500 hover:underline-none hover:text-blue-800 hover:cursor-pointer">
+                      <span
+                      onClick={(e) =>
+                        navigate(`/admin/employee/profile/${emp._id}`)
+                      }
+                      >
                       View
+
+                      </span>
                     </div>
                   </td>
                 </tr>
@@ -90,6 +114,8 @@ const Table = ({ department }) => {
           getMethod={getData}
         />
       </div>
+
+      {deleteModal && <DeleteModal setModal={setDeleteModal} data={empData} setData={setEmpData} getTableData={getData} route={deactivateEmployeeRoute} />}
     </>
   );
 };

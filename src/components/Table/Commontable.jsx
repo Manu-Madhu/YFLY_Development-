@@ -17,7 +17,7 @@ const CommonTable = ({ data, page, entries }) => {
             <th className="px-6 py-4">Date Created</th>
             <th className="px-6 py-4">Student Name</th>
             <th className="px-6 py-4">Country</th>
-            <th className="px-6 py-4">Program</th>
+            {/* <th className="px-6 py-4">Program</th> */}
             <th className="px-6 py-4">Intake</th>
             {/* <th className="px-6 py-4">Stage</th> */}
             <th className="px-6 py-4">Application Status</th>
@@ -36,7 +36,7 @@ const CommonTable = ({ data, page, entries }) => {
                 <td className="px-6 py-4">{DateFormat(items?.createdAt)}</td>
                 <td className="px-6 py-4">{items?.studentName}</td>
                 <td className="px-6 py-4">{items?.country}</td>
-                <td className="px-6 py-4">{items?.program}</td>
+                {/* <td className="px-6 py-4">{items?.program}</td> */}
                 <td className="px-6 py-4 truncate">{items?.intake}</td>
                 {/* <td className="px-6 py-4">
                 {items?.steps.length > 0

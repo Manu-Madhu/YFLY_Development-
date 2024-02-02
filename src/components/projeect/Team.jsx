@@ -46,6 +46,7 @@ const Team = () => {
       if (response?.status === 200) {
         toast.success("Successfully Created");
         setaModal(false);
+        GetAllTasks()
       }
     } catch (error) {
       console.log(error);
@@ -60,10 +61,7 @@ const Team = () => {
     });
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    employeeData();
-    setLoader(true);
+  const GetAllTasks = async()=>{
     instance
       .get(`${getAllTask}/${proId}`)
       .then((res) => {
@@ -85,6 +83,13 @@ const Team = () => {
       .finally(() => {
         setLoader(false);
       });
+  }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    employeeData();
+    setLoader(true);
+    GetAllTasks();
   }, [proId, modal]);
 
   return (
@@ -104,7 +109,7 @@ const Team = () => {
       >
         {taskData && taskData?.length > 0 ? (
           taskData?.map((items, i) => (
-            <TaskMain key={i} user={user} data={items} setaModal={setaModal} />
+            <TaskMain key={i} user={user} data={items} setaModal={setaModal} cb={GetAllTasks}/>
           ))
         ) : (
           <EmptyData data={"No Available Task..."} />

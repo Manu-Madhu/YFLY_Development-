@@ -2,7 +2,7 @@ import React from "react";
 import TaskCard from "./TaskCard";
 import { TbHemispherePlus } from "react-icons/tb";
 
-const TaskMain = ({ user, data, setaModal }) => {
+const TaskMain = ({ user, data, setaModal, cb }) => {
   return (
     <div className="w-[280px] h-full shadow-lg bg-white rounded-lg p-5">
       <div className="flex justify-between text-normalText text-sm font-medium">
@@ -14,7 +14,7 @@ const TaskMain = ({ user, data, setaModal }) => {
       </div>
       <div className="w-full py-5">
         {data?.tasks?.map((items, i) => (
-          <TaskCard key={i} data={items} />
+          <TaskCard key={i} data={items} cb={cb} />
         ))}
       </div>
 

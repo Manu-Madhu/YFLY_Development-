@@ -38,10 +38,11 @@ const AllApplications = () => {
   return (
     <>
       <div className="w-full h-full text-black pt-10 pb-28">
-        <div className="flex flex-col md:flex-row justify-between">
+        <div className="flex flex-col justify-between">
           <h1 className="text-primary_colors text-2xl font-bold">
             Applications
           </h1>
+          <div className="flex flex-col md:flex-row mt-[3vh] justify-between">
 
           {/* filter & Application */}
           <div className="flex flex-col md:flex-row gap-3 mt-5 md:mt-0">
@@ -58,6 +59,8 @@ const AllApplications = () => {
               </button>
             }
           </div>
+          </div>
+
         </div>
 
         {/* Common Table */}
