@@ -84,12 +84,7 @@ export const EmpFormData = [
         placeholder: "Education*",
         type: "text"
     },
-    // {
-    //     id: 7,
-    //     name: "department",
-    //     placeholder: "Department*",
-    //     type: "text"
-    // },
+   
 
 ]
 
@@ -121,6 +116,44 @@ export const Address = [
     },
 ]
 
+export const countries = [
+    { id: 1, name: "United States of America" },
+    { id: 2, name: "Australia" },
+    { id: 3, name: "Canada" },
+    { id: 4, name: "United Kingdom" },
+    { id: 5, name: "New Zealand" },
+    { id: 6, name: "Singapore" },
+    { id: 7, name: "Dubai" },
+    { id: 8, name: "Ireland" },
+    { id: 9, name: "Germany" },
+    { id: 10, name: "France" },
+    { id: 11, name: "Sweden" },
+    { id: 12, name: "Netherlands" },
+    { id: 13, name: "Austria" },
+    { id: 14, name: "Denmark" },
+    { id: 15, name: "Finland" },
+    { id: 16, name: "Italy" },
+    { id: 17, name: "Hungary" },
+    { id: 18, name: "Switzerland" },
+    { id: 19, name: "Spain" },
+    { id: 20, name: "Lithuania" },
+    { id: 21, name: "Cyprus" },
+    { id: 22, name: "Poland" },
+    { id: 23, name: "Malaysia" },
+    { id: 24, name: "Mauritius" },
+    { id: 25, name: "China" },
+    { id: 26, name: "Vietnam" },
+    { id: 27, name: "Malta" },
+    { id: 28, name: "Japan" },
+    { id: 29, name: "Belgium" },
+    { id: 30, name: "Russia" },
+    { id: 31, name: "South Korea" },
+    { id: 32, name: "India" },
+    { id: 33, name: "Georgia" },
+    { id: 34, name: "Latvia" },
+  ];
+  
+
 export const Intake = [
     { id: 1, name: "Fall" },
     { id: 2, name: "Spring" },
@@ -146,21 +179,7 @@ export const FilterData = [
         id: 1,
         type: "",
         name: "country",
-        options: [
-            { id: 1, name: "USA" },
-            { id: 2, name: "UK" },
-            { id: 3, name: "Canada" },
-            { id: 4, name: "Australia" },
-            { id: 5, name: "Germany" },
-            { id: 6, name: "France" },
-            { id: 7, name: "Netherlands" },
-            { id: 8, name: "New Zealand" },
-            { id: 9, name: "Singapore" },
-            { id: 10, name: "Ireland" },
-            { id: 11, name: "Italy" },
-            { id: 12, name: "China" },
-            { id: 13, name: "Japan" },
-        ],
+        options: [...countries],
         placeholder: "",
         icon: ""
     },

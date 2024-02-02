@@ -5,7 +5,7 @@ import {
   getAllStudent,
   getEmployeesRoute,
 } from "../../utils/Endpoint";
-import { Intake } from "../../data/Dashboard";
+import { Intake, countries } from "../../data/Dashboard";
 import { useSelector } from "react-redux";
 
 import axios from "../../utils/AxiosInstance";
@@ -23,11 +23,11 @@ const AddModal = ({ setModal, ca }) => {
     country: "",
     uniBased: [
       {
+        program: "",
         university: "",
         partnership: "",
       },
     ],
-    program: "",
     intake: "",
     partnership: "",
     assignee: "",
@@ -36,6 +36,7 @@ const AddModal = ({ setModal, ca }) => {
   // State for managing dynamic university inputs
   const [dynamicUniInputs, setDynamicUniInputs] = useState([
     {
+      program: "",
       university: "",
       partnership: "",
     },
@@ -127,7 +128,7 @@ const AddModal = ({ setModal, ca }) => {
           onClick={() => setModal(false)}
           className="absolute right-3 top-3 rounded bg-primary_colors text-white cursor-pointer"
         />
-        <div className="flex flex-col w-full mt-6">
+        <div className="flex flex-col w-full h-[60vh] overflow-y-scroll mt-6">
           <form
             onSubmit={SubmitHandler}
             action=""
@@ -149,14 +150,21 @@ const AddModal = ({ setModal, ca }) => {
                 ))}
               </select>
 
-              <input
-                type="text"
+              <select
                 name="country"
-                placeholder="Enter the Country*"
-                className="w-full p-2 border rounded focus:outline-none"
+                id=""
+                className="w-full border rounded p-2 focus:outline-none capitalize"
                 required
                 onChange={ChangeHandler}
-              />
+              >
+                <option value="">Choose The Country</option>
+                {countries?.map((items, i) => (
+                  <option className="capitalize" key={i} value={items?.name}>
+                    {items?.name}
+                  </option>
+                ))}
+              </select>
+
             </div>
 
             <div className="w-full gap-3">
@@ -164,29 +172,45 @@ const AddModal = ({ setModal, ca }) => {
               {dynamicUniInputs.map((input, index) => (
                 <div
                   key={index}
-                  className="w-full flex flex-col md:flex-row gap-3 pb-3"
+                  className="w-full flex flex-col gap-3 pb-3"
                 >
-                  <input
-                    type="text"
-                    placeholder="University*"
-                    name="university"
-                    className="w-full p-2 border rounded focus:outline-none"
-                    required
-                    value={input.university}
-                    onChange={(e) => handleDynamicUniChange(index, e)}
-                  />
-                  <select
-                    name="partnership"
-                    id=""
-                    className="w-full border rounded p-2 focus:outline-none"
-                    required
-                    value={input.partnership}
-                    onChange={(e) => handleDynamicUniChange(index, e)}
-                  >
-                    <option value="">Choose The Type</option>
-                    <option value="partnered">Partnered</option>
-                    <option value="non-partnered">Non-partnered</option>
-                  </select>
+                  <div className="w-full flex flex-col md:flex-row gap-3 pb-3">
+
+                    <input
+                      type="text"
+                      placeholder="University*"
+                      name="university"
+                      className="w-full p-2 border rounded focus:outline-none"
+                      required
+                      value={input.university}
+                      onChange={(e) => handleDynamicUniChange(index, e)}
+                    />
+                    <select
+                      name="partnership"
+                      id=""
+                      className="w-full border rounded p-2 focus:outline-none"
+                      required
+                      value={input.partnership}
+                      onChange={(e) => handleDynamicUniChange(index, e)}
+                    >
+                      <option value="">Choose The Type</option>
+                      <option value="partnered">Partnered</option>
+                      <option value="non-partnered">Non-partnered</option>
+                    </select>
+
+                  </div>
+
+
+                    <input
+                      type="text"
+                      name="program"
+                      placeholder="Program*"
+                      className="w-full md:w-1/2 p-2 border rounded focus:outline-none"
+                      required
+                      value={input.program}
+                      onChange={(e) => handleDynamicUniChange(index, e)}
+                    />
+
                 </div>
               ))}
 
@@ -201,18 +225,11 @@ const AddModal = ({ setModal, ca }) => {
             </div>
 
             <div className="w-full flex flex-col md:flex-row gap-3">
-              <input
-                type="text"
-                name="program"
-                placeholder="Program*"
-                className="w-full p-2 border rounded focus:outline-none"
-                required
-                onChange={ChangeHandler}
-              />
+
               <select
                 name="intake"
                 id=""
-                className="w-full border rounded p-2 focus:outline-none"
+                className="w-full md:w-1/2 border rounded p-2 focus:outline-none"
                 required
                 onChange={ChangeHandler}
               >

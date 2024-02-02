@@ -79,14 +79,7 @@ const StudentDashboard = () => {
                 <h1 className="font-semibold pb-0.5">Country</h1>
                 <p>{state?.country}</p>
               </div>
-              {/* <div>
-                <h1 className="font-semibold pb-0.5">University</h1>
-                <p>{state?.university}</p>
-              </div> */}
-              <div>
-                <h1 className="font-semibold pb-0.5">Course</h1>
-                <p>{state?.program}</p>
-              </div>
+             
               <div>
                 <h1 className="font-semibold pb-0.5">Intake</h1>
                 <p>{state?.intake}</p>
@@ -107,8 +100,8 @@ const StudentDashboard = () => {
                     onClick={() => setCurrStepper(stepper)}
                     className="flex flex-col p-5 bg-white rounded-lg shadow-xl w-full md:w-[210px] cursor-pointer"
                   >
-                    <h1 className="text-primary_colors">University: </h1>
-                    <h4>{stepper.university}</h4>
+                    <h1 className="text-primary_colors">University: <span className="text-black">{stepper?.university}</span> </h1>
+                    <h4 className="text-primary_colors">Program: <span className="text-black">{stepper?.program}</span></h4>
                   </div>
                 ))}
               </div>
