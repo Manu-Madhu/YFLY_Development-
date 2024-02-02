@@ -64,7 +64,7 @@ const AddModal = ({ setModal, ca }) => {
 
   // Handle changes in dynamic university inputs
   const handleDynamicUniChange = (index, e) => {
-    console.log("dynamicIndex", index)
+    console.log("dynamicIndex", index);
     const newDynamicUniInputs = [...dynamicUniInputs];
     newDynamicUniInputs[index][e.target.name] = e.target.value;
 
@@ -88,10 +88,14 @@ const AddModal = ({ setModal, ca }) => {
   };
 
   const handleRemoveUniInput = (input, index) => {
-
     const dupliUniBased = [...formData?.uniBased];
 
-    const iofub = dupliUniBased?.findIndex((elem)=>  elem.program === input.program && elem.university === input.university && elem.partnership === input.partnership)
+    const iofub = dupliUniBased?.findIndex(
+      (elem) =>
+        elem.program === input.program &&
+        elem.university === input.university &&
+        elem.partnership === input.partnership
+    );
 
     dupliUniBased.splice(iofub, 1);
 
@@ -100,10 +104,9 @@ const AddModal = ({ setModal, ca }) => {
       uniBased: [...dupliUniBased],
     }));
 
-    console.log("removeIndex", index)
-    const newArray = dynamicUniInputs.filter((inp,i)=> i !== index);
+    console.log("removeIndex", index);
+    const newArray = dynamicUniInputs.filter((inp, i) => i !== index);
     setDynamicUniInputs([...newArray]);
-
   };
 
   // initial-time student fetching
@@ -140,7 +143,7 @@ const AddModal = ({ setModal, ca }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center z-50">
-      <div className="relative bg-white mt-60  md:mt-0 md:w-1/2 rounded-lg p-5  md:p-10 md:px-14 m-5">
+      <div className="relative bg-white max-h-screen overflow-y-scroll  mt-60  md:mt-0 md:w-1/2 rounded-lg p-5  md:p-10 md:px-14 m-5">
         <h1 className="font-bold text-center text-xl text-primary_colors">
           Register New Application
         </h1>
@@ -148,7 +151,7 @@ const AddModal = ({ setModal, ca }) => {
           onClick={() => setModal(false)}
           className="absolute right-3 top-3 rounded bg-primary_colors text-white cursor-pointer"
         />
-        <div className="flex flex-col w-full h-[60vh] overflow-y-scroll mt-6">
+        <div className="flex flex-col w-full h-full overflow-y-scroll mt-6">
           <form
             onSubmit={SubmitHandler}
             action=""
@@ -184,19 +187,14 @@ const AddModal = ({ setModal, ca }) => {
                   </option>
                 ))}
               </select>
-
             </div>
 
-            <div className="w-full gap-3">
+            <div className="w-full gap-3 max-h-[50vh] overflow-y-scroll">
               {/* Dynamic university inputs */}
 
               {dynamicUniInputs?.map((input, index) => (
-                <div
-                  key={index}
-                  className="w-full flex flex-col gap-3 pb-3"
-                >
-                  <div className="w-full flex flex-col md:flex-row gap-3 pb-3">
-
+                <div key={index} className="w-full flex flex-col gap-3 pb-3">
+                  <div className="w-full flex flex-col md:flex-row gap-3 ">
                     <input
                       type="text"
                       placeholder="University*"
@@ -206,6 +204,7 @@ const AddModal = ({ setModal, ca }) => {
                       value={input.university}
                       onChange={(e) => handleDynamicUniChange(index, e)}
                     />
+                    
                     <select
                       name="partnership"
                       id=""
@@ -219,31 +218,25 @@ const AddModal = ({ setModal, ca }) => {
                       <option value="non-partnered">Non-partnered</option>
                     </select>
 
-                  </div>
-
-                  <div className="w-full flex flex-col md:flex-row gap-3 pb-3">
                     <input
                       type="text"
                       name="program"
                       placeholder="Program*"
-                      className="w-full md:w-1/2 p-2 border rounded focus:outline-none"
+                      className="w-full p-2 border rounded focus:outline-none"
                       required
                       value={input.program}
                       onChange={(e) => handleDynamicUniChange(index, e)}
                     />
 
-                    {
-                      (index !== 0)
-                      &&
+                    {index !== 0 && (
                       <button
                         type="button"
-                        onClick={()=>handleRemoveUniInput(input,index)}
-                        className="bg-red-500 px-5 text-white rounded p-2"
+                        onClick={() => handleRemoveUniInput(input, index)}
+                        className="bg-red-600 px-3 text-xs text-white rounded p-2"
                       >
                         Remove
                       </button>
-                    }
-
+                    )}
                   </div>
                 </div>
               ))}
@@ -252,18 +245,17 @@ const AddModal = ({ setModal, ca }) => {
               <button
                 type="button"
                 onClick={handleAddUniInput}
-                className="bg-primary_colors px-5 text-white rounded p-2"
+                className="bg-primary_colors px-5 text-white rounded p-2 my-3"
               >
                 Add
               </button>
             </div>
 
             <div className="w-full flex flex-col md:flex-row gap-3">
-
               <select
                 name="intake"
                 id=""
-                className="w-full md:w-1/2 border rounded p-2 focus:outline-none"
+                className="w-full border rounded p-2 focus:outline-none"
                 required
                 onChange={ChangeHandler}
               >
@@ -316,7 +308,7 @@ const AddModal = ({ setModal, ca }) => {
             <div className="text-white text-normal space-x-3 flex items-center justify-end ">
               <button
                 type="submit"
-                className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200 mt-3"
+                className="bg-primary_colors p-2 px-5 rounded hover:scale-105 ease-in-out duration-200 mt-3"
               >
                 Submit
               </button>
