@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LoadingData from "../loading/LoadingData";
 
 const StudentTable = ({ data }) => {
   //   const navigate = useNavigate();
+
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  })
   return (
-    <div className="relative min-h-screen shadow-md md:rounded-lg overflow-x-scroll md:overflow-hidden mb-3 w-full">
-      <table className="w-full  text-sm text-left ">
+    <div className="relative max-h-screen shadow-md md:rounded-lg overflow-x-scroll md:overflow-hidden mb-3 w-full">
+      <table className="w-full max-w-[1200px]  text-sm text-left ">
         <thead className="text-xs text-white uppercase bg ">
           <tr className="bg-primary_colors border-b  ">
             <th scope="row" className="px-6 py-4 font-bold  text-white">
@@ -24,10 +28,10 @@ const StudentTable = ({ data }) => {
             data?.map((items, i) => (
               <tr
                 key={items?._id}
-                className="bg-white border-b  hover:bg-gray-50 text-black cursor-pointer "
+                className="bg-white border-b text-ellipsis hover:bg-gray-50 text-black cursor-pointer "
               >
                 <td className="px-6 py-4 ">{i + 1}</td>
-                <td className="px-6 py-4 truncate capitalize">{items?.name}</td>
+                <td className="px-6 py-4 capitalize">{items?.name}</td>
                 <td className="px-6 py-4">{items?.email}</td>
                 <td className="px-6 py-4">{items?.phone}</td>
                 {/* <td className="px-6 py-4 truncate">
