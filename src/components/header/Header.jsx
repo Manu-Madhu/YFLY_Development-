@@ -44,6 +44,7 @@ const Header = () => {
   };
 
   const LogoutHandler = async() => {
+    console.log("first")
    await axios
       .get(userLogout)
       .then((res) => {
