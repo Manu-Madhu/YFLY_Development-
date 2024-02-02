@@ -107,7 +107,7 @@ export const getEmpTaskMetrics = "/api/employee/get-task-metrics"; //<== + Emplo
 export const createTask = '/api/project/add-task'; 
 
 // Update  task
-export const updateTask = '/api/project/change-task-status'; 
+export const updateTask = '/api/project/update-task'; 
 
 // Get All task from a project
 export const getAllTask = '/api/project/get-all-tasks'; //<== + ProjectId

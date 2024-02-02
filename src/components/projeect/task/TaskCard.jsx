@@ -12,11 +12,10 @@ import instance from "../../../utils/AxiosInstance";
 import { updateTask } from "../../../utils/Endpoint";
 import { toast } from "react-toastify";
 
-const TaskCard = ({ data }) => {
+const TaskCard = ({ data, cb }) => {
   const userInfo = useSelector((state) => state.auth.userInfo);
   const [modal, setModal] = useState(false);
   const [form, setForm] = useState({
-    taskId: data?._id,
     taskStatus: "",
   });
 
@@ -32,11 +31,12 @@ const TaskCard = ({ data }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await instance.put(updateTask, form);
+      const response = await instance.put(`${updateTask}/${data._id}`, form);
       console.log(response.data);
       data = response.data;
       setModal(false);
       toast.success("Task Update Successfully");
+      cb();
     } catch (error) {
       console.log(error);
       toast.error("Something went Wrong");
@@ -109,13 +109,12 @@ const TaskCard = ({ data }) => {
               className="absolute bg-primary_colors text-white right-2 cursor-pointer"
             />
             <div className="flex flex-col items-center justify-center w-full p-5">
-              <h1 className="mb-5 text-primary_colors font-bold">New Task</h1>
+              <h1 className="mb-5 text-primary_colors font-bold">Update Task</h1>
               <div className="w-full border border-gray-500 rounded p-2 mb-3">
                 <h1 className="mb-2 text-sm text-gray-900">
                   Previous Comments
                 </h1>
-                {userInfo?.role === "admin" &&
-                  data?.comments?.map((items, i) => (
+                  {data?.comments?.map((items, i) => (
                     <div
                       key={i}
                       className="flex flex-col items-start text-sm w-full max-h-[80px] overflow-y-scroll"
@@ -131,7 +130,8 @@ const TaskCard = ({ data }) => {
                 className="w-full flex flex-col gap-3 text-gray-700"
               >
                 <textarea
-                  name=""
+                  onChange={inputChangeHandler}
+                  name="comment"
                   id=""
                   cols="20"
                   rows="5"
@@ -142,6 +142,7 @@ const TaskCard = ({ data }) => {
                 <select
                   onChange={inputChangeHandler}
                   required
+                  defaultValue={data?.taskStatus}
                   name="taskStatus"
                   id=""
                   className="border border-gray-500 text-sm text-gray-500 p-2 font-thin rounded w-full focus:outline-none"
@@ -150,7 +151,7 @@ const TaskCard = ({ data }) => {
                     Update Status
                   </option>
                   {status.map((items, i) => (
-                    <option key={i} value={items?.name} className="taskStatus">
+                    <option key={i} value={items?.name} >
                       {items?.name}
                     </option>
                   ))}

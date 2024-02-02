@@ -1,31 +1,4 @@
-export const FilterData = [
-    {
-        id: 1,
-        type: "",
-        name: "country",
-        options: [
-            { id: 1, name: "Us" },
-            { id: 2, name: "Italy" },
-            { id: 3, name: "UK" },
-            { id: 4, name: "Canada" },
-        ],
-        placeholder: "",
-        icon: ""
-    },
-    {
-        id: 2,
-        type: "",
-        name: "intake",
-        options: [
-            { id: 1, name: "Fall" },
-            { id: 2, name: "Spring" },
-            { id: 3, name: "Winter" },
-            { id: 4, name: "Summer" },
-        ],
-        placeholder: "",
-        icon: ""
-    },
-]
+
 
 export const FormData = [
     {
@@ -111,12 +84,7 @@ export const EmpFormData = [
         placeholder: "Education*",
         type: "text"
     },
-    // {
-    //     id: 7,
-    //     name: "department",
-    //     placeholder: "Department*",
-    //     type: "text"
-    // },
+   
 
 ]
 
@@ -148,9 +116,94 @@ export const Address = [
     },
 ]
 
+export const countries = [
+    { id: 1, name: "United States of America" },
+    { id: 2, name: "Australia" },
+    { id: 3, name: "Canada" },
+    { id: 4, name: "United Kingdom" },
+    { id: 5, name: "New Zealand" },
+    { id: 6, name: "Singapore" },
+    { id: 7, name: "Dubai" },
+    { id: 8, name: "Ireland" },
+    { id: 9, name: "Germany" },
+    { id: 10, name: "France" },
+    { id: 11, name: "Sweden" },
+    { id: 12, name: "Netherlands" },
+    { id: 13, name: "Austria" },
+    { id: 14, name: "Denmark" },
+    { id: 15, name: "Finland" },
+    { id: 16, name: "Italy" },
+    { id: 17, name: "Hungary" },
+    { id: 18, name: "Switzerland" },
+    { id: 19, name: "Spain" },
+    { id: 20, name: "Lithuania" },
+    { id: 21, name: "Cyprus" },
+    { id: 22, name: "Poland" },
+    { id: 23, name: "Malaysia" },
+    { id: 24, name: "Mauritius" },
+    { id: 25, name: "China" },
+    { id: 26, name: "Vietnam" },
+    { id: 27, name: "Malta" },
+    { id: 28, name: "Japan" },
+    { id: 29, name: "Belgium" },
+    { id: 30, name: "Russia" },
+    { id: 31, name: "South Korea" },
+    { id: 32, name: "India" },
+    { id: 33, name: "Georgia" },
+    { id: 34, name: "Latvia" },
+  ];
+  
+
 export const Intake = [
     { id: 1, name: "Fall" },
     { id: 2, name: "Spring" },
     { id: 3, name: "Winter" },
     { id: 4, name: "Summer" },
+    { id: 5, name: "January" },
+    { id: 6, name: "February" },
+    { id: 7, name: "March" },
+    { id: 8, name: "April" },
+    { id: 9, name: "May" },
+    { id: 10, name: "June" },
+    { id: 11, name: "July" },
+    { id: 12, name: "August" },
+    { id: 13, name: "September" },
+    { id: 14, name: "October" },
+    { id: 15, name: "November" },
+    { id: 16, name: "December" },
+];
+
+
+export const FilterData = [
+    {
+        id: 1,
+        type: "",
+        name: "country",
+        options: [...countries],
+        placeholder: "",
+        icon: ""
+    },
+    {
+        id: 2,
+        type: "",
+        name: "intake",
+        options: [...Intake],
+        placeholder: "",
+        icon: ""
+    },
+    {
+        id: 3,
+        type: "",
+        name: "status",
+        options: [
+            {id:1, name:"pending"},
+            {id:2, name:"ongoing"},
+            {id:3, name:"completed"},
+            {id:4, name:"deffered"},
+            {id:5, name:"cancelled"},
+            {id:6, name:"non-enrolled"},
+        ],
+        placeholder: "",
+        icon: ""
+    },
 ]

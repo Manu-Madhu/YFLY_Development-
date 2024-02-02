@@ -15,6 +15,10 @@ const ApplicationCard = ({ data }) => {
         university:{" "}
         <span className="font-medium text-sm">{data?.university}</span>
       </h1>
+      <h1 className="font-semibold text-primary_colors">
+        Program:{" "}
+        <span className="font-medium text-sm">{data?.program}</span>
+      </h1>
       <h1 className="mt-2 text-sm">
         partnership:{" "}
         <span className="font-medium text-gray-500">{data?.partnership}</span>

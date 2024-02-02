@@ -36,7 +36,7 @@ const Stepper = () => {
           <span className="text-blue-500 capitalize"> {data?.studentName}</span>
         </h1>
         <div className="text-white mt-5 flex items-center justify-around gap-4">
-          <div className="flex  flex-col justify-start w-full">
+        <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">Name</h5>
             <h5 className="text-sm capitalize">{data?.studentName}</h5>
           </div>
@@ -45,16 +45,17 @@ const Stepper = () => {
             <h5 className="text-sm capitalize">{data?.country}</h5>
           </div>
           <div className="flex  flex-col justify-start w-full">
-            <h5 className="font-bold">Assignee</h5>
-            <h5 className="text-sm capitalize">{data?.assignee}</h5>
-          </div>
-          <div className="flex  flex-col justify-start w-full">
-            <h5 className="font-bold">Program</h5>
-            <h5 className="text-sm capitalize">{data?.program}</h5>
-          </div>
-          <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">Intake</h5>
             <h5 className="text-sm capitalize">{data?.intake}</h5>
+          </div>
+        
+          <div className="flex  flex-col justify-start w-full">
+            <h5 className="font-bold">Created Date</h5>
+            <h5 className="text-sm capitalize">{data?.createdAt?.split("T")[0]}</h5>
+          </div>
+          <div className="flex  flex-col justify-start w-full">
+            <h5 className="font-bold">Updated Date</h5>
+            <h5 className="text-sm capitalize">{data?.updatedAt?.split("T")[0]}</h5>
           </div>
         </div>
       </div>
