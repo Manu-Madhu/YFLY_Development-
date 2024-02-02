@@ -38,21 +38,21 @@ const Filter = ({ setData,endPoint }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={submitData} action="" className="flex flex-col md:flex-row  gap-3 md:gap-5 w-full">
+    <div className="w-full">
+      <form onSubmit={submitData} action="" className="flex flex-col justify-between md:flex-row gap-3 md:gap-5 w-full">
         <input
           onChange={changeHandler}
           type="date"
           name="start_date"
           placeholder=""
-          className="border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none "
+          className="border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none w-full"
         />
         <input
           onChange={changeHandler}
           type="date"
           name="end_date"
           placeholder=""
-          className="border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none "
+          className="border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none w-full"
         />
         {FilterData.map((data) => (
           <select
@@ -60,7 +60,7 @@ const Filter = ({ setData,endPoint }) => {
             onChange={changeHandler}
             name={data?.name}
             id=""
-            className="border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none "
+            className="border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none w-full"
           >
             <option value="">Select {data.name}</option>
             {data?.options?.map((data) => (
@@ -72,7 +72,7 @@ const Filter = ({ setData,endPoint }) => {
         ))}
         <button
           type="submit"
-          className="bg-primary_colors p-2 px-6 rounded-lg text-white text-normal  hover:scale-105 ease-in-out duration-200"
+          className="bg-primary_colors p-2 md:w-[690px] rounded text-white text-normal  hover:scale-105 ease-in-out duration-200"
         >
           Filter
         </button>

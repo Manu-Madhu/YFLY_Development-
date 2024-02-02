@@ -27,7 +27,7 @@ const AllApplications = () => {
       setData(response?.data);
     } catch (error) {
       console.log(error);
-    } 
+    }
   };
 
   useState(() => {
@@ -38,29 +38,26 @@ const AllApplications = () => {
   return (
     <>
       <div className="w-full h-full text-black pt-10 pb-28">
-        <div className="flex flex-col justify-between">
+        <div className="flex justify-between">
           <h1 className="text-primary_colors text-2xl font-bold">
             Applications
           </h1>
-          <div className="flex flex-col md:flex-row mt-[3vh] justify-between">
-
-          {/* filter & Application */}
-          <div className="flex flex-col md:flex-row gap-3 mt-5 md:mt-0">
-            <Filter setData={setData} endPoint={getAllApplications} />
-
-            {
-              user?.role === "admin"
-              &&
+          <div>
+            {user?.role === "admin" && (
               <button
                 onClick={() => setModal(true)}
-                className="p-2 px-5 text-normal bg-primary_colors text-white rounded-lg hover:scale-105 ease-in-out duration-200"
+                className="p-2 px-5 text-normal bg-primary_colors text-white rounded hover:scale-105 ease-in-out duration-200"
               >
-                Application
+                Applications
               </button>
-            }
+            )}
           </div>
+        </div>
+        <div className="flex flex-col md:flex-row mt-[3vh] justify-between">
+          {/* filter & Application */}
+          <div className="flex flex-col md:flex-row justify-between gap-3 mt-5 md:mt-0 w-full ">
+            <Filter setData={setData} endPoint={getAllApplications} />
           </div>
-
         </div>
 
         {/* Common Table */}
@@ -79,7 +76,6 @@ const AllApplications = () => {
         </div>
       </div>
       {modal && <AddModal setModal={setModal} ca={application} />}
-      
     </>
   );
 };
