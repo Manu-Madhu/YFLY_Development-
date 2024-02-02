@@ -65,6 +65,12 @@ const AddModal = ({ setModal, ca }) => {
   const handleDynamicUniChange = (index, e) => {
     const newDynamicUniInputs = [...dynamicUniInputs];
     newDynamicUniInputs[index][e.target.name] = e.target.value;
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      uniBased: newDynamicUniInputs,
+    }));
+
     setDynamicUniInputs(newDynamicUniInputs);
   };
 
@@ -95,18 +101,6 @@ const AddModal = ({ setModal, ca }) => {
   const SubmitHandler = async (e) => {
     e.preventDefault();
 
-    const uniBasedArray = dynamicUniInputs.map((input) => ({
-      university: input.university,
-      partnership: input.partnership,
-    }));
-
-    // Update formData with dynamicUniInputs
-    setFormData({
-      ...formData,
-      uniBased: uniBasedArray,
-    });
-    console.log(formData);
-
     try {
       const response = await axios.post(createApplicationRoute, formData);
       if (response?.status === 200) {
@@ -118,6 +112,10 @@ const AddModal = ({ setModal, ca }) => {
       toast.error(error?.response?.data?.msg || "Something Went Wrong");
     }
   };
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
 
   return (
     <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center z-50">
