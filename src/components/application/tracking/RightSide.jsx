@@ -39,15 +39,18 @@ const RightSide = ({ data, cb, application }) => {
   }
 
   useEffect(() => {
-    axios
-      .get(`${getAllComments}/application/${data?.applicationId}`)
-      .then((res) => {
-        setComments(res?.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [data?._id]);
+    if(data?.applicationId){
+      axios
+        .get(`${getAllComments}/application/${data?.applicationId}`)
+        .then((res) => {
+          setComments(res?.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+    }
+  }, [data?.applicationId]);
 
   const submitHandle = async (e) => {
     e.preventDefault();
@@ -79,7 +82,7 @@ const RightSide = ({ data, cb, application }) => {
 
       <div className="w-full max-h-[220px] overflow-y-scroll space-y-2 ">
         {empTasks?.map((empTask) => (
-          <div className="bg-white p-5  rounded-lg">
+          <div key={empTask._id} className="bg-white p-5  rounded-lg">
             <div className="flex justify-between">
               <h1 className="text-sm font-semibold">{createdDate}</h1>
               <div>
@@ -119,7 +122,7 @@ const RightSide = ({ data, cb, application }) => {
           </div>
         ))}
         {myTasks?.map((myTasks) => (
-          <div className="bg-white p-5  rounded-lg">
+          <div key={myTasks._id} className="bg-white p-5  rounded-lg">
             <div className="flex justify-between">
               <h1 className="text-sm font-semibold">{createdDate}</h1>
               <div>

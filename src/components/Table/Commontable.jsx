@@ -3,9 +3,14 @@ import DateFormat from "../../utils/DateFormat";
 
 import { useNavigate } from "react-router-dom";
 import LoadingData from "../loading/LoadingData";
+import { MdDeleteOutline } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 const CommonTable = ({ data, page, entries }) => {
+  const user = useSelector((state) => state.auth.userInfo);
+
   const navigate = useNavigate();
+
   return (
     <div className="relative md:max-h-screen shadow-md md:rounded-lg overflow-x-scroll md:overflow-hidden mb-3 w-full">
       <table className="w-full  text-sm text-left ">
@@ -22,13 +27,17 @@ const CommonTable = ({ data, page, entries }) => {
             {/* <th className="px-6 py-4">Stage</th> */}
             <th className="px-6 py-4">Application Status</th>
             <th className="px-6 py-4"> Assignee</th>
+            {
+              user?.role === "admin" &&
+              <th className="px-6 py-4"> View </th>
+
+            }
           </tr>
         </thead>
         <tbody>
           {data?.length > 0 ? (
             data?.map((items, i) => (
               <tr
-                onClick={(e) => navigate(`/admin/applications/stepper/${items._id}`)}
                 key={items?._id}
                 className="bg-white border-b  hover:bg-gray-50 text-black cursor-pointer capitalize"
               >
@@ -47,9 +56,27 @@ const CommonTable = ({ data, page, entries }) => {
                 <td className="px-6 py-4">
                   {/* {items?.steps.length > 0
                   ? items?.steps[items.steps.length - 1]?.assignee
-                  : "NIL"} */}
+                : "NIL"} */}
                   {items?.assignee ? items?.assigneeName : "NIL"}
                 </td>
+
+                {
+                  user?.role === "admin" &&
+                  <td className="px-6 py-4  t">
+                    <div className="font-medium text-blue-600 dark:text-blue-500 hover:underline-none hover:text-blue-800 hover:cursor-pointer">
+                      <span
+                        onClick={() =>
+                          navigate(`/admin/applications/stepper/${items?._id}`)
+                        }
+                      >
+                        View
+
+                      </span>
+                    </div>
+                  </td>
+
+                }
+
               </tr>
             ))
           ) : (
