@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import EmptyData from "../loading/EmptyData";
 import Pagination from "../Pagination";
 import DeleteModal from "../modals/DeleteModal";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
+import EditEmployee from "../modals/EditEmployee";
 
 const Table = ({ department }) => {
   const [data, setData] = useState([]);
@@ -12,6 +15,7 @@ const Table = ({ department }) => {
   const [page, setPage] = useState(1);
   const [entries, setEntries] = useState(10);
   const navigate = useNavigate();
+  const [editModal, setEditModal] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
 
   console.log("department", department);
@@ -39,6 +43,11 @@ const Table = ({ department }) => {
     setDeleteModal(true)
   }
 
+  const handleEdit = (data)=>{
+    setEmpData(data)
+    setEditModal(true)
+  }
+
   console.log(data);
   return (
     <>
@@ -52,7 +61,7 @@ const Table = ({ department }) => {
               <th className="px-6 py-4">department</th>
               <th className="px-6 py-4">email</th>
               <th className="px-6 py-4">phoneNumber</th>
-              <th className="px-6 py-4">Delete</th>
+              <th className="px-6 py-4 text-center ">Actions</th>
               <th className="px-6 py-4  t">
                 <div className="font-bold text-white  hover:underline-none hover:text-blue-800 hover:cursor-pointer">
                   More
@@ -75,14 +84,18 @@ const Table = ({ department }) => {
                   <td className="px-6 py-4">{emp?.email}</td>
                   <td className="px-6 py-4">{emp?.phone}</td>
                   <td className="px-6 py-4 ">
-                    <div className="font-medium text-red-600 dark:text-red-500 hover:underline-none hover:text-red-800 hover:cursor-pointer">
-                      <span
-                      onClick={()=>handleDelete(emp)}
-                      >
-                      Delete
-
-                      </span>
-                    </div>
+                    <div className="flex items-center justify-between gap-3">
+                        <FaRegEdit
+                          onClick={()=>handleEdit(emp)}
+                          size={23}
+                          className="cursor-pointer hover:scale-105 ease-in-out duration-400"
+                        />
+                        <MdDeleteOutline
+                          onClick={()=>handleDelete(emp)}
+                          size={23}
+                          className="cursor-pointer hover:scale-105 ease-in-out duration-400 text-red-700"
+                        />
+                      </div>
                   </td>
                   <td className="px-6 py-4  t">
                     <div className="font-medium text-blue-600 dark:text-blue-500 hover:underline-none hover:text-blue-800 hover:cursor-pointer">
@@ -114,6 +127,8 @@ const Table = ({ department }) => {
           getMethod={getData}
         />
       </div>
+
+      {editModal && <EditEmployee entityData={empData} setData={setEmpData} getTableData={getData}  setModal={setEditModal}  />}
 
       {deleteModal && <DeleteModal setModal={setDeleteModal} data={empData} setData={setEmpData} getTableData={getData} route={deactivateEmployeeRoute} />}
     </>

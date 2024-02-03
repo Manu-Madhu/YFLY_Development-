@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Address, EmpFormData, FormData, Office } from "../../data/Dashboard";
 import { IoClose } from "react-icons/io5";
 
@@ -12,7 +12,7 @@ import {
 import { toast } from "react-toastify";
 import { EmployeeCards } from "../../data/Employee";
 
-const RegistrationForm = ({ setModal, entity }) => {
+const EditForm = ({entityData,setData, getTableData, setModal, entity }) => {
 
   const [formData, setFormData] = useState({
     name: "",
@@ -47,6 +47,16 @@ const RegistrationForm = ({ setModal, entity }) => {
       pin: "",
     },
   });
+
+  useEffect(()=>{
+    if(entity === "Employee"){
+        setEmpFormData((prev)=> ({...prev, ...entityData}))
+    }
+    else if(entity === "Student"){
+        setFormData((prev)=> ({...prev, ...entityData}))
+    }
+  },[])
+
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -128,7 +138,7 @@ const RegistrationForm = ({ setModal, entity }) => {
     <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center z-50">
       <div className="relative bg-white mt-60  md:mt-0 md:w-1/2 rounded-lg p-5  md:p-10 md:px-14 m-5">
         <h1 className="font-bold text-center text-xl text-primary_colors">
-          Register New {entity}
+          Update {entity}
         </h1>
         <IoClose
           onClick={() => setModal(false)}
@@ -147,7 +157,7 @@ const RegistrationForm = ({ setModal, entity }) => {
                         type={data?.type}
                         changeHandler={changeHandler}
                         value={formData[data?.name]}
-                        
+                        required={"required"}
                       />
                     </div>
                   ))}
@@ -178,7 +188,7 @@ const RegistrationForm = ({ setModal, entity }) => {
                         type={data?.type}
                         changeHandler={changeHandler}
                         value={empFormData[data?.name]}
-                        
+                        required={"required"}
                       />
                     </div>
                   ))}
@@ -225,9 +235,10 @@ const RegistrationForm = ({ setModal, entity }) => {
                       type={data?.type}
                       changeHandler={changeHandler}
                       value={
-                        entity === "Student"
-                          ? formData?.address?.[data?.name]
-                          : empFormData?.address?.[data?.name]
+                        entityData?.address?.[data?.name]
+                        // entity === "Student"
+                        //   ? formData?.address?.[data?.name]
+                        //   : empFormData?.address?.[data?.name]
                       }
                     />
                   </div>
@@ -237,29 +248,7 @@ const RegistrationForm = ({ setModal, entity }) => {
 
             {/* BUTTON */}
             <div className="text-white text-normal space-x-3 flex items-center justify-end mt-10">
-              {/* {currentStep > 1 && !complete && (
-                <button
-                  type="button"
-                  className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"
-                  onClick={() => setCurrentStep((prev) => prev - 1)}
-                >
-                  Back
-                </button>
-              )}
-              {!complete && (
-                <button
-                  type="button"
-                  className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"
-                  onClick={() => {
-                    currentStep === steps.length
-                      ? setComplete(true)
-                      : setCurrentStep((prev) => prev + 1);
-                  }}
-                >
-                  {currentStep === steps.length ? "Finish" : "Next"}
-                </button>
-              )} */}
-              {/* {complete && ( */}
+             
               <button
                 type="submit"
                 className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"
@@ -275,4 +264,4 @@ const RegistrationForm = ({ setModal, entity }) => {
   );
 };
 
-export default RegistrationForm;
+export default EditForm;

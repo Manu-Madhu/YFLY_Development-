@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react";
 import LoadingData from "../loading/LoadingData";
 import DeleteModal from "../modals/DeleteModal";
 import { deactivateStudentRoute } from "../../utils/Endpoint";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
+import EditStudent from "../modals/EditStudent";
 
 const StudentTable = ({ data , getData}) => {
   const [student, setStudent] = useState({})
   const [deleteModal, setDeleteModal] = useState(false)
+  const [editModal, setEditModal] = useState(false)
+
 
   useEffect(()=>{
     window.scrollTo(0,0)
@@ -15,6 +20,11 @@ const StudentTable = ({ data , getData}) => {
     console.log("studeentData",data)
     setStudent(data)
     setDeleteModal(true)
+  }
+
+  const handleEdit = (data)=>{
+    setStudent(data)
+    setEditModal(true)
   }
 
   return (
@@ -30,7 +40,7 @@ const StudentTable = ({ data , getData}) => {
             <th className="px-6 py-4">Phone</th>
             <th className="px-6 py-4">Qualification</th>
             {/* <th className="px-6 py-4">application Id</th> */}
-            <th className="px-6 py-4">Delete</th>
+            <th className="px-6 py-4 text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -51,14 +61,19 @@ const StudentTable = ({ data , getData}) => {
                   {items?.applicationId ? items?.applicationId : "NIL"}
                 </td> */}
                 <td className="px-6 py-4 truncate">
-                    <div className="font-medium text-red-600 dark:text-red-500 hover:underline-none hover:text-red-800 hover:cursor-pointer">
-                      <span
-                      onClick={()=>handleDelete(items)}
-                      >
-                      Delete
 
-                      </span>
-                    </div>
+                      <div className="flex items-center justify-between gap-3">
+                        <FaRegEdit
+                          onClick={()=> handleEdit(items)}
+                          size={23}
+                          className="cursor-pointer hover:scale-105 ease-in-out duration-400"
+                        />
+                        <MdDeleteOutline
+                          onClick={()=> handleDelete(items)}
+                          size={23}
+                          className="cursor-pointer hover:scale-105 ease-in-out duration-400 text-red-700"
+                        />
+                      </div>
                 </td>
               </tr>
             ))
@@ -69,6 +84,8 @@ const StudentTable = ({ data , getData}) => {
           )}
         </tbody>
       </table>
+
+      {editModal && <EditStudent entityData={student} setData={setStudent} getTableData={getData}  setModal={setEditModal}  />}
 
       {deleteModal && <DeleteModal setModal={setDeleteModal} data={student} setData={setStudent} getTableData={getData} route={deactivateStudentRoute} />}
       
