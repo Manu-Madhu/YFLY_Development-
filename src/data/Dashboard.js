@@ -4,37 +4,37 @@ export const FormData = [
     {
         id: 1,
         name: "name",
-        placeholder: "Name*",
+        placeholder: "Name",
         type: "text"
     },
     {
         id: 2,
         name: "phone",
-        placeholder: "Phone*",
+        placeholder: "Phone",
         type: "text"
     },
     {
         id: 3,
         name: "email",
-        placeholder: "Email*",
+        placeholder: "Email",
         type: "email"
     },
     {
         id: 4,
         name: "password",
-        placeholder: "Eg: Password@1*",
+        placeholder: "Password",
         type: "text"
     },
     {
         id: 5,
         name: "birthDate",
-        placeholder: "Date Of Birth*",
+        placeholder: "Date Of Birth",
         type: "date"
     },
     {
         id: 7,
         name: "qualification",
-        placeholder: "Qualification*",
+        placeholder: "Qualification",
         type: "text"
     },
 ]
@@ -51,37 +51,37 @@ export const EmpFormData = [
     {
         id: 1,
         name: "name",
-        placeholder: "Name*",
+        placeholder: "Name",
         type: "text"
     },
     {
         id: 2,
         name: "phone",
-        placeholder: "Phone*",
+        placeholder: "Phone",
         type: "text"
     },
     {
         id: 3,
         name: "email",
-        placeholder: "Email*",
+        placeholder: "Email",
         type: "email"
     },
     {
         id: 4,
         name: "password",
-        placeholder: "Password*",
+        placeholder: "Password",
         type: "text"
     },
     {
         id: 5,
         name: "birthDate",
-        placeholder: "Date Of Birth*",
+        placeholder: "Date Of Birth",
         type: "date"
     },
     {
         id: 6,
         name: "education",
-        placeholder: "Education*",
+        placeholder: "Education",
         type: "text"
     },
    
@@ -93,25 +93,25 @@ export const Address = [
     {
         id: 1,
         name: "houseName",
-        placeholder: "House Name*",
+        placeholder: "House Name",
         type: "text"
     },
     {
         id: 2,
         name: "city",
-        placeholder: "City*",
+        placeholder: "City",
         type: "text"
     },
     {
         id: 3,
         name: "state",
-        placeholder: "State*",
+        placeholder: "State",
         type: "test"
     },
     {
         id: 4,
         name: "pin",
-        placeholder: "PIN*",
+        placeholder: "PIN",
         type: "text"
     },
 ]

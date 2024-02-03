@@ -8,7 +8,7 @@ import DeleteModal from "../modals/DeleteModal";
 
 const Table = ({ department }) => {
   const [data, setData] = useState([]);
-  const [empData, setEmpData] = useState([]);
+  const [empData, setEmpData] = useState({});
   const [page, setPage] = useState(1);
   const [entries, setEntries] = useState(10);
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ const Table = ({ department }) => {
                   <td className="px-6 py-4">{emp?.department}</td>
                   <td className="px-6 py-4">{emp?.email}</td>
                   <td className="px-6 py-4">{emp?.phone}</td>
-                  <td className="px-6 py-4  t">
+                  <td className="px-6 py-4 ">
                     <div className="font-medium text-red-600 dark:text-red-500 hover:underline-none hover:text-red-800 hover:cursor-pointer">
                       <span
                       onClick={()=>handleDelete(emp)}

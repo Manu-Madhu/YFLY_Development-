@@ -54,12 +54,20 @@ const Header = () => {
       });
   };
 
+  const LogoClick = ()=>{
+    if(user.role === "admin"){
+      navigate("/admin/dashboard")
+    }else if(user.role === "employee"){
+      navigate("/employee/dashboard")
+    }
+  }
+
   return (
     <>
       <div className="shadow-sm fixed z-50 w-full bg-white top-0">
         <div className="container mx-auto w-full">
           <div className="mx-1 flex items-center justify-between p-5">
-            <div className="w-full">
+            <div className="w-full cursor-pointer" onClick={LogoClick}>
               <img
                 src={require("../../assets/logo/logo.png")}
                 alt="Logo"
