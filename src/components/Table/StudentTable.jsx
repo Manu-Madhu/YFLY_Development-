@@ -5,11 +5,13 @@ import { deactivateStudentRoute } from "../../utils/Endpoint";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import EditStudent from "../modals/EditStudent";
+import { useSelector } from "react-redux";
 
-const StudentTable = ({ data , getData}) => {
+const StudentTable = ({ data , getData , page , entries}) => {
   const [student, setStudent] = useState({})
   const [deleteModal, setDeleteModal] = useState(false)
   const [editModal, setEditModal] = useState(false)
+  const user = useSelector((state) => state.auth.userInfo);
 
 
   useEffect(()=>{
@@ -40,7 +42,7 @@ const StudentTable = ({ data , getData}) => {
             <th className="px-6 py-4">Phone</th>
             <th className="px-6 py-4">Qualification</th>
             {/* <th className="px-6 py-4">application Id</th> */}
-            <th className="px-6 py-4 text-center">Actions</th>
+            {user?.role === "admin" && <th className="px-6 py-4 text-center">Actions</th>}
           </tr>
         </thead>
         <tbody>
@@ -50,7 +52,7 @@ const StudentTable = ({ data , getData}) => {
                 key={items?._id}
                 className="bg-white border-b text-ellipsis hover:bg-gray-50 text-black cursor-pointer "
               >
-                <td className="px-6 py-4 ">{i + 1}</td>
+                <td className="px-6 py-4 ">{((page - 1) * entries) + i + 1}</td>
                 <td className="px-6 py-4 capitalize">{items?.name}</td>
                 <td className="px-6 py-4">{items?.email}</td>
                 <td className="px-6 py-4">{items?.phone}</td>
@@ -60,21 +62,27 @@ const StudentTable = ({ data , getData}) => {
                 {/* <td className="px-6 py-4 truncate">
                   {items?.applicationId ? items?.applicationId : "NIL"}
                 </td> */}
-                <td className="px-6 py-4 truncate">
 
-                      <div className="flex items-center justify-between gap-3">
-                        <FaRegEdit
-                          onClick={()=> handleEdit(items)}
-                          size={23}
-                          className="cursor-pointer hover:scale-105 ease-in-out duration-400"
-                        />
-                        <MdDeleteOutline
-                          onClick={()=> handleDelete(items)}
-                          size={23}
-                          className="cursor-pointer hover:scale-105 ease-in-out duration-400 text-red-700"
-                        />
-                      </div>
-                </td>
+                {
+                  user?.role === "admin"
+                  &&
+                  <td className="px-6 py-4 truncate">
+
+                        <div className="flex items-center justify-between gap-3">
+                          <FaRegEdit
+                            onClick={()=> handleEdit(items)}
+                            size={23}
+                            className="cursor-pointer hover:scale-105 ease-in-out duration-400"
+                          />
+                          <MdDeleteOutline
+                            onClick={()=> handleDelete(items)}
+                            size={23}
+                            className="cursor-pointer hover:scale-105 ease-in-out duration-400 text-red-700"
+                          />
+                        </div>
+                  </td>
+
+                }
               </tr>
             ))
           ) : (

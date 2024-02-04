@@ -3,7 +3,7 @@ import { IoClose } from "react-icons/io5";
 import instance from "../../utils/AxiosInstance";
 import { toast } from "react-toastify";
 
-const DeleteModal = ({ setModal, data, setData, getTableData, route }) => {
+const DeleteApplication = ({ setModal, data, setData, getTableData, route }) => {
   const CancelModal = () => {
     setModal(false);
     setData({});
@@ -11,7 +11,7 @@ const DeleteModal = ({ setModal, data, setData, getTableData, route }) => {
 
   const ConfirmDeletion = async () => {
     await instance
-      .put(`${route}/${data?._id}`)
+      .delete(`${route}/${data?._id}`)
       .then((res) => {
         toast.success(res?.data?.msg);
         getTableData();
@@ -29,8 +29,8 @@ const DeleteModal = ({ setModal, data, setData, getTableData, route }) => {
         <h1 className="font-bold text-center capitalize text-xl text-primary_colors">
           Do you want to delete <br />{" "}
           
-            <span className="">{data?.name}?</span>
-          
+            <span className="">{data?.studentName}'s Application ?</span>
+
         </h1>
         <IoClose
           onClick={CancelModal}
@@ -56,4 +56,4 @@ const DeleteModal = ({ setModal, data, setData, getTableData, route }) => {
   );
 };
 
-export default DeleteModal;
+export default DeleteApplication;

@@ -12,7 +12,7 @@ import axios from "../../utils/AxiosInstance";
 import { EmployeeCards } from "../../data/Employee";
 import { toast } from "react-toastify";
 
-const AddModal = ({ setModal, ca }) => {
+const AddModal = ({ setModal, cb }) => {
   const [data, setData] = useState([]);
   const [employee, setEmployee] = useState([]);
   const user = useSelector((state) => state?.auth?.userInfo);
@@ -129,7 +129,7 @@ const AddModal = ({ setModal, ca }) => {
       const response = await axios.post(createApplicationRoute, formData);
       if (response?.status === 200) {
         toast.success(response?.data?.msg);
-        ca();
+        cb();
         setModal(false);
       }
     } catch (error) {

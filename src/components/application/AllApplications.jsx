@@ -19,7 +19,7 @@ const AllApplications = () => {
   const user = useSelector((state) => state?.auth?.userInfo);
 
   // Table loading Data
-  const application = async () => {
+  const GetApplications = async () => {
     try {
       const response = await instance.get(
         `${getAllApplications}?page=${page}&entries=${entries}`
@@ -32,12 +32,12 @@ const AllApplications = () => {
 
   useState(() => {
     window.scroll(0, 0);
-    application();
+    GetApplications();
   }, [setPage]);
 
   return (
     <>
-      <div className="w-[90%] h-full text-black pt-10 pb-28">
+      <div className="w-full h-full text-black pt-10 pb-28">
         <div className="flex justify-between">
           <h1 className="text-primary_colors text-2xl font-bold">
             Applications
@@ -56,13 +56,13 @@ const AllApplications = () => {
         <div className="flex flex-col md:flex-row mt-[3vh] justify-between">
           {/* filter & Application */}
           <div className="flex flex-col md:flex-row justify-between gap-3 mt-5 md:mt-0 w-full ">
-            <Filter setData={setData} endPoint={getAllApplications} />
+            <Filter setData={setData} endPoint={getAllApplications} isDashboard={false} />
           </div>
         </div>
 
         {/* Common Table */}
         <div className="flex flex-wrap mt-5 w-full ">
-          <CommonTable data={data} page={page} entries={entries} />
+          <CommonTable data={data} page={page} entries={entries} getData={GetApplications} />
         </div>
 
         {/* Pagination */}
@@ -71,11 +71,11 @@ const AllApplications = () => {
             Data={data}
             page={page}
             setPage={setPage}
-            getMethod={application}
+            getMethod={GetApplications}
           />
         </div>
       </div>
-      {modal && <AddModal setModal={setModal} ca={application} />}
+      {modal && <AddModal setModal={setModal} cb={GetApplications} />}
     </>
   );
 };

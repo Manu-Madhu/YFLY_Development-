@@ -207,3 +207,23 @@ export const FilterData = [
         icon: ""
     },
 ]
+
+export const FilterDataDash = [
+    {
+        id: 1,
+        type: "",
+        name: "country",
+        options: [...countries],
+        placeholder: "",
+        icon: ""
+    },
+    {
+        id: 2,
+        type: "",
+        name: "intake",
+        options: [...Intake],
+        placeholder: "",
+        icon: ""
+    },
+    
+]

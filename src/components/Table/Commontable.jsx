@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import DateFormat from "../../utils/DateFormat";
 
 import { useNavigate } from "react-router-dom";
 import LoadingData from "../loading/LoadingData";
 import { MdDeleteOutline } from "react-icons/md";
 import { useSelector } from "react-redux";
+import { deleteApplicationRoute } from "../../utils/Endpoint";
+import DeleteApplication from "../modals/DeleteApplication";
 
-const CommonTable = ({ data, page, entries }) => {
+const CommonTable = ({ data, page, entries , getData}) => {
   const user = useSelector((state) => state.auth.userInfo);
-
+  const [deleteModal, setDeleteModal] = useState(false)
+  const [application, setApplication] = useState(false)
   const navigate = useNavigate();
+
+  const handleDelete = (data)=>{
+    console.log("applictn Data",data)
+    setApplication(data)
+    setDeleteModal(true)
+  }
+
+
 
   return (
     <div className="relative md:max-h-screen shadow-md md:rounded-lg overflow-x-scroll md:overflow-hidden mb-3 w-full">
@@ -29,7 +40,10 @@ const CommonTable = ({ data, page, entries }) => {
             <th className="px-6 py-4"> Assignee</th>
             {
               user?.role === "admin" &&
-              <th className="px-6 py-4"> View </th>
+              <>
+                <th className="px-6 py-4"> Actions </th>
+                <th className="px-6 py-4"> View </th>
+              </>
 
             }
           </tr>
@@ -41,7 +55,7 @@ const CommonTable = ({ data, page, entries }) => {
                 key={items?._id}
                 className="bg-white border-b  hover:bg-gray-50 text-black cursor-pointer capitalize"
               >
-                <td className="px-6 py-4">{i + 1}</td>
+                <td className="px-6 py-4">{((page - 1) * entries) + i + 1}</td>
                 <td className="px-6 py-4">{DateFormat(items?.createdAt)}</td>
                 <td className="px-6 py-4">{items?.studentName}</td>
                 <td className="px-6 py-4">{items?.country}</td>
@@ -62,18 +76,32 @@ const CommonTable = ({ data, page, entries }) => {
 
                 {
                   user?.role === "admin" &&
-                  <td className="px-6 py-4  t">
-                    <div className="font-medium text-blue-600 dark:text-blue-500 hover:underline-none hover:text-blue-800 hover:cursor-pointer">
-                      <span
-                        onClick={() =>
-                          navigate(`/admin/applications/stepper/${items?._id}`)
-                        }
-                      >
-                        View
+                  <>
 
-                      </span>
-                    </div>
-                  </td>
+                    <td className="px-6 py-4 truncate">
+
+                      <div className="flex items-center justify-center gap-3">
+                        <MdDeleteOutline
+                          onClick={()=> handleDelete(items)}
+                          size={23}
+                          className="cursor-pointer hover:scale-105 ease-in-out duration-400 text-red-700"
+                        />
+                      </div>
+                    </td>
+
+                    <td className="px-6 py-4  t">
+                      <div className="font-medium text-blue-600 dark:text-blue-500 hover:underline-none hover:text-blue-800 hover:cursor-pointer">
+                        <span
+                          onClick={() =>
+                            navigate(`/admin/applications/stepper/${items?._id}`)
+                          }
+                        >
+                          View
+
+                        </span>
+                      </div>
+                    </td>
+                  </>
 
                 }
 
@@ -86,6 +114,9 @@ const CommonTable = ({ data, page, entries }) => {
           )}
         </tbody>
       </table>
+
+      {deleteModal && <DeleteApplication setModal={setDeleteModal} data={application} setData={setApplication} getTableData={getData} route={deleteApplicationRoute} />}
+
     </div>
   );
 };

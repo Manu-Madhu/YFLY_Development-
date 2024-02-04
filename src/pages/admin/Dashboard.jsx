@@ -47,7 +47,7 @@ const Dashboard = () => {
 
         <div className="mt-5 md:mt-10 space-y-7">
           <div>
-            <Filter setData={setData} endPoint={dashData}/>
+            <Filter setData={setData} endPoint={dashData} isDashboard={true} />
           </div>
           <div className="">
             {lording ? <StudentLoader /> : <Cards data={data} />}

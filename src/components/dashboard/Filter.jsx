@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { FilterData } from "../../data/Dashboard";
+import { FilterData, FilterDataDash } from "../../data/Dashboard";
 import axios from "../../utils/AxiosInstance";
 
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
-const Filter = ({ setData,endPoint }) => {
+const Filter = ({ setData,endPoint, isDashboard }) => {
+  const TheDataToFilter = isDashboard ? FilterDataDash : FilterData 
+
   const [form, setForm] = useState({
     start_date: "",
     end_date: "",
@@ -54,7 +57,7 @@ const Filter = ({ setData,endPoint }) => {
           placeholder=""
           className="border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none w-full"
         />
-        {FilterData.map((data) => (
+        {TheDataToFilter.map((data) => (
           <select
             key={data?.id}
             onChange={changeHandler}
