@@ -44,6 +44,7 @@ const Student = () => {
     } finally {
     }
   };
+
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       searchHandler();
