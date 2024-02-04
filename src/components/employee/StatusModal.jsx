@@ -11,9 +11,6 @@ const StatusModal = ({ setModal, stepNumber, applicationData, cb }) => {
   const selectRef = useRef();
   const employeeData = useSelector((state) => state.auth.userInfo);
 
-  // change below 
-  const stepper = ""
-
   const employeeSteps = applicationData?.steps?.filter(
     (items) => items?.assignee === employeeData?._id
   );

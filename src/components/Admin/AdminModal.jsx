@@ -45,12 +45,7 @@ const AdminModal = ({ setModal, applicationData, cb }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.put(
-        `${
-          userInfo?.role === "employee"
-            ? workEmployeeAssignRoute
-            : workAssignRoute
-        }`,
+      const response = await axios.put( workEmployeeAssignRoute,
         formData
       );
       if (response?.status === 200) {
@@ -140,7 +135,7 @@ const AdminModal = ({ setModal, applicationData, cb }) => {
                     onChange={onChangeCata}
                   >
                     <option className="text-sm" value="">
-                      Select an Category
+                      Select a Category
                     </option>
                     {EmployeeCards.map((items, i) => (
                       <option
