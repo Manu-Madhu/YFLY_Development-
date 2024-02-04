@@ -24,13 +24,13 @@ const RightSide = ({ data, cb, application }) => {
   console.log(data);
   let empTasks;
   if (user.role === "admin") {
-    empTasks = data?.steps?.filter((task) => (task?.assignee ? true : false));
+    empTasks = data?.steps?.filter((step) => (step?.assignee ? true : false));
   }
 
   let myTasks;
   if (user.role === "employee") {
-    myTasks = data?.steps?.filter((task) => {
-      if (task?.assignee === user?._id && task?.status !== "completed") {
+    myTasks = data?.steps?.filter((step) => {
+      if (step?.assignee === user?._id && step?.status !== "completed") {
         return true;
       } else {
         return false;
@@ -39,15 +39,18 @@ const RightSide = ({ data, cb, application }) => {
   }
 
   useEffect(() => {
-    axios
-      .get(`${getAllComments}/application/${data?.applicationId}`)
-      .then((res) => {
-        setComments(res?.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [data?._id]);
+    if(data?.applicationId){
+      axios
+        .get(`${getAllComments}/application/${data?.applicationId}`)
+        .then((res) => {
+          setComments(res?.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+    }
+  }, [data?.applicationId]);
 
   const submitHandle = async (e) => {
     e.preventDefault();
@@ -70,8 +73,6 @@ const RightSide = ({ data, cb, application }) => {
     }
   };
 
-  // console.log("createdDate",createdDate)
-
   return (
     <>
       {/* Application Info */}
@@ -81,7 +82,7 @@ const RightSide = ({ data, cb, application }) => {
 
       <div className="w-full max-h-[220px] overflow-y-scroll space-y-2 ">
         {empTasks?.map((empTask) => (
-          <div className="bg-white p-5  rounded-lg">
+          <div key={empTask._id} className="bg-white p-5  rounded-lg">
             <div className="flex justify-between">
               <h1 className="text-sm font-semibold">{createdDate}</h1>
               <div>
@@ -96,8 +97,8 @@ const RightSide = ({ data, cb, application }) => {
             <hr className="my-5" />
             <div className="flex justify-between ">
               <div className="space-y-1">
-                <h1 className="text-sm text-primary_colors font-semibold">
-                  Assignee : {empTask?.assignee}
+                <h1 className="text-sm text-primary_colors font-semibold capitalize">
+                  Assignee : {empTask?.assigneeName}
                 </h1>
                 <h1 className="text-sm font-semibold capitalize">
                   Step : {empTask?.name}
@@ -121,7 +122,7 @@ const RightSide = ({ data, cb, application }) => {
           </div>
         ))}
         {myTasks?.map((myTasks) => (
-          <div className="bg-white p-5  rounded-lg">
+          <div key={myTasks._id} className="bg-white p-5  rounded-lg">
             <div className="flex justify-between">
               <h1 className="text-sm font-semibold">{createdDate}</h1>
               <div>
@@ -136,8 +137,8 @@ const RightSide = ({ data, cb, application }) => {
             <hr className="my-5" />
             <div className="flex justify-between ">
               <div className="space-y-1">
-                <h1 className="text-sm text-primary_colors font-semibold">
-                  Assignee : {myTasks?.assignee}
+                <h1 className="text-sm text-primary_colors font-semibold capitalize">
+                  Assignee : {myTasks?.assigneeName}
                 </h1>
                 <h1 className="text-sm font-semibold capitalize">
                   Step : {myTasks?.name}

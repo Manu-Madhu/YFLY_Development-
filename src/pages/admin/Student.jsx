@@ -66,7 +66,7 @@ const Student = () => {
         </div>
       </div>
       <div className="w-full mt-5 flex flex-col md:flex-row gap-5">
-        <StudentTable data={data} />
+        <StudentTable data={data} getData={studentTable} />
       </div>
 
       {/* <Pagination/> */}

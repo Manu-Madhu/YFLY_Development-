@@ -55,6 +55,9 @@ export const changeEmpPwdRoute = '/api/employee/change-password'
 //Put Deactivate-Employee
 export const deactivateEmployeeRoute = '/api/employee/deactivate';
 
+//Put Deactivate-Student
+export const deactivateStudentRoute = '/api/student/deactivate';
+
 //Get A Student
 export const getAStudentRoute = '/api/student/get';
 

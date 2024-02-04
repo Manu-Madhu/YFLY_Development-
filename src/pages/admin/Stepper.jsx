@@ -30,10 +30,10 @@ const Stepper = () => {
   return (
     <div className="container mx-auto w-full h-full pt-10 pb-28 ">
       {/* page intro */}
-      <div className="application_card p-5 rounded-xl ">
+      <div className="bg-primary_colors p-5 rounded-xl ">
         <h1 className="text-white md:text-2xl font-bold my-3">
           Welcome To The Application Of{" "}
-          <span className="text-blue-500 capitalize"> {data?.studentName}</span>
+          <span className="capitalize"> {data?.studentName}</span>
         </h1>
         <div className="text-white mt-5 flex items-center justify-around gap-4">
         <div className="flex  flex-col justify-start w-full">

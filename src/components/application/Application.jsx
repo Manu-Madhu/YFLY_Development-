@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getAnApplicationRoute } from "../../utils/Endpoint";
+import { getAnApplicationRoute, getStepper } from "../../utils/Endpoint";
 
 import TrackerVertical from "../stepper/TrackerVertical";
 import RightSide from "./tracking/RightSide";
-import axios from "../../utils/AxiosInstance";
+import instance from "../../utils/AxiosInstance";
 
 const Application = () => {
   const { id, stepperId } = useParams();
@@ -13,27 +13,38 @@ const Application = () => {
   const [stepper, setStepper] = useState([]);
 
   const getApplication = async () => {
-    await axios
+    await instance
       .get(`${getAnApplicationRoute}/${id}`)
       .then((res) => {
         setData(res?.data);
         console.log(res?.data);
         setApplication(res?.data)
-        const data = res?.data?.steppers?.find((items) => stepperId === items?._id);
-        setStepper(data)
+     
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
+  const GetStepperData = async()=>{
+    await instance.get(`${getStepper}/${stepperId}`)
+    .then((res)=>{
+      setStepper(res?.data)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
   useEffect(() => {
     window.scroll(0, 0);
     getApplication();
+    GetStepperData()
   }, [id]);
 
   const fnToCallGetFn = () => {
     getApplication();
+    GetStepperData()
   };
 
   console.log(application)
@@ -41,10 +52,10 @@ const Application = () => {
   return (
     <div className="container mx-auto w-full h-full pt-10 pb-28 ">
       {/* welcome Card */}
-      <div className="application_card p-5 rounded-xl ">
+      <div className="bg-primary_colors p-5 rounded-xl ">
         <h1 className="text-white md:text-2xl font-bold my-3">
           Welcome To The Application Of{" "}
-          <span className="text-blue-500 capitalize"> {data?.studentName}</span>
+          <span className="capitalize"> {data?.studentName}</span>
         </h1>
         <div className="text-white mt-5 flex items-center justify-around gap-4">
           <div className="flex  flex-col justify-start w-full">
