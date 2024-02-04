@@ -1,3 +1,4 @@
+import { Statuses } from "./Statuses";
 
 
 export const FormData = [
@@ -195,14 +196,7 @@ export const FilterData = [
         id: 3,
         type: "",
         name: "status",
-        options: [
-            {id:1, name:"pending"},
-            {id:2, name:"ongoing"},
-            {id:3, name:"completed"},
-            {id:4, name:"deffered"},
-            {id:5, name:"cancelled"},
-            {id:6, name:"non-enrolled"},
-        ],
+        options: [...Statuses],
         placeholder: "",
         icon: ""
     },

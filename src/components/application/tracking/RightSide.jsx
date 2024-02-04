@@ -77,7 +77,7 @@ const RightSide = ({ data, cb, application }) => {
     <>
       {/* Application Info */}
       <h1 className="mb-3 font-semibold text-slate-500 text-sm text-gray-600">
-        {user?.role === "admin" ? "Application Status" : "Task Update"}
+        {user?.role === "admin" ? "Application Steps" : "Task Update"}
       </h1>
 
       <div className="w-full max-h-[220px] overflow-y-scroll space-y-2 ">

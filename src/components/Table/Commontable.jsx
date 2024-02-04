@@ -36,7 +36,7 @@ const CommonTable = ({ data, page, entries , getData}) => {
             {/* <th className="px-6 py-4">Program</th> */}
             <th className="px-6 py-4">Intake</th>
             {/* <th className="px-6 py-4">Stage</th> */}
-            <th className="px-6 py-4">Application Status</th>
+            <th className="px-6 py-4">Application Statuses</th>
             <th className="px-6 py-4"> Assignee</th>
             {
               user?.role === "admin" &&
@@ -66,7 +66,15 @@ const CommonTable = ({ data, page, entries , getData}) => {
                   ? (items?.steps?.filter((items)=>items?.status !== ""))[items?.steps?.length-1]
                   : "Not Start"}
               </td> */}
-                <td className="px-6 py-4">{items?.status}</td>
+                <td className="px-6 py-4">
+                  {
+                    items?.statuses?.length > 1 
+                    ?
+                    items?.statuses[0] + " +more"
+                    :
+                    items?.statuses[0]
+                  }
+                  </td>
                 <td className="px-6 py-4">
                   {/* {items?.steps.length > 0
                   ? items?.steps[items.steps.length - 1]?.assignee
