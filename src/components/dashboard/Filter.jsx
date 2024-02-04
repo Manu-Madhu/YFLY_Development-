@@ -39,7 +39,7 @@ const Filter = ({ setData,endPoint }) => {
 
   return (
     <div className="w-full">
-      <form onSubmit={submitData} action="" className="flex flex-col justify-between md:flex-row gap-3 md:gap-5 w-full">
+      <form onSubmit={submitData} action="" className="flex flex-col justify-between md:flex-row gap-3 md:gap-5 ">
         <input
           onChange={changeHandler}
           type="date"
@@ -72,7 +72,7 @@ const Filter = ({ setData,endPoint }) => {
         ))}
         <button
           type="submit"
-          className="bg-primary_colors p-2 md:w-[690px] rounded text-white text-normal  hover:scale-105 ease-in-out duration-200"
+          className="bg-primary_colors p-2 rounded text-white text-normal  hover:scale-105 ease-in-out duration-200 w-full"
         >
           Filter
         </button>

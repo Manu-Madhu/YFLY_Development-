@@ -46,7 +46,7 @@ const AllApplications = () => {
             {user?.role === "admin" && (
               <button
                 onClick={() => setModal(true)}
-                className="p-2 px-5 text-normal bg-primary_colors text-white rounded hover:scale-105 ease-in-out duration-200"
+                className="p-2 px-5 text-normal bg-primary_colors text-white rounded hover:scale-105 ease-in-out duration-200 md:w-[170px]"
               >
                 Applications
               </button>
