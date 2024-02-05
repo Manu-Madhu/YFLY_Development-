@@ -23,12 +23,12 @@ const AddModal = ({ setModal, cb }) => {
     country: "",
     uniBased: [
       {
+        intake: "",
         program: "",
         university: "",
         partnership: "",
       },
     ],
-    intake: "",
     partnership: "",
     assignee: "",
   });
@@ -36,6 +36,7 @@ const AddModal = ({ setModal, cb }) => {
   // State for managing dynamic university inputs
   const [dynamicUniInputs, setDynamicUniInputs] = useState([
     {
+      intake: "",
       program: "",
       university: "",
       partnership: "",
@@ -81,6 +82,8 @@ const AddModal = ({ setModal, cb }) => {
     setDynamicUniInputs([
       ...dynamicUniInputs,
       {
+        intake: "",
+        program: "",
         university: "",
         partnership: "",
       },
@@ -92,6 +95,7 @@ const AddModal = ({ setModal, cb }) => {
 
     const iofub = dupliUniBased?.findIndex(
       (elem) =>
+        elem.intake === input.intake &&
         elem.program === input.program &&
         elem.university === input.university &&
         elem.partnership === input.partnership
@@ -204,7 +208,7 @@ const AddModal = ({ setModal, cb }) => {
                       value={input.university}
                       onChange={(e) => handleDynamicUniChange(index, e)}
                     />
-                    
+
                     <select
                       name="partnership"
                       id=""
@@ -227,6 +231,24 @@ const AddModal = ({ setModal, cb }) => {
                       value={input.program}
                       onChange={(e) => handleDynamicUniChange(index, e)}
                     />
+
+                    <div className="w-full flex flex-col md:flex-row gap-3">
+                      <select
+                        name="intake"
+                        id=""
+                        className="w-full border rounded p-2 focus:outline-none"
+                        required
+                        value={input.intake}
+                        onChange={(e) => handleDynamicUniChange(index, e)}
+                      >
+                        <option value="">Intake</option>
+                        {Intake.map((items, i) => (
+                          <option key={i} value={items?.name}>
+                            {items?.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
                     {index !== 0 && (
                       <button
@@ -251,22 +273,7 @@ const AddModal = ({ setModal, cb }) => {
               </button>
             </div>
 
-            <div className="w-full flex flex-col md:flex-row gap-3">
-              <select
-                name="intake"
-                id=""
-                className="w-full border rounded p-2 focus:outline-none"
-                required
-                onChange={ChangeHandler}
-              >
-                <option value="">Intake</option>
-                {Intake.map((items, i) => (
-                  <option key={i} value={items?.name}>
-                    {items?.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+
 
             <div className="w-full flex flex-col md:flex-row gap-3">
               <select

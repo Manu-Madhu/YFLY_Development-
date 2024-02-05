@@ -46,7 +46,21 @@ const Stepper = () => {
           </div>
           <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">Intake</h5>
-            <h5 className="text-sm capitalize">{data?.intake}</h5>
+            <h5 className="text-sm capitalize">
+              {data?.intakes 
+              ?
+                (
+                  data?.intakes?.length > 1
+                  ?
+                  data?.intakes[0] +" +more"
+                  :
+                  data?.intakes[0]
+
+                )
+                :
+                "NIL"
+              }
+            </h5>
           </div>
         
           <div className="flex  flex-col justify-start w-full">
