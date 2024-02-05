@@ -19,6 +19,10 @@ const ApplicationCard = ({ data }) => {
         Program:{" "}
         <span className="font-medium text-sm">{data?.program}</span>
       </h1>
+      <h1 className="font-semibold text-primary_colors">
+        Intake:{" "}
+        <span className="font-medium text-sm">{data?.intake}</span>
+      </h1>
       <h1 className="mt-2 text-sm">
         partnership:{" "}
         <span className="font-medium text-gray-500">{data?.partnership}</span>
