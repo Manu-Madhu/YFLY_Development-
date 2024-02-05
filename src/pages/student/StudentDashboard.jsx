@@ -56,7 +56,13 @@ const StudentDashboard = () => {
                 <p className="text-white font-semibold">
                   Application ID :{" "}
                   <span className="font-thin capitalize">
-                    {user?.applicationId}
+                    {
+                      user?.applicationId
+                        ?
+                        user?.applicationId
+                        :
+                        "NIL"
+                    }
                   </span>
                 </p>
               </div>
@@ -77,22 +83,30 @@ const StudentDashboard = () => {
               </div>
               <div>
                 <h1 className="font-semibold pb-0.5">Country</h1>
-                <p>{state?.country}</p>
+                <p>
+                  {
+                    state?.country
+                      ?
+                      state?.country
+                      :
+                      "NIL"
+                  }
+                </p>
               </div>
-             
+
               <div>
                 <h1 className="font-semibold pb-0.5">Intake</h1>
                 <p>
-                {state?.intakes
+                  {state?.intakes
                     ?
-                    (state?.intakes?.length > 1 
-                    ?
-                    state?.intakes[0] + " +more"
+                    (state?.intakes?.length > 1
+                      ?
+                      state?.intakes[0] + " +more"
+                      :
+                      state?.intakes[0])
                     :
-                    state?.intakes[0])
-                  :
-                  "NIL"
-                  
+                    "NIL"
+
                   }
                 </p>
               </div>
@@ -100,31 +114,36 @@ const StudentDashboard = () => {
           </div>
 
           {/* Tracker for the status */}
-          <div className="mt-10 w-full">
-            <h1 className="text-[#0061B2] font-bold text-xl">
-              Track your Progress
-            </h1>
-            <div className="w-full flex flex-col gap-[8vh] ">
-              <div className="w-full overflow-x-auto flex gap-5 p-2 py-10 ">
-                {state?.steppers?.map((stepper, i) => (
-                  <div
-                    key={i}
-                    onClick={() => setCurrStepper(stepper)}
-                    className="flex flex-col p-5 bg-white rounded-lg shadow-xl w-full md:w-[210px] cursor-pointer"
-                  >
-                    <h1 className="text-primary_colors">University: <span className="text-black">{stepper?.university}</span> </h1>
-                    <h4 className="text-primary_colors">Program: <span className="text-black">{stepper?.program}</span></h4>
-                    <h4 className="text-primary_colors">Intake: <span className="text-black">{stepper?.intake}</span></h4>
-                  </div>
-                ))}
-              </div>
-              {currStepper && (
-                <div className="w-full overflow-x-auto flex justify-around">
-                  <StudentStepper stepper={currStepper} />
+          {
+            (state?.length > 0)
+            &&
+            <div className="mt-10 w-full">
+              <h1 className="text-[#0061B2] font-bold text-xl">
+                Track your Progress
+              </h1>
+              <div className="w-full flex flex-col gap-[8vh] ">
+                <div className="w-full overflow-x-auto flex gap-5 p-2 py-10 ">
+                  {state?.steppers?.map((stepper, i) => (
+                    <div
+                      key={i}
+                      onClick={() => setCurrStepper(stepper)}
+                      className="flex flex-col p-5 bg-white rounded-lg shadow-xl w-full md:w-[210px] cursor-pointer"
+                    >
+                      <h1 className="text-primary_colors">University: <span className="text-black">{stepper?.university}</span> </h1>
+                      <h4 className="text-primary_colors">Program: <span className="text-black">{stepper?.program}</span></h4>
+                      <h4 className="text-primary_colors">Intake: <span className="text-black">{stepper?.intake}</span></h4>
+                    </div>
+                  ))}
                 </div>
-              )}
+                {currStepper && (
+                  <div className="w-full overflow-x-auto flex justify-around">
+                    <StudentStepper stepper={currStepper} />
+                  </div>
+                )}
+
+              </div>
             </div>
-          </div>
+          }
 
           {/* Document Update and view */}
           <div className="mt-10 flex flex-col justify-end">
