@@ -7,9 +7,12 @@ import { MdDeleteOutline } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { deleteApplicationRoute } from "../../utils/Endpoint";
 import DeleteApplication from "../modals/DeleteApplication";
+import { FaRegEdit } from "react-icons/fa";
+import PhaseChanger from "../modals/PhaseChanger";
 
 const CommonTable = ({ data, page, entries , getData}) => {
   const user = useSelector((state) => state.auth.userInfo);
+  const [editModal, setEditModal] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
   const [application, setApplication] = useState(false)
   const navigate = useNavigate();
@@ -21,6 +24,10 @@ const CommonTable = ({ data, page, entries , getData}) => {
   }
 
 
+  const handleEdit = (data)=>{
+    setApplication(data)
+    setEditModal(true)
+  }
 
   return (
     <div className="relative md:max-h-screen shadow-md md:rounded-lg overflow-x-scroll md:overflow-hidden mb-3 w-full">
@@ -84,7 +91,17 @@ const CommonTable = ({ data, page, entries , getData}) => {
                   }
                   </td>
                 <td className="px-6 py-4">
-                  {items?.assignee ? items?.assigneeName : "NIL"}
+                  {/* {items?.assignee ? items?.assigneeName : "NIL"} */}
+                  {items?.assigneeNames 
+                  ?
+                    (items?.assigneeNames?.length > 1 
+                    ?
+                    items?.assigneeNames[0] + " +more"
+                    :
+                    items?.assigneeNames[0])
+                  :
+                  "NIL"
+                  }
                 </td>
 
                 {
@@ -93,7 +110,13 @@ const CommonTable = ({ data, page, entries , getData}) => {
 
                     <td className="px-6 py-4 truncate">
 
-                      <div className="flex items-center justify-center gap-3">
+                      <div className="flex items-center justify-between gap-3">
+                      <FaRegEdit
+                            onClick={()=> handleEdit(items)}
+                            size={23}
+                            className="cursor-pointer hover:scale-105 ease-in-out duration-400"
+                          />
+
                         <MdDeleteOutline
                           onClick={()=> handleDelete(items)}
                           size={23}
@@ -127,6 +150,8 @@ const CommonTable = ({ data, page, entries , getData}) => {
           )}
         </tbody>
       </table>
+
+      {editModal && <PhaseChanger data={application} setData={setApplication} getTableData={getData} setModal={setEditModal} /> }
 
       {deleteModal && <DeleteApplication setModal={setDeleteModal} data={application} setData={setApplication} getTableData={getData} route={deleteApplicationRoute} />}
 

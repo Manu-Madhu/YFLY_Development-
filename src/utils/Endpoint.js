@@ -147,3 +147,5 @@ export const deleteStepper = "/api/stepper/delete"; //<== + stepperid
 
 // get All Members From Project
 export const getAllMembersFromProject = "/api/project/get-members"; //<== + project id
+
+export const changePhaseOfApplication = "/api/application/phase-change"; //<== + application id

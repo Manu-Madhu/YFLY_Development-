@@ -221,3 +221,13 @@ export const FilterDataDash = [
     },
     
 ]
+
+
+export const Phases = [
+    {id:1, name:"pending"},
+    {id:2, name:"ongoing"},
+    {id:3, name:"completed"},
+    {id:4, name:"deffered"},
+    {id:5, name:"cancelled"},
+    {id:6, name:"not-enrolled"},
+]
