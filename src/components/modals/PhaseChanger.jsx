@@ -55,6 +55,7 @@ const PhaseChanger = ({ data, setData, getTableData, setModal }) => {
               <div className="mt-1">
                 <select
                   ref={selectRef}
+                  defaultValue={data?.phase}
                   name="stepStatus"
                   id=""
                   className="border p-3 w-full rounded focus:outline-none text-sm text-gray-700"
