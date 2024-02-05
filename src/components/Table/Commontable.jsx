@@ -67,12 +67,15 @@ const CommonTable = ({ data, page, entries , getData}) => {
                   : "Not Start"}
               </td> */}
                 <td className="px-6 py-4">
-                  {
-                    items?.statuses?.length > 1 
+                  {items?.statuses 
+                  ?
+                    (items?.statuses?.length > 1 
                     ?
                     items?.statuses[0] + " +more"
                     :
-                    items?.statuses[0]
+                    items?.statuses[0])
+                  :
+                  "NIL"
                   }
                   </td>
                 <td className="px-6 py-4">
