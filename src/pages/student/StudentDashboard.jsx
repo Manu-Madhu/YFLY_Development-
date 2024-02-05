@@ -82,7 +82,19 @@ const StudentDashboard = () => {
              
               <div>
                 <h1 className="font-semibold pb-0.5">Intake</h1>
-                <p>{state?.intake}</p>
+                <p>
+                {state?.intakes
+                    ?
+                    (state?.intakes?.length > 1 
+                    ?
+                    state?.intakes[0] + " +more"
+                    :
+                    state?.intakes[0])
+                  :
+                  "NIL"
+                  
+                  }
+                </p>
               </div>
             </div>
           </div>
@@ -102,6 +114,7 @@ const StudentDashboard = () => {
                   >
                     <h1 className="text-primary_colors">University: <span className="text-black">{stepper?.university}</span> </h1>
                     <h4 className="text-primary_colors">Program: <span className="text-black">{stepper?.program}</span></h4>
+                    <h4 className="text-primary_colors">Intake: <span className="text-black">{stepper?.intake}</span></h4>
                   </div>
                 ))}
               </div>
