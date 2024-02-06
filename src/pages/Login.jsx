@@ -87,7 +87,7 @@ const Login = () => {
         className="absolute bottom-0 md:-bottom-0 text-center object-contain -z-10"
       />
       <div className="container mx-auto h-full">
-        <div className="md:mx-10 w-full flex items-center ms:items-start justify-center md:justify-start ">
+        <div className="w-full flex items-center ms:items-start justify-center ">
           <img src={logo} alt="Logo" className="object-container z-50" />
         </div>
         <div className="w-full flex items-center justify-center">

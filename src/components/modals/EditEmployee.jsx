@@ -13,7 +13,7 @@ import {
 import { toast } from "react-toastify";
 import { EmployeeCards } from "../../data/Employee";
 
-const EditEmployee = ({entityData,setData, getTableData, setModal }) => {
+const EditEmployee = ({ entityData, setData, getTableData, setModal }) => {
 
   const [empFormData, setEmpFormData] = useState(entityData);
 
@@ -23,42 +23,42 @@ const EditEmployee = ({entityData,setData, getTableData, setModal }) => {
   const changeHandler = (e) => {
     const { name, value } = e.target;
 
-      if (["houseName", "city", "state", "pin"].includes(name)) {
-        setEmpFormData((prevFormData) => ({
-          ...prevFormData,
-          address: {
-            ...prevFormData.address,
-            [name]: value,
-          },
-        }));
-      } else {
-        setEmpFormData({
-          ...empFormData,
+    if (["houseName", "city", "state", "pin"].includes(name)) {
+      setEmpFormData((prevFormData) => ({
+        ...prevFormData,
+        address: {
+          ...prevFormData.address,
           [name]: value,
-        });
-      }
+        },
+      }));
+    } else {
+      setEmpFormData({
+        ...empFormData,
+        [name]: value,
+      });
+    }
   };
 
   // Submit Handler
   const submitHandler = async (e) => {
     e.preventDefault();
 
-      console.log(empFormData);
-      if (!(empFormData?.name || empFormData?.email)) return;
+    console.log(empFormData);
+    if (!(empFormData?.name || empFormData?.email)) return;
 
-      await axios
-        .put(`${updateEmployeeRoute}/${entityData._id}`, empFormData)
-        .then((res) => {
-          console.log(res.data);
-          setModal(false);
-          toast.success(res?.data?.msg);
-          setData({})
-          getTableData()
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error(error?.response?.data?.msg);
-        });
+    await axios
+      .put(`${updateEmployeeRoute}/${entityData._id}`, empFormData)
+      .then((res) => {
+        console.log(res.data);
+        setModal(false);
+        toast.success(res?.data?.msg);
+        setData({})
+        getTableData()
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error?.response?.data?.msg);
+      });
   };
 
   console.log("efd", empFormData);
@@ -76,94 +76,99 @@ const EditEmployee = ({entityData,setData, getTableData, setModal }) => {
           <form action="" onSubmit={submitHandler}>
             <div className="w-full flex flex-wrap">
               <>
-                
+
                 {
                   <>
-                  <div className="w-full md:w-1/2 p-1 py-2">
-                    <Input
-                      name="name"
-                      type="text"
-                      changeHandler={changeHandler}
-                      value={empFormData?.name}
-                    />
-                  </div>
-                  <div className="w-full md:w-1/2 p-1 py-2">
-                    <Input
-                      name="email"
-                      type="email"
-                      changeHandler={changeHandler}
-                      value={empFormData?.email}
-                    />
-                  </div>
-                  <div className="w-full md:w-1/2 p-1 py-2">
-                    <Input
-                      name="phone"
-                      type="text"
-                      changeHandler={changeHandler}
-                      value={empFormData?.phone}
-                    />
-                  </div>
-                  <div className="w-full md:w-1/2 p-1 py-2">
-                    <Input
-                      name="password"
-                      type="text"
-                      changeHandler={changeHandler}
-                      placeholder="New Password"
-                    />
-                  </div>
-                  <div className="w-full md:w-1/2 p-1 py-2">
-                    <Input
-                      name="education"
-                      type="text"
-                      changeHandler={changeHandler}
-                      value={empFormData?.education}
-                    />
-                  </div>
-                  <div className="w-full md:w-1/2 p-1 py-2">
-                    <Input
-                      name="birthDate"
-                      type="date"
-                      changeHandler={changeHandler}
-                      value={empFormData?.birthDate?.split("T")[0]}
-                    />
-                  </div>
+                    <div className="w-full md:w-1/2 p-1 py-2">
+                      <Input
+                        name="name"
+                        type="text"
+                        changeHandler={changeHandler}
+                        value={empFormData?.name}
+                        placeholder="Name"
+                      />
+                    </div>
+                    <div className="w-full md:w-1/2 p-1 py-2">
+                      <Input
+                        name="email"
+                        type="email"
+                        changeHandler={changeHandler}
+                        value={empFormData?.email}
+                        placeholder="Email"
+                      />
+                    </div>
+                    <div className="w-full md:w-1/2 p-1 py-2">
+                      <Input
+                        name="phone"
+                        type="text"
+                        changeHandler={changeHandler}
+                        value={empFormData?.phone}
+                        placeholder="Phone"
+                      />
+                    </div>
+                    <div className="w-full md:w-1/2 p-1 py-2">
+                      <Input
+                        name="password"
+                        type="text"
+                        changeHandler={changeHandler}
+                        placeholder="New Password"
+                      />
+                    </div>
+                    <div className="w-full md:w-1/2 p-1 py-2">
+                      <Input
+                        name="education"
+                        type="text"
+                        changeHandler={changeHandler}
+                        value={empFormData?.education}
+                        placeholder="Education"
+                      />
+                    </div>
+                    <div className="w-full md:w-1/2 p-1 py-2">
+                      <Input
+                        name="birthDate"
+                        type="date"
+                        changeHandler={changeHandler}
+                        value={empFormData?.birthDate?.split("T")[0]}
+                        placeholder="Birth Date"
+                      />
+                    </div>
 
-                  <div className="flex w-full gap-2">
+                    <div className="flex w-full gap-2">
 
 
-                    <select
-                    value={empFormData?.department}
-                      className={`border border-primary_colors/50 text-gray-400 text-xs p-3 focus:outline-none w-full rounded-lg`}
-                      name="department"
-                      id=""
-                      onChange={changeHandler}
-                    >
-                      <option className="" value="">
-                        Select A Department
-                      </option>
-                      {EmployeeCards.map((items, index) => (
-                        <option key={index} className="" value={items?.path}>
-                          {items?.name}
+                      <select
+                        value={empFormData?.department}
+                        className={`border border-primary_colors/50 text-gray-400 text-xs p-3 focus:outline-none w-full rounded-lg`}
+                        name="department"
+                        id=""
+                        onChange={changeHandler}
+                      >
+                        <option className="" value="">
+                          Select A Department
                         </option>
-                      ))}
-                    </select>
-                    <select
-                    value={empFormData?.office}
-                      className={`border border-primary_colors/50 text-gray-400 text-xs p-3 focus:outline-none w-full rounded-lg`}
-                      name="office"
-                      id=""
-                      onChange={changeHandler}
-                    >
-                      <option className="" value="">
-                        Select A office
-                      </option>
-                      {Office.map((items, index) => (
-                        <option key={index} className="" value={items?.name}>
-                          {items?.name}
+                        {EmployeeCards.map((items, index) => (
+                          <option key={index} className="" value={items?.path}>
+                            {items?.name}
+                          </option>
+                        ))}
+                      </select>
+                      <select
+                        value={empFormData?.office}
+                        className={`border border-primary_colors/50 text-gray-400 text-xs p-3 focus:outline-none w-full rounded-lg`}
+                        name="office"
+                        id=""
+                        onChange={changeHandler}
+                      >
+                        <option className="" value="">
+                          Select A office
                         </option>
-                      ))}
-                    </select>
-                  </div>
+                        {Office.map((items, index) => (
+                          <option key={index} className="" value={items?.name}>
+                            {items?.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
                   </>
                 }
@@ -176,7 +181,7 @@ const EditEmployee = ({entityData,setData, getTableData, setModal }) => {
                       type={data?.type}
                       changeHandler={changeHandler}
                       value={
-                      empFormData?.address?.[data?.name]
+                        empFormData?.address?.[data?.name]
                       }
                     />
                   </div>
@@ -186,7 +191,7 @@ const EditEmployee = ({entityData,setData, getTableData, setModal }) => {
 
             {/* BUTTON */}
             <div className="text-white text-normal space-x-3 flex items-center justify-end mt-10">
-             
+
               <button
                 type="submit"
                 className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"

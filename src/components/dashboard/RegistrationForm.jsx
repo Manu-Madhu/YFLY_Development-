@@ -107,7 +107,7 @@ const RegistrationForm = ({ setModal, entity }) => {
         });
     } else if (entity === "Employee") {
       console.log(empFormData);
-      if (!(empFormData?.name || empFormData?.email)) return;
+      if (!(empFormData?.email && empFormData?.department)) return;
 
       await axios
         .post(employeeRegisterRoute, empFormData)

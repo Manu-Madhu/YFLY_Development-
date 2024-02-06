@@ -40,8 +40,8 @@ const CommonTable = ({ data, page, entries , getData}) => {
             <th className="px-6 py-4">Date Created</th>
             <th className="px-6 py-4">Student Name</th>
             <th className="px-6 py-4">Country</th>
-            <th className="px-6 py-4">Intakes</th>
-            <th className="px-6 py-4">Application Statuses</th>
+            <th className="px-6 py-4">Intake</th>
+            <th className="px-6 py-4">Application Status</th>
             <th className="px-6 py-4"> Assignee</th>
             {
               user?.role === "admin" &&

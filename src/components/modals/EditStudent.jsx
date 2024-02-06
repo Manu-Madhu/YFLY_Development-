@@ -10,52 +10,52 @@ import {
 } from "../../utils/Endpoint";
 import { toast } from "react-toastify";
 
-const EditStudent = ({entityData,setData, getTableData, setModal }) => {
+const EditStudent = ({ entityData, setData, getTableData, setModal }) => {
 
   const [stdFormData, setStdFormData] = useState(entityData);
 
- 
+
 
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
 
-      if (["houseName", "city", "state", "pin"].includes(name)) {
-        setStdFormData((prevFormData) => ({
-          ...prevFormData,
-          address: {
-            ...prevFormData.address,
-            [name]: value,
-          },
-        }));
-      } else {
-        setStdFormData({
-          ...stdFormData,
+    if (["houseName", "city", "state", "pin"].includes(name)) {
+      setStdFormData((prevFormData) => ({
+        ...prevFormData,
+        address: {
+          ...prevFormData.address,
           [name]: value,
-        });
-      }
+        },
+      }));
+    } else {
+      setStdFormData({
+        ...stdFormData,
+        [name]: value,
+      });
+    }
   };
 
   // Submit Handler
   const submitHandler = async (e) => {
     e.preventDefault();
 
-      console.log(stdFormData);
-      if (!(stdFormData?.name || stdFormData?.email)) return;
+    console.log(stdFormData);
+    if (!(stdFormData?.name || stdFormData?.email)) return;
 
-      await axios
-        .put(`${updateStudentRoute}/${entityData._id}`, stdFormData)
-        .then((res) => {
-          console.log(res.data);
-          setModal(false);
-          toast.success(res?.data?.msg);
-          setData({})
-          getTableData()
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error(error?.response?.data?.msg);
-        });
+    await axios
+      .put(`${updateStudentRoute}/${entityData._id}`, stdFormData)
+      .then((res) => {
+        console.log(res.data);
+        setModal(false);
+        toast.success(res?.data?.msg);
+        setData({})
+        getTableData()
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error?.response?.data?.msg);
+      });
   };
 
   console.log("efd", stdFormData);
@@ -73,77 +73,82 @@ const EditStudent = ({entityData,setData, getTableData, setModal }) => {
           <form action="" onSubmit={submitHandler}>
             <div className="w-full flex flex-wrap">
               <>
-                
+
                 {
                   <>
-                  <div className="w-full md:w-1/2 p-1 py-2">
-                    <Input
-                      name="name"
-                      type="text"
-                      changeHandler={changeHandler}
-                      value={stdFormData?.name}
-                    />
-                  </div>
-                  <div className="w-full md:w-1/2 p-1 py-2">
-                    <Input
-                      name="email"
-                      type="email"
-                      changeHandler={changeHandler}
-                      value={stdFormData?.email}
-                    />
-                  </div>
-                  <div className="w-full md:w-1/2 p-1 py-2">
-                    <Input
-                      name="phone"
-                      type="text"
-                      changeHandler={changeHandler}
-                      value={stdFormData?.phone}
-                    />
-                  </div>
-                  <div className="w-full md:w-1/2 p-1 py-2">
-                    <Input
-                      name="password"
-                      type="text"
-                      changeHandler={changeHandler}
-                      placeholder="New Password"
-                    />
-                  </div>
-                  <div className="w-full md:w-1/2 p-1 py-2">
-                    <Input
-                      name="qualification"
-                      type="text"
-                      changeHandler={changeHandler}
-                      value={stdFormData?.qualification}
-                    />
-                  </div>
-                  <div className="w-full md:w-1/2 p-1 py-2">
-                    <Input
-                      name="birthDate"
-                      type="date"
-                      changeHandler={changeHandler}
-                      value={stdFormData?.birthDate?.split("T")[0]}
-                    />
-                  </div>
+                    <div className="w-full md:w-1/2 p-1 py-2">
+                      <Input
+                        name="name"
+                        type="text"
+                        changeHandler={changeHandler}
+                        value={stdFormData?.name}
+                        placeholder="Name"
+                      />
+                    </div>
+                    <div className="w-full md:w-1/2 p-1 py-2">
+                      <Input
+                        name="email"
+                        type="email"
+                        changeHandler={changeHandler}
+                        value={stdFormData?.email}
+                        placeholder="Email"
+                      />
+                    </div>
+                    <div className="w-full md:w-1/2 p-1 py-2">
+                      <Input
+                        name="phone"
+                        type="text"
+                        changeHandler={changeHandler}
+                        value={stdFormData?.phone}
+                        placeholder="Phone"
+                      />
+                    </div>
+                    <div className="w-full md:w-1/2 p-1 py-2">
+                      <Input
+                        name="password"
+                        type="text"
+                        changeHandler={changeHandler}
+                        placeholder="New Password"
+                      />
+                    </div>
+                    <div className="w-full md:w-1/2 p-1 py-2">
+                      <Input
+                        name="qualification"
+                        type="text"
+                        changeHandler={changeHandler}
+                        value={stdFormData?.qualification}
+                        placeholder="Qualification"
+                      />
+                    </div>
+                    <div className="w-full md:w-1/2 p-1 py-2">
+                      <Input
+                        name="birthDate"
+                        type="date"
+                        changeHandler={changeHandler}
+                        value={stdFormData?.birthDate?.split("T")[0]}
+                        placeholder="Birth Date"
+                      />
+                    </div>
 
-                  <div className="flex w-full gap-2">
+                    <div className="flex w-full gap-2">
 
-                    <select
-                    value={stdFormData?.office}
-                      className={`border border-primary_colors/50 text-gray-400 text-xs p-3 focus:outline-none w-full rounded-lg`}
-                      name="office"
-                      id=""
-                      onChange={changeHandler}
-                    >
-                      <option className="" value="">
-                        Select A office
-                      </option>
-                      {Office.map((items, index) => (
-                        <option key={index} className="" value={items?.name}>
-                          {items?.name}
+                      <select
+                        value={stdFormData?.office}
+                        className={`border border-primary_colors/50 text-gray-400 text-xs p-3 focus:outline-none w-full rounded-lg`}
+                        name="office"
+                        id=""
+                        onChange={changeHandler}
+                      >
+                        <option className="" value="">
+                          Select A office
                         </option>
-                      ))}
-                    </select>
-                  </div>
+                        {Office.map((items, index) => (
+                          <option key={index} className="" value={items?.name}>
+                            {items?.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
                   </>
                 }
@@ -156,7 +161,7 @@ const EditStudent = ({entityData,setData, getTableData, setModal }) => {
                       type={data?.type}
                       changeHandler={changeHandler}
                       value={
-                      stdFormData?.address?.[data?.name]
+                        stdFormData?.address?.[data?.name]
                       }
                     />
                   </div>
@@ -166,7 +171,7 @@ const EditStudent = ({entityData,setData, getTableData, setModal }) => {
 
             {/* BUTTON */}
             <div className="text-white text-normal space-x-3 flex items-center justify-end mt-10">
-             
+
               <button
                 type="submit"
                 className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"

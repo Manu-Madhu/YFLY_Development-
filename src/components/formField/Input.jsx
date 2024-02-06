@@ -1,6 +1,8 @@
 import React from "react";
 
-const Input = ({ name, placeholder, type, changeHandler, value }) => {
+const Input = ({ name, placeholder, type, changeHandler, value}) => {
+  const namesRequired = ["name", "email", "department"]
+
   return (
     <>
       <input
@@ -10,6 +12,7 @@ const Input = ({ name, placeholder, type, changeHandler, value }) => {
         placeholder={placeholder}
         onChange={changeHandler}
         value={value}
+        {...(namesRequired?.includes(name) ? { required: true } : {})}
       />
     </>
   );
