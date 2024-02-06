@@ -93,7 +93,7 @@ const Project = () => {
           const myProjects = allProjects.filter((project)=> project?.members?.includes(user?._id))
           setProjectData(myProjects)
         }
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch((error) => {
         console.log(error);

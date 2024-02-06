@@ -15,7 +15,7 @@ const ProjectCard = ({ data, deleteHandler, user }) => {
 
   const percentage = (completedTask / totalTask) * 100;
 
-  console.log(data);
+  // console.log(data);
   return (
     <div className="w-full bg-white p-5 rounded-lg shadow-xl flex flex-col md:flex-row items-center md:justify-between gap-3 md:gap-10">
       {/* Project Name */}

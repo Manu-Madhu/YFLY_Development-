@@ -43,7 +43,7 @@ const TaskCard = ({ data, cb }) => {
     }
   };
 
-  console.log(data);
+  // console.log(data);
   return (
     <>
       <Tippy

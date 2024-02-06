@@ -18,7 +18,7 @@ const Table = ({ department }) => {
   const [editModal, setEditModal] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
 
-  console.log("department", department);
+  // console.log("department", department);
 
   const getData = async () => {
     await axios
@@ -26,7 +26,7 @@ const Table = ({ department }) => {
         `${getEmployeesRoute}?department=${department}&page=${page}&entries=${entries}`
       )
       .then((res) => {
-        console.log("data", res.data);
+        // console.log("data", res.data);
         setData(res.data);
       })
       .catch((error) => {
@@ -48,7 +48,7 @@ const Table = ({ department }) => {
     setEditModal(true)
   }
 
-  console.log(data);
+  // console.log(data);
   return (
     <>
       <div className="relative md:max-h-screen w-full shadow-md md:rounded-lg overflow-x-scroll md:overflow-hidden mb-3">
@@ -113,7 +113,7 @@ const Table = ({ department }) => {
               ))
             ) : (
               <div className="w-full h-full absolute justify-center">
-                <EmptyData data={"No Available Applications "} />
+                <EmptyData data={"No Available Data "} />
               </div>
             )}
           </tbody>

@@ -123,7 +123,7 @@ const RegistrationForm = ({ setModal, entity }) => {
     }
   };
 
-  console.log("efd", empFormData);
+  // console.log("efd", empFormData);
   return (
     <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center z-50">
       <div className="relative bg-white mt-60  md:mt-0 md:w-1/2 rounded-lg p-5  md:p-10 md:px-14 m-5">

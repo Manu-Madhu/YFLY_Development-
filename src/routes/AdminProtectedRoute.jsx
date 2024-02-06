@@ -4,7 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const AdminProtectedRoute = () => {
   const user = useSelector((state) => state.auth.userInfo);
-  console.log(user);
+  // console.log(user);
   return (
     <div>
       {user?.role === "admin" ? <Outlet /> : <Navigate to="/" replace />}

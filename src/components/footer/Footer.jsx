@@ -4,21 +4,21 @@ const Footer = () => {
   return (
     <div className="right-0 w-full ">
       <div className="">
-        <footer class="bg-primary_colors shadow z-50">
-          <div class="w-full mx-auto max-w-screen-xl p-4 flex flex-col md:items-center md:justify-center">
-            <span class="text-sm text-white sm:text-center ">
+        <footer className="bg-primary_colors shadow z-50">
+          <div className="w-full mx-auto max-w-screen-xl p-4 flex flex-col md:items-center md:justify-center">
+            <span className="text-sm text-white sm:text-center ">
               © 2024{" "}
-              <a href="#" class="hover:underline">
+              <a href="#" className="hover:underline">
                 YFLY International
               </a>
               . All Rights Reserved.
             </span>
-            <span class="text-sm text-white sm:text-center ">
+            <span className="text-sm text-white sm:text-center ">
               Developed By
               <a
                 href="https://qmarktechnolabs.com/"
                 target="blank"
-                class="hover:underline hover:text-purple-600"
+                className="hover:underline hover:text-purple-600"
               >
                 {" "}
                 Qmark Technolabs
