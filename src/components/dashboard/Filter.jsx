@@ -42,7 +42,7 @@ const Filter = ({ setData,endPoint, isDashboard }) => {
 
   return (
     <div className="w-full">
-      <form onSubmit={submitData} action="" className="flex flex-col justify-between md:flex-row gap-3 md:gap-5 ">
+      <form onSubmit={submitData} action="" className="flex flex-col justify-between md:flex-row gap-5 md:gap-5 ">
         <div className="relative">
           <label htmlFor="" className="absolute top-[-15px] left-0 text-xs ">
             Starting Date

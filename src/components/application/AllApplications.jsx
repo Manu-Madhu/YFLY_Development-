@@ -53,7 +53,7 @@ const AllApplications = () => {
             )}
           </div>
         </div>
-        <div className="flex flex-col md:flex-row mt-[3vh] justify-between">
+        <div className="flex flex-col md:flex-row mt-[5vh] justify-between">
           {/* filter & Application */}
           <div className="flex flex-col md:flex-row justify-between gap-3 mt-5 md:mt-0 w-full ">
             <Filter setData={setData} endPoint={getAllApplications} isDashboard={false} />

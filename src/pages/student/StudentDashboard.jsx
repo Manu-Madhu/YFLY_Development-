@@ -30,7 +30,7 @@ const StudentDashboard = () => {
   }, [docModal, user?.applicationId]);
 
   const fnToCallGetFn = () => {
-    console.log("halo i am cd");
+    console.log("Doc upload");
   };
 
   console.log(state);
