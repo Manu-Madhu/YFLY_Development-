@@ -130,7 +130,7 @@ const Header = () => {
                   onClick={() => setMenu(!menu)}
                 />
               ) : (
-                <>
+                <div className="md:hidden">
                   <IoClose size={30} onClick={() => setMenu(false)} />
                   <div className="absolute w-full left-0 p-5">
                     <div className="bg-white shadow p-3 rounded-lg">
@@ -211,7 +211,7 @@ const Header = () => {
                       </div>
                     </div>
                   </div>
-                </>
+                </div>
               )}
             </div>
           </div>
