@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import { status } from "../../data/Employee";
 import { toast } from "react-toastify";
@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 import axios from "../../utils/AxiosInstance";
 import { useSelector } from "react-redux";
 import { changeStepStatus } from "../../utils/Endpoint";
+import ReqLoader from "../loading/ReqLoader";
 
 const StatusModal = ({ setModal, stepNumber, applicationData, cb }) => {
   const selectRef = useRef();
   const employeeData = useSelector((state) => state.auth.userInfo);
+  const [loading,setLoading] = useState(false)
 
   const employeeSteps = applicationData?.steps?.filter(
     (items) => items?.assignee === employeeData?._id
@@ -25,13 +27,22 @@ const StatusModal = ({ setModal, stepNumber, applicationData, cb }) => {
       stepStatus: selectRef.current.value,
     };
     try {
-      const response = await axios.put(changeStepStatus, data);
-      setModal(false)
-      cb();
-      toast.success(response?.data?.msg || "Status Update Successfully");
+      setLoading(true)
+
+      await axios.put(changeStepStatus, data)
+      .then((response)=>{
+        setModal(false)
+        cb();
+        toast.success(response?.data?.msg || "Status Update Successfully");
+      })
+      .catch((error)=>{
+        toast.warning(error?.response?.data?.msg);
+      })
+      .finally(()=>{
+        setLoading(false)
+      })
     } catch (error) {
       console.log(error);
-      toast.warning(error?.response?.data?.msg);
     }
   };
 
@@ -86,6 +97,7 @@ const StatusModal = ({ setModal, stepNumber, applicationData, cb }) => {
           </form>
         </div>
       </div>
+      {loading && <ReqLoader/>}
     </div>
   );
 };

@@ -14,11 +14,11 @@ const Dashboard = () => {
   const [data, setData] = useState([]);
   const [modal, setModal] = useState(false);
   const [empModal, setEmpModal] = useState(false);
-  const [lording, setLording] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // @DCS All Card Data
   useEffect(() => {
-    setLording(true);
+    setLoading(true);
     axios
       .get(dashData)
       .then((res) => {
@@ -29,7 +29,7 @@ const Dashboard = () => {
         console.log(error);
       })
       .finally(() => {
-        setLording(false);
+        setLoading(false);
       });
   }, []);
 
@@ -50,7 +50,7 @@ const Dashboard = () => {
             <Filter setData={setData} endPoint={dashData} isDashboard={true} />
           </div>
           <div className="">
-            {lording ? <StudentLoader /> : <Cards data={data} />}
+            {loading ? <StudentLoader /> : <Cards data={data} />}
           </div>
           <div className="w-full flex items-center justify-end">
             <button
