@@ -75,9 +75,15 @@ const Application = () => {
             <h5 className="font-bold">University</h5>
             <h5 className="text-sm capitalize">{stepper?.university}</h5>
           </div>
+
           <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">Program</h5>
             <h5 className="text-sm capitalize">{stepper?.program}</h5>
+          </div>
+
+          <div className="flex  flex-col justify-start w-full">
+            <h5 className="font-bold">Through</h5>
+            <h5 className="text-sm capitalize">{stepper?.through}</h5>
           </div>
         </div>
       </div>

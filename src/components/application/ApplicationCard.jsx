@@ -24,10 +24,14 @@ const ApplicationCard = ({ data }) => {
         <span className="font-medium text-sm">{data?.intake}</span>
       </h1>
       <h1 className="mt-2 text-sm">
-        partnership:{" "}
+        Partnership:{" "}
         <span className="font-medium text-gray-500">{data?.partnership}</span>
       </h1>
-      <h1 className=" text-sm">
+      <h1 className="mt-2 text-sm">
+        Through:{" "}
+        <span className="font-medium text-gray-500">{data?.through}</span>
+      </h1>
+      <h1 className="mt-2 text-sm">
         Total Steps:{" "}
         <span className="font-medium text-gray-500">{data?.steps.length}</span>
       </h1>

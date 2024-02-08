@@ -27,9 +27,9 @@ const AddModal = ({ setModal, cb }) => {
         program: "",
         university: "",
         partnership: "",
+        through: "",
       },
     ],
-    partnership: "",
     assignee: "",
   });
 
@@ -40,6 +40,7 @@ const AddModal = ({ setModal, cb }) => {
       program: "",
       university: "",
       partnership: "",
+      through: "",
     },
   ]);
 
@@ -86,6 +87,7 @@ const AddModal = ({ setModal, cb }) => {
         program: "",
         university: "",
         partnership: "",
+        through: "",
       },
     ]);
   };
@@ -98,7 +100,8 @@ const AddModal = ({ setModal, cb }) => {
         elem.intake === input.intake &&
         elem.program === input.program &&
         elem.university === input.university &&
-        elem.partnership === input.partnership
+        elem.partnership === input.partnership &&
+        elem.through === input.through 
     );
 
     dupliUniBased.splice(iofub, 1);
@@ -147,7 +150,7 @@ const AddModal = ({ setModal, cb }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center z-50">
-      <div className="relative bg-white max-h-screen overflow-y-scroll  mt-60  md:mt-0 md:w-1/2 rounded-lg p-5  md:p-10 md:px-14 m-5">
+      <div className="relative bg-white max-h-screen overflow-y-scroll  mt-60  md:mt-0 md:w-3/4 rounded-lg p-5  md:p-10 md:px-14 m-5">
         <h1 className="font-bold text-center text-xl text-primary_colors">
           Register New Application
         </h1>
@@ -249,6 +252,15 @@ const AddModal = ({ setModal, cb }) => {
                         ))}
                       </select>
                     </div>
+
+                    <input
+                      type="text"
+                      placeholder="Through"
+                      name="through"
+                      className="w-full p-2 border rounded focus:outline-none"
+                      value={input.through}
+                      onChange={(e) => handleDynamicUniChange(index, e)}
+                    />
 
                     {index !== 0 && (
                       <button
