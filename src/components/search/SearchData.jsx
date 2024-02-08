@@ -6,7 +6,7 @@ const SearchData = ({placeholder,handleKeyPress,searchHandler,setSearch}) => {
   
 
   return (
-    <div className="w-full relative hidden md:flex">
+    <div className="w-full relative md:flex">
       <CiSearch
         onClick={searchHandler}
         className="absolute text-slate-400 top-2 ms-3 cursor-pointer"

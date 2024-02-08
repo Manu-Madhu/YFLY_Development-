@@ -7,7 +7,7 @@ const ApplicationCard = ({ data }) => {
   return (
     <div
       onClick={(e) =>
-        navigate(`/admin/applications/${data.applicationId}/${data._id}`)
+        navigate(`/applications/${data.applicationId}/${data._id}`)
       }
       className="p-8 bg-white rounded-lg shadow-lg w-full md:w-[310px] capitalize hover:scale-105 ease-in-out duration-200 cursor-pointer"
     >

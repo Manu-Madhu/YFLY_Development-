@@ -23,6 +23,7 @@ import Project from './pages/admin/Project';
 import SearchApplication from "./components/search/Application"
 import Team from './components/projeect/Team';
 import Stepper from './pages/admin/Stepper';
+import StaffProtectedRoute from './routes/StaffProtectedRoute';
 
 
 function App() {
@@ -42,11 +43,14 @@ function App() {
               <Route path='admin/employee/list/:role' element={<ViewEmployees />} />
               <Route path='admin/employee/profile/:id' element={<EmployeeProfile />} />
               <Route path='admin/applications' element={<AllApplications />} />
-              <Route path='admin/applications/stepper/:id' element={<Stepper />} />
-              <Route path='admin/applications/:id/:stepperId' element={<Application />} />
               <Route path='admin/student' element={<Student />} />
               <Route path='admin/project' element={<Project />} />
               <Route path='admin/project/team/:proId' element={<Team />} />
+            </Route>
+
+            <Route element={<StaffProtectedRoute/>}>
+              <Route path='applications/stepper/:id' element={<Stepper />} />
+              <Route path='applications/:id/:stepperId' element={<Application />} />
             </Route>
 
             {/* Employee Routes */}

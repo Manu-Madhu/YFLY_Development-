@@ -6,19 +6,23 @@ import instance from "../../utils/AxiosInstance";
 import Pagination from "../../components/Pagination";
 import SearchData from "../../components/search/SearchData";
 import { toast } from "react-toastify";
+import { Office } from "../../data/Dashboard";
+import { useSelector } from "react-redux";
 // import Pagination from "../../components/Pagination";
 
 const Student = () => {
   const [data, setData] = useState();
   const [page, setPage] = useState(1);
   const [entries, setEntries] = useState(10);
+  const [office, setOffice] = useState("");
   const [search, setSearch] = useState("");
+  const user = useSelector((state)=> state?.auth?.userInfo)
 
   // Table initial api call
   const studentTable = async () => {
     try {
       const res = await instance.get(
-        `${getAllStudent}?page=${page}&entries=${entries}`
+        `${getAllStudent}?page=${page}&entries=${entries}&office=${office}`
       );
       setData(res.data);
       // console.log(res.data);
@@ -30,7 +34,7 @@ const Student = () => {
   useEffect(() => {
     window.scroll(0, 0);
     studentTable();
-  }, []);
+  }, [office]);
 
   // Search Student
   const searchHandler = async () => {
@@ -53,11 +57,29 @@ const Student = () => {
 
   return (
     <div className="w-full h-full text-black pt-10 pb-28">
-      <div className="flex justify-between">
+      <div className="flex flex-col md:flex-row md:justify-between">
         <h1 className="text-primary_colors text-2xl font-bold">
           Track Student
         </h1>
-        <div>
+        <div className="flex flex-col md:flex-row">
+
+          {
+            user?.role === "admin"
+            &&
+            <select
+              onChange={(e)=> setOffice(e.target.value)}
+              className="border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none w-1/2"
+            >
+              <option value= "" >Select Office</option>
+              {
+                Office.map((item)=>(
+                  <option key={item.id} value={item.name}>{item.name}</option>
+                ))
+              }
+
+            </select>
+          }
+            
           <SearchData
             placeholder={"Student Data"}
             searchHandler={searchHandler}

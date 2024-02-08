@@ -28,9 +28,15 @@ const AssignedWork = () => {
   return (
     <div className="w-full min-h-screen text-black mt-[5vh]">
       <h1 className="text-primary_colors text-2xl font-bold">Tasks</h1>
-      <div className="mt-5 w-full flex flex-wrap gap-4">
-        <Applications data={works} />
-      </div>
+      {
+        works?.length > 0 
+        ?
+        <div className="mt-5 w-full flex flex-wrap gap-4">
+          <Applications data={works} />
+        </div>
+        :
+        <p className="text-center text-[#777] mt-9">No Tasks Available</p>
+      }
     </div>
   );
 };

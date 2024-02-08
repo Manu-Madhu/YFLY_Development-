@@ -46,6 +46,18 @@ export const Office =[
         id:1,
         name:"Head Office"
     },
+    {
+        id:2,
+        name:"Branch A"
+    },
+    {
+        id:2,
+        name:"Branch B"
+    },
+    {
+        id:3,
+        name:"Branch C"
+    },
 ]
 
 export const EmpFormData = [

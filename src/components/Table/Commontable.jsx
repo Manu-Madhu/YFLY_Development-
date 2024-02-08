@@ -47,10 +47,10 @@ const CommonTable = ({ data, page, entries , getData}) => {
               user?.role === "admin" &&
               <>
                 <th className="px-6 py-4"> Actions </th>
-                <th className="px-6 py-4"> View </th>
               </>
 
             }
+            <th className="px-6 py-4"> View </th>
           </tr>
         </thead>
         <tbody>
@@ -125,11 +125,14 @@ const CommonTable = ({ data, page, entries , getData}) => {
                       </div>
                     </td>
 
+                  </>
+
+                }
                     <td className="px-6 py-4  t">
                       <div className="font-medium text-blue-600 dark:text-blue-500 hover:underline-none hover:text-blue-800 hover:cursor-pointer">
                         <span
                           onClick={() =>
-                            navigate(`/admin/applications/stepper/${items?._id}`)
+                            navigate(`/applications/stepper/${items?._id}`)
                           }
                         >
                           View
@@ -137,9 +140,6 @@ const CommonTable = ({ data, page, entries , getData}) => {
                         </span>
                       </div>
                     </td>
-                  </>
-
-                }
 
               </tr>
             ))

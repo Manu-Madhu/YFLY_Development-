@@ -7,11 +7,14 @@ import { getEmpTaskMetrics } from "../../utils/Endpoint";
 import Cards from "../../components/dashboard/Cards";
 import axios from "../../utils/AxiosInstance";
 import StudentLoader from "../../components/loading/StudentLoader";
+import RegistrationForm from "../../components/dashboard/RegistrationForm";
 
 const EmployeeDashboard = () => {
   const userData = useSelector((state) => state.auth.userInfo);
   const [dashData, setDashdata] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [modal, setModal] = useState(false);
+
 
   useEffect(() => {
     window.scroll(0,0)
@@ -64,8 +67,28 @@ const EmployeeDashboard = () => {
               </div>
             </div>
           </div>
+
+          {
+            (userData?.department === "registration" || userData?.department === "operations")
+            &&
+            <div className=" md:w-1/2 ">
+              <div className="flex flex-col justify-center items-center p-9">
+                <button
+                  onClick={() => setModal(!modal)}
+                  className="me-2 p-2 px-4 text-normal bg-primary_colors text-white rounded-lg hover:scale-105 ease-in-out duration-200"
+                >
+                  Register a New Student
+                </button>
+              </div>
+            </div>
+          }
+
+
         </div>
       </div>
+
+      {modal && <RegistrationForm setModal={setModal} entity="Student" />}
+
     </div>
   );
 };

@@ -58,6 +58,12 @@ export const EmployeeCards = [
       path:"technical",
       name:"TECHNICAL SPECIALISTS"
     },
+    {
+      id: 9,
+      image:writers,
+      path:"registration",
+      name:"REGISTRATION DESK"
+    },
 ]
 
 export const status =[
@@ -66,11 +72,11 @@ export const status =[
     name:"pending"
   },
   {
-    id:1,
+    id:2,
     name:"ongoing"
   },
   {
-    id:1,
+    id:3,
     name:"completed"
   }
 ]
