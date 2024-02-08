@@ -50,7 +50,7 @@ const Applications = ({ data }) => {
           {/* Button part */}
           <div className="py-3 w-full flex flex-col md:flex-row gap-3">
             {user?.role === "admin" ? (
-              <Link to={`/admin/applications/${work?.applicationId}/${work?.stepperId}`}>
+              <Link to={`/applications/${work?.applicationId}/${work?.stepperId}`}>
                 <button className="p-2 px-10 h-10 text-white rounded bg-primary_colors w-full hover:scale-105 ease-in-out duration-200">
                   View
                 </button>
