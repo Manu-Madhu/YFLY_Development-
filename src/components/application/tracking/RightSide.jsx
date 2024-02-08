@@ -30,7 +30,7 @@ const RightSide = ({ data, cb, application }) => {
   let myTasks;
   if (user.role === "employee") {
     myTasks = data?.steps?.filter((step) => {
-      if (step?.assignee === user?._id && step?.status !== "completed") {
+      if (step?.assignee) {
         return true;
       } else {
         return false;
@@ -145,23 +145,28 @@ const RightSide = ({ data, cb, application }) => {
                 </h1>
               </div>
               <div className="flex flex-col justify-between capitalize">
-                <div className="flex flex-col gap-2">
-                  <button
-                    onClick={() => (setStepNumber(myTasks._id),setStatusUpdate(true))}
-                    className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
-                  >
-                    Update Status
-                  </button>
-                  <button
-                    onClick={() => {
-                      setStepNumber(myTasks._id);
-                      setAssigneeUpdate(true);
-                    }}
-                    className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
-                  >
-                    Assign Next
-                  </button>
-                </div>
+                {
+                  myTasks?.assignee === user?._id
+                  &&
+                  <div className="flex flex-col gap-2">
+                    <button
+                      onClick={() => (setStepNumber(myTasks._id),setStatusUpdate(true))}
+                      className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
+                    >
+                      Update Status
+                    </button>
+                    <button
+                      onClick={() => {
+                        setStepNumber(myTasks._id);
+                        setAssigneeUpdate(true);
+                      }}
+                      className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
+                    >
+                      Assign Next
+                    </button>
+                  </div>
+
+                }
 
                 <h1 className="font-semibold text-sm mt-1 text-end">
                   Step Number: {myTasks?._id}

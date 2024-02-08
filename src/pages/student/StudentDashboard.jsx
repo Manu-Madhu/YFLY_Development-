@@ -47,13 +47,14 @@ const StudentDashboard = () => {
                   <span className="font-semiBold capitalize">{user?.name}</span>
                 </h1>
 
+              </div>
+              <div>
                 <p className="text-white text-[11px]">
                   <span className="font-bold">DOB :</span>{" "}
                   {DateFormat(user?.birthDate)}
                 </p>
-              </div>
-              <div>
-                <p className="text-white font-semibold">
+
+                {/* <p className="text-white font-semibold">
                   Application ID :{" "}
                   <span className="font-thin capitalize">
                     {
@@ -64,7 +65,7 @@ const StudentDashboard = () => {
                         "NIL"
                     }
                   </span>
-                </p>
+                </p> */}
               </div>
             </div>
             {/* details about the student */}
