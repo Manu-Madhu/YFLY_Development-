@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getAllApplications } from "../../utils/Endpoint";
 import { Intake } from "../../data/Dashboard";
 
@@ -30,7 +30,7 @@ const AllApplications = () => {
     }
   };
 
-  useState(() => {
+  useEffect(() => {
     window.scroll(0, 0);
     GetApplications();
   }, [setPage]);

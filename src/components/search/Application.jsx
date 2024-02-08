@@ -1,15 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommonTable from "../Table/Commontable";
 import Pagination from "../Pagination";
-import { useSelector } from "react-redux";
+import { getAllApplications } from "../../utils/Endpoint";
+import { useLocation } from "react-router-dom";
+import instance from "../../utils/AxiosInstance";
 
 const Application = () => {
-  //   const [data, setData] = useState();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const query = searchParams.get('query')
+
+  const [data, setData] = useState();
 
   const [page, setPage] = useState(1);
   const [entries, setEntries] = useState(10);
 
-  const data = useSelector((state) => state.search.searchData);
+  const GetApplications = async () => {
+    try {
+      const response = await instance.get(
+        `${getAllApplications}?page=${page}&entries=${entries}&search=${query}`
+      );
+      setData(response?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    window.scroll(0, 0);
+    GetApplications();
+  }, [setPage, query]);
 
   return (
     <div className="w-full h-full text-black pt-10 pb-28">
@@ -28,7 +48,7 @@ const Application = () => {
           Data={data}
           page={page}
           setPage={setPage}
-          getMethod={setPage}
+          getMethod={GetApplications}
         />
       </div>
     </div>

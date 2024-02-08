@@ -8,7 +8,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineLogin } from "react-icons/ai";
 import { getAllApplications, userLogout } from "../../utils/Endpoint";
 import { toast } from "react-toastify";
-import { setSearchData } from "../../redux/slices/SearchSlicer";
 import { logout } from "../../redux/slices/AuthSlicer";
 
 import profile from "../../assets/icon/profileicon.png";
@@ -18,30 +17,14 @@ import { Sidebar, SidebarE } from "../../data/SideBar";
 const Header = () => {
   const [menu, setMenu] = useState(false);
   const [search, setSearch] = useState("");
-  const user = useSelector((state) => state.auth.userInfo);
+  const user = useSelector((state) => state?.auth?.userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const params = useLocation()
-
-
-  const searchHandler = async () => {
-    try {
-      const response = await instance.get(
-        `${getAllApplications}?search=${search}`
-      );
-      console.log(response.data);
-      dispatch(setSearchData(response.data));
-      navigate("/applications/search");
-    } catch (error) {
-      console.log(error);
-      toast.warning("Something Wrong...");
-    } finally {
-    }
-  };
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      searchHandler();
+      navigate(`/applications/search?query=${search}`);
+
     }
   };
 
@@ -83,7 +66,7 @@ const Header = () => {
               &&
               <div className="w-full relative hidden md:flex">
                 <CiSearch
-                  onClick={searchHandler}
+                  onClick={()=> navigate(`/applications/search?query=${search}`)}
                   className="absolute text-slate-400 top-2 ms-3 cursor-pointer"
                   size={25}
                 />

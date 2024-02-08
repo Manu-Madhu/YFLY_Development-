@@ -34,7 +34,6 @@ function App() {
           <Route index path='/' element={<Login />} />
           <Route path='/' element={<Layout />}>
 
-            <Route path='/applications/search' element={<SearchApplication />} />
             
             {/* Admin Routes */}
             <Route element={<AdminProtectedRoute />}>
@@ -51,6 +50,8 @@ function App() {
             <Route element={<StaffProtectedRoute/>}>
               <Route path='applications/stepper/:id' element={<Stepper />} />
               <Route path='applications/:id/:stepperId' element={<Application />} />
+              <Route path='/applications/search' element={<SearchApplication />} />
+
             </Route>
 
             {/* Employee Routes */}
