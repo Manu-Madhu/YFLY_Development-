@@ -4,9 +4,11 @@ import axios from "../../utils/AxiosInstance";
 
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
+import ReqLoader from "../loading/ReqLoader";
 
-const Filter = ({ setData,endPoint, isDashboard }) => {
-  const TheDataToFilter = isDashboard ? FilterDataDash : FilterData 
+const Filter = ({ setData, endPoint, isDashboard }) => {
+  const [loader, setLoader] = useState(false);
+  const TheDataToFilter = isDashboard ? FilterDataDash : FilterData;
 
   const [form, setForm] = useState({
     start_date: "",
@@ -15,7 +17,7 @@ const Filter = ({ setData,endPoint, isDashboard }) => {
     intake: "",
     status: "",
   });
-  
+
   //   @DCS updating the form data
   const changeHandler = (e) => {
     setForm({
@@ -29,6 +31,7 @@ const Filter = ({ setData,endPoint, isDashboard }) => {
     e.preventDefault();
     const { start_date, end_date, country, intake, status } = form;
     try {
+      setLoader(true);
       const res = await axios.get(
         `${endPoint}?start_date=${start_date}&end_date=${end_date}&country=${country}&intake=${intake}&status=${status}`
       );
@@ -36,13 +39,19 @@ const Filter = ({ setData,endPoint, isDashboard }) => {
       setData(res.data);
     } catch (error) {
       // console.error(error);
-      toast.error(error.response.data.msg)
+      toast.error(error.response.data.msg);
+    } finally {
+      setLoader(false);
     }
   };
 
   return (
     <div className="w-full">
-      <form onSubmit={submitData} action="" className="flex flex-col justify-between md:flex-row gap-5 md:gap-5 ">
+      <form
+        onSubmit={submitData}
+        action=""
+        className="flex flex-col justify-between md:flex-row gap-5 md:gap-5 "
+      >
         <div className="relative">
           <label htmlFor="" className="absolute top-[-15px] left-0 text-xs ">
             Starting Date
@@ -54,7 +63,6 @@ const Filter = ({ setData,endPoint, isDashboard }) => {
             placeholder=""
             className="border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none w-full"
           />
-
         </div>
 
         <div className="relative">
@@ -68,7 +76,6 @@ const Filter = ({ setData,endPoint, isDashboard }) => {
             placeholder=""
             className="border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none w-full"
           />
-
         </div>
 
         {TheDataToFilter.map((data) => (
@@ -94,6 +101,7 @@ const Filter = ({ setData,endPoint, isDashboard }) => {
           Filter
         </button>
       </form>
+      {loader && <ReqLoader />}
     </div>
   );
 };

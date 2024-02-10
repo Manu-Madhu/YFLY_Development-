@@ -11,9 +11,10 @@ import {
 } from "../../utils/Endpoint";
 import { toast } from "react-toastify";
 import { EmployeeCards } from "../../data/Employee";
+import ReqLoader from "../loading/ReqLoader";
 
 const RegistrationForm = ({ setModal, entity }) => {
-
+  const [loader, setLoader] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -90,40 +91,46 @@ const RegistrationForm = ({ setModal, entity }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    if (entity === "Student") {
-      console.log(formData);
-      if (!(formData?.name || formData?.email)) return;
+    try {
+      setLoader(true);
+      if (entity === "Student") {
+        console.log(formData);
+        if (!(formData?.name || formData?.email)) return;
 
-      await axios
-        .post(studentRegisterRoute, formData)
-        .then((res) => {
-          console.log(res.data);
-          setModal(false);
-          toast.success(res?.data?.msg);
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error(error?.response?.data?.msg);
-        });
-    } else if (entity === "Employee") {
-      console.log(empFormData);
-      if (!(empFormData?.email && empFormData?.department)) return;
+        await axios
+          .post(studentRegisterRoute, formData)
+          .then((res) => {
+            console.log(res.data);
+            setModal(false);
+            toast.success(res?.data?.msg);
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error(error?.response?.data?.msg);
+          });
+      } else if (entity === "Employee") {
+        console.log(empFormData);
+        if (!(empFormData?.email && empFormData?.department)) return;
 
-      await axios
-        .post(employeeRegisterRoute, empFormData)
-        .then((res) => {
-          console.log(res.data);
-          setModal(false);
-          toast.success(res?.data?.msg);
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error(error?.response?.data?.msg);
-        });
+        await axios
+          .post(employeeRegisterRoute, empFormData)
+          .then((res) => {
+            console.log(res.data);
+            setModal(false);
+            toast.success(res?.data?.msg);
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error(error?.response?.data?.msg);
+          });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoader(false);
     }
   };
 
-  // console.log("efd", empFormData);
   return (
     <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center z-50">
       <div className="relative bg-white mt-60  md:mt-0 md:w-1/2 rounded-lg p-5  md:p-10 md:px-14 m-5">
@@ -147,7 +154,6 @@ const RegistrationForm = ({ setModal, entity }) => {
                         type={data?.type}
                         changeHandler={changeHandler}
                         value={formData[data?.name]}
-                        
                       />
                     </div>
                   ))}
@@ -178,7 +184,6 @@ const RegistrationForm = ({ setModal, entity }) => {
                         type={data?.type}
                         changeHandler={changeHandler}
                         value={empFormData[data?.name]}
-                        
                       />
                     </div>
                   ))}
@@ -271,6 +276,7 @@ const RegistrationForm = ({ setModal, entity }) => {
           </form>
         </div>
       </div>
+      {loader && <ReqLoader />}
     </div>
   );
 };
