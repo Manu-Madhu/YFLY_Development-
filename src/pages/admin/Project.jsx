@@ -13,14 +13,15 @@ import {
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import EmptyData from "../../components/loading/EmptyData";
+import ReqLoader from "../../components/loading/ReqLoader";
 
 const Project = () => {
+  const [loader, setLoader] = useState(false);
   const [modal, setModal] = useState(false);
   const [employee, setEmployee] = useState([]);
   const [projectData, setProjectData] = useState([]);
 
   const user = useSelector((state) => state?.auth?.userInfo);
-
 
   // Setting the input values to the state
   const [team, setTeam] = useState({
@@ -53,6 +54,7 @@ const Project = () => {
     async (e) => {
       e.preventDefault();
       try {
+        setLoader(true);
         const response = await instance.post(createProject, team);
         if (response?.status === 200) {
           toast.success("Project Successfully Created");
@@ -64,6 +66,8 @@ const Project = () => {
       } catch (error) {
         console.error("Error:", error);
         toast.error("Error occurred");
+      } finally {
+        setLoader(false);
       }
     },
     [createProject, team, setModal]
@@ -82,22 +86,30 @@ const Project = () => {
   }, []);
 
   const allProject = () => {
-    instance
-      .get(getAllProjects)
-      .then((response) => {
-        if(user?.role === "admin"){
-          setProjectData(response?.data);
-        }
-        else if(user?.role === "employee"){
-          const allProjects = response?.data;
-          const myProjects = allProjects.filter((project)=> project?.members?.includes(user?._id))
-          setProjectData(myProjects)
-        }
-        // console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      setLoader(true);
+      instance
+        .get(getAllProjects)
+        .then((response) => {
+          if (user?.role === "admin") {
+            setProjectData(response?.data);
+          } else if (user?.role === "employee") {
+            const allProjects = response?.data;
+            const myProjects = allProjects.filter((project) =>
+              project?.members?.includes(user?._id)
+            );
+            setProjectData(myProjects);
+          }
+          // console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoader(false);
+    }
   };
 
   // fetch project Data
@@ -107,6 +119,7 @@ const Project = () => {
 
   const deleteHandler = async (proId) => {
     try {
+      setLoader(true);
       const response = await instance.delete(`${deleteProject}/${proId}`);
       console.log(response.data);
       toast.success("Successfully Deleted");
@@ -114,35 +127,39 @@ const Project = () => {
     } catch (error) {
       console.log(error);
       toast.error("Something went Wrong");
+    } finally {
+      setLoader(false);
     }
   };
-
 
   return (
     <>
       <div className="container mx-auto w-full h-full  pt-10 pb-28">
         <div className="flex  justify-between">
           <h1 className="text-primary_colors text-2xl font-bold">Project</h1>
-          {
-            user?.role === "admin"
-            &&
+          {user?.role === "admin" && (
             <button
               onClick={() => setModal(true)}
               className="bg-primary_colors text-white text-sm p-2 px-10 rounded-md hover:scale-105 ease-in-out duration-300"
             >
               New Project
             </button>
-          }
+          )}
         </div>
 
         <div className="mt-5 flex flex-col gap-5">
-          {projectData.length ?
+          {projectData.length ? (
             projectData?.map((items, i) => (
-              <ProjectCard key={i} data={items} deleteHandler={deleteHandler} user={user}/>
+              <ProjectCard
+                key={i}
+                data={items}
+                deleteHandler={deleteHandler}
+                user={user}
+              />
             ))
-            :
-            <EmptyData data="No Projects Available"/>
-          }
+          ) : (
+            <EmptyData data="No Projects Available" />
+          )}
         </div>
       </div>
 
@@ -227,6 +244,8 @@ const Project = () => {
           </div>
         </div>
       )}
+
+      {loader && <ReqLoader />}
     </>
   );
 };

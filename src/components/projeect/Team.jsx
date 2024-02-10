@@ -41,16 +41,19 @@ const Team = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
+      setLoader(true);
       const response = await instance.post(createTask, formData);
       console.log(response.data);
       if (response?.status === 200) {
         toast.success("Successfully Created");
         setaModal(false);
-        GetAllTasks()
+        GetAllTasks();
       }
     } catch (error) {
       console.log(error);
       toast.error(error?.response?.data?.msg || "Something went wrong");
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -61,18 +64,19 @@ const Team = () => {
     });
   };
 
-  const GetAllTasks = async()=>{
+  const GetAllTasks = async () => {
+    setLoader(true);
     instance
       .get(`${getAllTask}/${proId}`)
       .then((res) => {
-        if(user?.role === "admin"){
+        if (user?.role === "admin") {
           setTaskData(res.data);
-        }else if(user?.role === "employee") {
-          console.log("user",user)
+        } else if (user?.role === "employee") {
+          console.log("user", user);
           const allTasks = res.data;
-          console.log("allTasks",allTasks)
-          const myTasks = allTasks.filter((task)=> task._id === user._id);
-          setTaskData(myTasks)
+          console.log("allTasks", allTasks);
+          const myTasks = allTasks.filter((task) => task._id === user._id);
+          setTaskData(myTasks);
         }
 
         setLoader(false);
@@ -83,7 +87,7 @@ const Team = () => {
       .finally(() => {
         setLoader(false);
       });
-  }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -98,8 +102,9 @@ const Team = () => {
         <h1 className="text-primary_colors text-2xl font-bold">Task</h1>
         <button
           onClick={() => setaModal(true)}
-          className={`bg-primary_colors px-5 text-white rounded  text-sm p-2 ${user?.role === "admin" ? "block" : "hidden"
-            }`}
+          className={`bg-primary_colors px-5 text-white rounded  text-sm p-2 ${
+            user?.role === "admin" ? "block" : "hidden"
+          }`}
         >
           Add Task
         </button>
@@ -109,7 +114,13 @@ const Team = () => {
       >
         {taskData && taskData?.length > 0 ? (
           taskData?.map((items, i) => (
-            <TaskMain key={i} user={user} data={items} setaModal={setaModal} cb={GetAllTasks}/>
+            <TaskMain
+              key={i}
+              user={user}
+              data={items}
+              setaModal={setaModal}
+              cb={GetAllTasks}
+            />
           ))
         ) : (
           <EmptyData data={"No Available Task..."} />
