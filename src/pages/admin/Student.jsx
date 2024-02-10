@@ -8,9 +8,11 @@ import SearchData from "../../components/search/SearchData";
 import { toast } from "react-toastify";
 import { Office } from "../../data/Dashboard";
 import { useSelector } from "react-redux";
+import ReqLoader from "../../components/loading/ReqLoader";
 // import Pagination from "../../components/Pagination";
 
 const Student = () => {
+  const [loader, setLoader] = useState(false);
   const [data, setData] = useState();
   const [page, setPage] = useState(1);
   const [entries, setEntries] = useState(10);
@@ -21,6 +23,7 @@ const Student = () => {
   // Table initial api call
   const studentTable = async () => {
     try {
+      setLoader(true)
       const res = await instance.get(
         `${getAllStudent}?page=${page}&entries=${entries}&office=${office}`
       );
@@ -28,6 +31,8 @@ const Student = () => {
       // console.log(res.data);
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoader(false)
     }
   };
 
@@ -39,6 +44,7 @@ const Student = () => {
   // Search Student
   const searchHandler = async () => {
     try {
+      setLoader(true)
       const response = await instance.get(`${getAllStudent}?search=${search}`);
       console.log(response.data);
       setData(response.data)
@@ -46,6 +52,7 @@ const Student = () => {
       console.log(error);
       toast.warning("Something Wrong...");
     } finally {
+      setLoader(false)
     }
   };
 
@@ -101,6 +108,7 @@ const Student = () => {
           getMethod={studentTable}
         />
       </div>
+      {loader && <ReqLoader />}
     </div>
   );
 };

@@ -5,17 +5,13 @@ import { IoClose } from "react-icons/io5";
 import Input from "../formField/Input";
 
 import axios from "../../utils/AxiosInstance";
-import {
-  updateStudentRoute,
-} from "../../utils/Endpoint";
+import { updateStudentRoute } from "../../utils/Endpoint";
 import { toast } from "react-toastify";
+import ReqLoader from "../loading/ReqLoader";
 
 const EditStudent = ({ entityData, setData, getTableData, setModal }) => {
-
+  const [loader, setLoader] = useState(false);
   const [stdFormData, setStdFormData] = useState(entityData);
-
-
-
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -40,22 +36,27 @@ const EditStudent = ({ entityData, setData, getTableData, setModal }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    console.log(stdFormData);
     if (!(stdFormData?.name || stdFormData?.email)) return;
 
-    await axios
-      .put(`${updateStudentRoute}/${entityData._id}`, stdFormData)
-      .then((res) => {
-        console.log(res.data);
-        setModal(false);
-        toast.success(res?.data?.msg);
-        setData({})
-        getTableData()
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error(error?.response?.data?.msg);
-      });
+    try {
+      setLoader(true)
+      await axios
+        .put(`${updateStudentRoute}/${entityData._id}`, stdFormData)
+        .then((res) => {
+          setModal(false);
+          toast.success(res?.data?.msg);
+          setData({});
+          getTableData();
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error(error?.response?.data?.msg);
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoader(false)
+    }
   };
 
   console.log("efd", stdFormData);
@@ -73,7 +74,6 @@ const EditStudent = ({ entityData, setData, getTableData, setModal }) => {
           <form action="" onSubmit={submitHandler}>
             <div className="w-full flex flex-wrap">
               <>
-
                 {
                   <>
                     <div className="w-full md:w-1/2 p-1 py-2">
@@ -131,7 +131,6 @@ const EditStudent = ({ entityData, setData, getTableData, setModal }) => {
                     </div>
 
                     <div className="flex w-full gap-2">
-
                       <select
                         value={stdFormData?.office}
                         className={`border border-primary_colors/50 text-gray-400 text-xs p-3 focus:outline-none w-full rounded-lg`}
@@ -149,7 +148,6 @@ const EditStudent = ({ entityData, setData, getTableData, setModal }) => {
                         ))}
                       </select>
                     </div>
-
                   </>
                 }
 
@@ -160,9 +158,7 @@ const EditStudent = ({ entityData, setData, getTableData, setModal }) => {
                       placeholder={data?.placeholder}
                       type={data?.type}
                       changeHandler={changeHandler}
-                      value={
-                        stdFormData?.address?.[data?.name]
-                      }
+                      value={stdFormData?.address?.[data?.name]}
                     />
                   </div>
                 ))}
@@ -171,7 +167,6 @@ const EditStudent = ({ entityData, setData, getTableData, setModal }) => {
 
             {/* BUTTON */}
             <div className="text-white text-normal space-x-3 flex items-center justify-end mt-10">
-
               <button
                 type="submit"
                 className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"
@@ -183,6 +178,7 @@ const EditStudent = ({ entityData, setData, getTableData, setModal }) => {
           </form>
         </div>
       </div>
+      {loader && <ReqLoader />}
     </div>
   );
 };
