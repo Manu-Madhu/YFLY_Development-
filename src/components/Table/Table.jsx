@@ -86,11 +86,11 @@ const Table = ({ department }) => {
                   className="bg-white border-b  hover:bg-gray-50 text-black cursor-pointer"
                 >
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                    {emp?.name}
+                    {emp?.name ?  emp?.name : "NIL"}
                   </td>
-                  <td className="px-6 py-4">{emp?.department}</td>
-                  <td className="px-6 py-4">{emp?.email}</td>
-                  <td className="px-6 py-4">{emp?.phone}</td>
+                  <td className="px-6 py-4">{emp?.department ? emp?.department :"NIL"}</td>
+                  <td className="px-6 py-4">{emp?.email ? emp?.email : "NIL"}</td>
+                  <td className="px-6 py-4">{emp?.phone ? emp?.phone : "NIL"}</td>
                   <td className="px-6 py-4 ">
                     <div className="flex items-center justify-between gap-3">
                       <FaRegEdit

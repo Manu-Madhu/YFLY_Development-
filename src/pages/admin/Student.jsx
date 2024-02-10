@@ -75,7 +75,7 @@ const Student = () => {
             &&
             <select
               onChange={(e)=> setOffice(e.target.value)}
-              className="border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none w-1/2"
+              className="border shadow p-2  rounded-lg text-secondary text-normal focus:outline-none w-1/2"
             >
               <option value= "" >Select Office</option>
               {

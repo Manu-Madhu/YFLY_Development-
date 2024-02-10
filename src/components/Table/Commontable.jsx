@@ -61,9 +61,9 @@ const CommonTable = ({ data, page, entries , getData}) => {
                 className="bg-white border-b  hover:bg-gray-50 text-black cursor-pointer capitalize"
               >
                 <td className="px-6 py-4">{((page - 1) * entries) + i + 1}</td>
-                <td className="px-6 py-4">{DateFormat(items?.createdAt)}</td>
-                <td className="px-6 py-4">{items?.studentName}</td>
-                <td className="px-6 py-4">{items?.country}</td>
+                <td className="px-6 py-4">{DateFormat(items?.createdAt ?items?.createdAt :"NIL")}</td>
+                <td className="px-6 py-4">{items?.studentName ? items?.studentName :"NIL"}</td>
+                <td className="px-6 py-4">{items?.country ? items?.country :"NIL"}</td>
                 <td className="px-6 py-4 truncate">
                   {items?.intakes
                     ?

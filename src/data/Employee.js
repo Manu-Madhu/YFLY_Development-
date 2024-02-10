@@ -6,6 +6,7 @@ import third from "../assets/icon/employee/therapy.png"
 import interviewers from "../../src/assets/icon/employee/interview.png"
 import rd from "../assets/icon/employee/R&E.png"
 import technical from "../assets/icon/employee/tech.png"
+import desk from "../assets/icon/employee/desk.png"
 
 
 
@@ -60,7 +61,7 @@ export const EmployeeCards = [
     },
     {
       id: 9,
-      image:writers,
+      image:desk,
       path:"registration",
       name:"REGISTRATION DESK"
     },

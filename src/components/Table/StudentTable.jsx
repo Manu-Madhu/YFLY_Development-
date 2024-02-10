@@ -53,9 +53,9 @@ const StudentTable = ({ data , getData , page , entries}) => {
                 className="bg-white border-b text-ellipsis hover:bg-gray-50 text-black cursor-pointer "
               >
                 <td className="px-6 py-4 ">{((page - 1) * entries) + i + 1}</td>
-                <td className="px-6 py-4 capitalize">{items?.name}</td>
-                <td className="px-6 py-4">{items?.email}</td>
-                <td className="px-6 py-4">{items?.phone}</td>
+                <td className="px-6 py-4 capitalize">{items?.name ? items?.name : "NIL" }</td>
+                <td className="px-6 py-4">{items?.email ? items?.email : "NIL"}</td>
+                <td className="px-6 py-4">{items?.phone ? items?.phone : "NIL" }</td>
                 <td className="px-6 py-4 capitalize">
                   {items?.qualification ? items?.qualification : "NIL"}
                 </td>
