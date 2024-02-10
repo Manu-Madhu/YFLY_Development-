@@ -68,7 +68,7 @@ const Student = () => {
         <h1 className="text-primary_colors text-2xl font-bold">
           Track Student
         </h1>
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row mt-4 md:mt-0 gap-4">
 
           {
             user?.role === "admin"
