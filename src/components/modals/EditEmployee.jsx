@@ -12,13 +12,11 @@ import {
 } from "../../utils/Endpoint";
 import { toast } from "react-toastify";
 import { EmployeeCards } from "../../data/Employee";
+import ReqLoader from "../loading/ReqLoader";
 
 const EditEmployee = ({ entityData, setData, getTableData, setModal }) => {
-
   const [empFormData, setEmpFormData] = useState(entityData);
-
-
-
+  const [loader, setLoader] = useState(false);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -43,25 +41,29 @@ const EditEmployee = ({ entityData, setData, getTableData, setModal }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    console.log(empFormData);
     if (!(empFormData?.name || empFormData?.email)) return;
-
-    await axios
-      .put(`${updateEmployeeRoute}/${entityData._id}`, empFormData)
-      .then((res) => {
-        console.log(res.data);
-        setModal(false);
-        toast.success(res?.data?.msg);
-        setData({})
-        getTableData()
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error(error?.response?.data?.msg);
-      });
+    try {
+      setLoader(true);
+      await axios
+        .put(`${updateEmployeeRoute}/${entityData._id}`, empFormData)
+        .then((res) => {
+          console.log(res.data);
+          setModal(false);
+          toast.success(res?.data?.msg);
+          setData({});
+          getTableData();
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error(error?.response?.data?.msg);
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoader(false);
+    }
   };
 
-  console.log("efd", empFormData);
   return (
     <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center z-50">
       <div className="relative bg-white mt-60  md:mt-0 md:w-1/2 rounded-lg p-5  md:p-10 md:px-14 m-5">
@@ -76,7 +78,6 @@ const EditEmployee = ({ entityData, setData, getTableData, setModal }) => {
           <form action="" onSubmit={submitHandler}>
             <div className="w-full flex flex-wrap">
               <>
-
                 {
                   <>
                     <div className="w-full md:w-1/2 p-1 py-2">
@@ -134,8 +135,6 @@ const EditEmployee = ({ entityData, setData, getTableData, setModal }) => {
                     </div>
 
                     <div className="flex w-full gap-2">
-
-
                       <select
                         value={empFormData?.department}
                         className={`border border-primary_colors/50 text-gray-400 text-xs p-3 focus:outline-none w-full rounded-lg`}
@@ -169,7 +168,6 @@ const EditEmployee = ({ entityData, setData, getTableData, setModal }) => {
                         ))}
                       </select>
                     </div>
-
                   </>
                 }
 
@@ -180,9 +178,7 @@ const EditEmployee = ({ entityData, setData, getTableData, setModal }) => {
                       placeholder={data?.placeholder}
                       type={data?.type}
                       changeHandler={changeHandler}
-                      value={
-                        empFormData?.address?.[data?.name]
-                      }
+                      value={empFormData?.address?.[data?.name]}
                     />
                   </div>
                 ))}
@@ -191,7 +187,6 @@ const EditEmployee = ({ entityData, setData, getTableData, setModal }) => {
 
             {/* BUTTON */}
             <div className="text-white text-normal space-x-3 flex items-center justify-end mt-10">
-
               <button
                 type="submit"
                 className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"
@@ -203,6 +198,7 @@ const EditEmployee = ({ entityData, setData, getTableData, setModal }) => {
           </form>
         </div>
       </div>
+      {loader && <ReqLoader />}
     </div>
   );
 };
