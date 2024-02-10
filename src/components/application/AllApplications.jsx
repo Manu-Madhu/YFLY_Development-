@@ -9,9 +9,11 @@ import Pagination from "../Pagination";
 import { useSelector } from "react-redux";
 import Filter from "../dashboard/Filter";
 import LoadingData from "../loading/LoadingData";
+import ReqLoader from "../loading/ReqLoader";
 
 const AllApplications = () => {
   const [data, setData] = useState();
+  const [loader, setLoader] = useState(false);
   const [page, setPage] = useState(1);
   const [entries, setEntries] = useState(10);
   const [modal, setModal] = useState(false);
@@ -21,12 +23,15 @@ const AllApplications = () => {
   // Table loading Data
   const GetApplications = async () => {
     try {
+      setLoader(true);
       const response = await instance.get(
         `${getAllApplications}?page=${page}&entries=${entries}`
       );
       setData(response?.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -56,13 +61,22 @@ const AllApplications = () => {
         <div className="flex flex-col md:flex-row mt-[5vh] justify-between">
           {/* filter & Application */}
           <div className="flex flex-col md:flex-row justify-between gap-3 mt-5 md:mt-0 w-full ">
-            <Filter setData={setData} endPoint={getAllApplications} isDashboard={false} />
+            <Filter
+              setData={setData}
+              endPoint={getAllApplications}
+              isDashboard={false}
+            />
           </div>
         </div>
 
         {/* Common Table */}
         <div className="flex flex-wrap mt-5 w-full ">
-          <CommonTable data={data} page={page} entries={entries} getData={GetApplications} />
+          <CommonTable
+            data={data}
+            page={page}
+            entries={entries}
+            getData={GetApplications}
+          />
         </div>
 
         {/* Pagination */}
@@ -76,6 +90,7 @@ const AllApplications = () => {
         </div>
       </div>
       {modal && <AddModal setModal={setModal} cb={GetApplications} />}
+      {loader && <ReqLoader />}
     </>
   );
 };

@@ -53,7 +53,7 @@ const Filter = ({ setData, endPoint, isDashboard }) => {
         className="flex flex-col justify-between md:flex-row gap-5 md:gap-5 "
       >
         <div className="relative">
-          <label htmlFor="" className="absolute top-[-15px] left-0 text-xs ">
+          <label htmlFor="" className="absolute top-[-20px] left-0 text-xs ">
             Starting Date
           </label>
           <input
@@ -66,7 +66,7 @@ const Filter = ({ setData, endPoint, isDashboard }) => {
         </div>
 
         <div className="relative">
-          <label htmlFor="" className="absolute top-[-15px] left-0 text-xs ">
+          <label htmlFor="" className="absolute top-[-20px] left-0 text-xs ">
             Ending Date
           </label>
           <input

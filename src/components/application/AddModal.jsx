@@ -11,9 +11,11 @@ import { useSelector } from "react-redux";
 import axios from "../../utils/AxiosInstance";
 import { EmployeeCards } from "../../data/Employee";
 import { toast } from "react-toastify";
+import ReqLoader from "../loading/ReqLoader";
 
 const AddModal = ({ setModal, cb }) => {
   const [data, setData] = useState([]);
+  const [loader, setLoader] = useState(false);
   const [employee, setEmployee] = useState([]);
   const user = useSelector((state) => state?.auth?.userInfo);
 
@@ -61,7 +63,7 @@ const AddModal = ({ setModal, cb }) => {
       setEmployee(response?.data);
     } catch (error) {
       console.log(error);
-    }
+    } 
   };
 
   // Handle changes in dynamic university inputs
@@ -101,7 +103,7 @@ const AddModal = ({ setModal, cb }) => {
         elem.program === input.program &&
         elem.university === input.university &&
         elem.partnership === input.partnership &&
-        elem.through === input.through 
+        elem.through === input.through
     );
 
     dupliUniBased.splice(iofub, 1);
@@ -111,7 +113,6 @@ const AddModal = ({ setModal, cb }) => {
       uniBased: [...dupliUniBased],
     }));
 
-    console.log("removeIndex", index);
     const newArray = dynamicUniInputs.filter((inp, i) => i !== index);
     setDynamicUniInputs([...newArray]);
   };
@@ -133,6 +134,7 @@ const AddModal = ({ setModal, cb }) => {
     e.preventDefault();
 
     try {
+      setLoader(true)
       const response = await axios.post(createApplicationRoute, formData);
       if (response?.status === 200) {
         toast.success(response?.data?.msg);
@@ -141,12 +143,10 @@ const AddModal = ({ setModal, cb }) => {
       }
     } catch (error) {
       toast.error(error?.response?.data?.msg || "Something Went Wrong");
+    } finally {
+      setLoader(false);
     }
   };
-
-  // useEffect(() => {
-  //   console.log(formData);
-  // }, [formData]);
 
   return (
     <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center z-50">
@@ -285,8 +285,6 @@ const AddModal = ({ setModal, cb }) => {
               </button>
             </div>
 
-
-
             <div className="w-full flex flex-col md:flex-row gap-3">
               <select
                 name=""
@@ -335,6 +333,7 @@ const AddModal = ({ setModal, cb }) => {
           </form>
         </div>
       </div>
+      {loader && <ReqLoader />}
     </div>
   );
 };

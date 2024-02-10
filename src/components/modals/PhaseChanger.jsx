@@ -1,13 +1,15 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import { toast } from "react-toastify";
 
 import axios from "../../utils/AxiosInstance";
 import { changePhaseOfApplication } from "../../utils/Endpoint";
 import { Phases } from "../../data/Dashboard";
+import ReqLoader from "../loading/ReqLoader";
 
 const PhaseChanger = ({ data, setData, getTableData, setModal }) => {
   const selectRef = useRef();
+  const [loader, setLoader] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -16,6 +18,7 @@ const PhaseChanger = ({ data, setData, getTableData, setModal }) => {
     };
 
     try {
+      setLoader(true)
       await axios.put(`${changePhaseOfApplication}/${data?._id}`, obj)
       .then((res)=>{
           setModal(false)
@@ -26,6 +29,8 @@ const PhaseChanger = ({ data, setData, getTableData, setModal }) => {
     } catch (error) {
       console.log(error);
       toast.warning(error?.response?.data?.msg);
+    }finally{
+      setLoader(false)
     }
   };
 
@@ -82,6 +87,7 @@ const PhaseChanger = ({ data, setData, getTableData, setModal }) => {
           </form>
         </div>
       </div>
+      {loader && <ReqLoader />}
     </div>
   );
 };

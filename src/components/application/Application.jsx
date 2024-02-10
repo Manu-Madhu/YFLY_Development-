@@ -5,49 +5,57 @@ import { getAnApplicationRoute, getStepper } from "../../utils/Endpoint";
 import TrackerVertical from "../stepper/TrackerVertical";
 import RightSide from "./tracking/RightSide";
 import instance from "../../utils/AxiosInstance";
+import ReqLoader from "../loading/ReqLoader";
 
 const Application = () => {
+  const [loader, setLoader] = useState(false);
   const { id, stepperId } = useParams();
   const [data, setData] = useState({});
-  const [application,setApplication] = useState({})
+  const [application, setApplication] = useState({});
   const [stepper, setStepper] = useState([]);
 
   const getApplication = async () => {
+    try {
+      await instance
+        .get(`${getAnApplicationRoute}/${id}`)
+        .then((res) => {
+          setData(res?.data);
+          console.log(res?.data);
+          setApplication(res?.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  const GetStepperData = async () => {
     await instance
-      .get(`${getAnApplicationRoute}/${id}`)
+      .get(`${getStepper}/${stepperId}`)
       .then((res) => {
-        setData(res?.data);
-        console.log(res?.data);
-        setApplication(res?.data)
-     
+        setStepper(res?.data);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const GetStepperData = async()=>{
-    await instance.get(`${getStepper}/${stepperId}`)
-    .then((res)=>{
-      setStepper(res?.data)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
-
   useEffect(() => {
     window.scroll(0, 0);
     getApplication();
-    GetStepperData()
+    GetStepperData();
   }, [id]);
 
   const fnToCallGetFn = () => {
     getApplication();
-    GetStepperData()
+    GetStepperData();
   };
 
-  console.log(application)
+  console.log(application);
 
   return (
     <div className="container mx-auto w-full h-full pt-10 pb-28 ">
@@ -70,7 +78,7 @@ const Application = () => {
             <h5 className="font-bold">Intake</h5>
             <h5 className="text-sm capitalize">{stepper?.intake}</h5>
           </div>
-          
+
           <div className="flex  flex-col justify-start w-full">
             <h5 className="font-bold">University</h5>
             <h5 className="text-sm capitalize">{stepper?.university}</h5>
@@ -96,7 +104,7 @@ const Application = () => {
           <h1 className="font-semibold ">#Acknowledgement Number: </h1>
           <h5 className="text-xs"> {data._id}</h5>
         </div> */}
-        
+
         {/* Tracking  */}
         <div className="w-full h-[850px] flex flex-col md:flex-row p-3 px-5">
           <div className="w-full md:w-1/4 overflow-scroll order-2 md:order-1">
@@ -109,10 +117,15 @@ const Application = () => {
             </div>
           </div>
           <div className="rounded-lg bg-[#F9F9F9] w-full md:w-3/4 mt-3 p-5 order-1">
-            <RightSide data={stepper} cb={fnToCallGetFn} application={application}/>
+            <RightSide
+              data={stepper}
+              cb={fnToCallGetFn}
+              application={application}
+            />
           </div>
         </div>
       </div>
+      {loader && <ReqLoader />}
     </div>
   );
 };
