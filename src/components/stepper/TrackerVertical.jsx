@@ -5,7 +5,7 @@ import EmptyData from "../loading/EmptyData";
 import Tippy from "@tippyjs/react";
 
 const TrackerVertical = ({ data }) => {
-  console.log(data, "from the tr")
+  // console.log(data, "from the tr")
   return (
     <div className="overflow-scroll mb-10">
       {

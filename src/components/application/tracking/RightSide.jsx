@@ -21,7 +21,7 @@ const RightSide = ({ data, cb, application }) => {
   const [assigneeUpdate, setAssigneeUpdate] = useState(false);
   const [stepNumber, setStepNumber] = useState(null);
 
-  console.log(data);
+  // console.log(data);
   let empTasks;
   if (user.role === "admin") {
     empTasks = data?.steps?.filter((step) => (step?.assignee ? true : false));

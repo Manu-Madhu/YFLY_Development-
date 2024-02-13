@@ -55,7 +55,7 @@ const Application = () => {
     GetStepperData();
   };
 
-  console.log(application);
+  // console.log(application);
 
   return (
     <div className="container mx-auto w-full h-full pt-10 pb-28 ">
