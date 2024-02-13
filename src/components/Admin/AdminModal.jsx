@@ -10,6 +10,7 @@ import {
 import axios from "../../utils/AxiosInstance";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import ReqLoader from "../loading/ReqLoader";
 
 const AdminModal = ({ setModal, applicationData, cb }) => {
   const userInfo = useSelector((items) => items.auth.userInfo);
@@ -197,6 +198,8 @@ const AdminModal = ({ setModal, applicationData, cb }) => {
           </form>
         </div>
       </div>
+      {loading && <ReqLoader/>}
+
     </div>
   );
 };

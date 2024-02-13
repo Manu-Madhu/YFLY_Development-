@@ -122,11 +122,14 @@ const Header = () => {
                         &&
                         <div className="w-full relative">
                           <CiSearch
+                            onClick={()=> {navigate(`/applications/search?query=${search}`); setMenu(false)}}
                             className="absolute text-slate-400 top-2 ms-3 cursor-pointer"
                             size={25}
                           />
                           <input
                             type="text"
+                            name="search"
+                            onChange={(e) => setSearch(e.target.value)}
                             className="border w-full ps-10 p-2 rounded-lg shadow-sm outline-none ring-0 text-sm text-slate-400"
                             placeholder="Search"
                           />

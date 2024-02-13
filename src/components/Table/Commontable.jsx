@@ -10,21 +10,21 @@ import DeleteApplication from "../modals/DeleteApplication";
 import { FaRegEdit } from "react-icons/fa";
 import PhaseChanger from "../modals/PhaseChanger";
 
-const CommonTable = ({ data, page, entries , getData}) => {
+const CommonTable = ({ data, page, entries, getData }) => {
   const user = useSelector((state) => state.auth.userInfo);
   const [editModal, setEditModal] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
   const [application, setApplication] = useState(false)
   const navigate = useNavigate();
 
-  const handleDelete = (data)=>{
-    console.log("applictn Data",data)
+  const handleDelete = (data) => {
+    // console.log("applictn Data", data)
     setApplication(data)
     setDeleteModal(true)
   }
 
 
-  const handleEdit = (data)=>{
+  const handleEdit = (data) => {
     setApplication(data)
     setEditModal(true)
   }
@@ -43,13 +43,9 @@ const CommonTable = ({ data, page, entries , getData}) => {
             <th className="px-6 py-4">Intake</th>
             <th className="px-6 py-4">Application Status</th>
             <th className="px-6 py-4"> Assignee</th>
-            {
-              user?.role === "admin" &&
-              <>
-                <th className="px-6 py-4"> Actions </th>
-              </>
 
-            }
+            <th className="px-6 py-4"> Actions </th>
+
             <th className="px-6 py-4"> View </th>
           </tr>
         </thead>
@@ -61,85 +57,81 @@ const CommonTable = ({ data, page, entries , getData}) => {
                 className="bg-white border-b  hover:bg-gray-50 text-black cursor-pointer capitalize"
               >
                 <td className="px-6 py-4">{((page - 1) * entries) + i + 1}</td>
-                <td className="px-6 py-4">{DateFormat(items?.createdAt ?items?.createdAt :"NIL")}</td>
-                <td className="px-6 py-4">{items?.studentName ? items?.studentName :"NIL"}</td>
-                <td className="px-6 py-4">{items?.country ? items?.country :"NIL"}</td>
+                <td className="px-6 py-4">{DateFormat(items?.createdAt ? items?.createdAt : "NIL")}</td>
+                <td className="px-6 py-4">{items?.studentName ? items?.studentName : "NIL"}</td>
+                <td className="px-6 py-4">{items?.country ? items?.country : "NIL"}</td>
                 <td className="px-6 py-4 truncate">
                   {items?.intakes
                     ?
-                    (items?.intakes?.length > 1 
-                    ?
-                    items?.intakes[0] + " +more"
+                    (items?.intakes?.length > 1
+                      ?
+                      items?.intakes[0] + " +more"
+                      :
+                      items?.intakes[0])
                     :
-                    items?.intakes[0])
-                  :
-                  "NIL"
-                  
+                    "NIL"
+
                   }
                 </td>
-                
+
                 <td className="px-6 py-4">
-                  {items?.statuses 
-                  ?
-                    (items?.statuses?.length > 1 
+                  {items?.statuses
                     ?
-                    items?.statuses[0] + " +more"
+                    (items?.statuses?.length > 1
+                      ?
+                      items?.statuses[0] + " +more"
+                      :
+                      items?.statuses[0])
                     :
-                    items?.statuses[0])
-                  :
-                  "NIL"
+                    "NIL"
                   }
-                  </td>
+                </td>
                 <td className="px-6 py-4">
                   {/* {items?.assignee ? items?.assigneeName : "NIL"} */}
-                  {items?.assigneeNames 
-                  ?
-                    (items?.assigneeNames?.length > 1 
+                  {items?.assigneeNames
                     ?
-                    items?.assigneeNames[0] + " +more"
+                    (items?.assigneeNames?.length > 1
+                      ?
+                      items?.assigneeNames[0] + " +more"
+                      :
+                      items?.assigneeNames[0])
                     :
-                    items?.assigneeNames[0])
-                  :
-                  "NIL"
+                    "NIL"
                   }
                 </td>
 
-                {
-                  user?.role === "admin" &&
-                  <>
 
-                    <td className="px-6 py-4 truncate">
 
-                      <div className="flex items-center justify-between gap-3">
-                      <FaRegEdit
-                            onClick={()=> handleEdit(items)}
-                            size={23}
-                            className="cursor-pointer hover:scale-105 ease-in-out duration-400"
-                          />
+                <td className="px-6 py-4 truncate">
 
-                        <MdDeleteOutline
-                          onClick={()=> handleDelete(items)}
-                          size={23}
-                          className="cursor-pointer hover:scale-105 ease-in-out duration-400 text-red-700"
-                        />
-                      </div>
-                    </td>
+                  <div className="flex items-center justify-between gap-3">
+                    <FaRegEdit
+                      onClick={() => handleEdit(items)}
+                      size={23}
+                      className="cursor-pointer hover:scale-105 ease-in-out duration-400"
+                    />
 
-                  </>
+                    <MdDeleteOutline
+                      onClick={() => handleDelete(items)}
+                      size={23}
+                      className="cursor-pointer hover:scale-105 ease-in-out duration-400 text-red-700"
+                    />
+                  </div>
+                </td>
 
-                }
-                    <td className="px-6 py-4  t">
-                      <div className="font-medium text-blue-600 dark:text-blue-500 hover:underline-none hover:text-blue-800 hover:cursor-pointer">
-                        <span
-                          onClick={() =>
-                            navigate(`/applications/stepper/${items?._id}`)
-                          }
-                        >
-                          View
 
-                        </span>
-                      </div>
-                    </td>
+                <td className="px-6 py-4  t">
+                  <div className="font-medium text-blue-600 dark:text-blue-500 hover:underline-none hover:text-blue-800 hover:cursor-pointer">
+                    <span
+                      onClick={() =>
+                        navigate(`/applications/stepper/${items?._id}`)
+                      }
+                    >
+                      View
+
+                    </span>
+                  </div>
+                </td>
 
               </tr>
             ))
@@ -151,7 +143,7 @@ const CommonTable = ({ data, page, entries , getData}) => {
         </tbody>
       </table>
 
-      {editModal && <PhaseChanger data={application} setData={setApplication} getTableData={getData} setModal={setEditModal} /> }
+      {editModal && <PhaseChanger data={application} setData={setApplication} getTableData={getData} setModal={setEditModal} />}
 
       {deleteModal && <DeleteApplication setModal={setDeleteModal} data={application} setData={setApplication} getTableData={getData} route={deleteApplicationRoute} />}
 

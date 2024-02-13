@@ -45,6 +45,10 @@ const Applications = ({ data }) => {
               University :{" "}
               <span className="font-thin ps-2">{work?.university}</span>
             </h1>
+            <h1 className="font-semibold text-sm">
+              Step Number :{" "}
+              <span className="font-thin ps-2">{work?.stepNumber}</span>
+            </h1>
           </div>
 
           {/* Button part */}

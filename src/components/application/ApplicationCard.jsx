@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const ApplicationCard = ({ data }) => {
-  console.log(data);
+  // console.log(data);
   const navigate = useNavigate();
   return (
     <div
