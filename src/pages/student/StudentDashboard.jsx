@@ -116,8 +116,6 @@ const StudentDashboard = () => {
 
           {/* Tracker for the status */}
           {
-            (state?.length > 0)
-            &&
             <div className="mt-10 w-full">
               <h1 className="text-[#0061B2] font-bold text-xl">
                 Track your Progress
