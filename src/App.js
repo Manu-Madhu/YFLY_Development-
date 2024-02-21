@@ -24,6 +24,7 @@ import SearchApplication from "./components/search/Application"
 import Team from './components/projeect/Team';
 import Stepper from './pages/admin/Stepper';
 import StaffProtectedRoute from './routes/StaffProtectedRoute';
+import StudentApplication from './pages/student/StudentApplication';
 
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
             {/* Student Routes */}
             <Route element={<StudentProtectedRoute />}>
               <Route path='student/dashboard' element={<StudentDashboard />} />
+              <Route path='student/application/:id' element={<StudentApplication />} />
             </Route>
           </Route>
           <Route path='*' element={<div>Pages Not Found</div>} />

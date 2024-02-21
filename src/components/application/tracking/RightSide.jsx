@@ -22,20 +22,16 @@ const RightSide = ({ data, cb, application }) => {
   const [stepNumber, setStepNumber] = useState(null);
 
   // console.log(data);
-  let empTasks;
+  let empTasks = [];
   if (user.role === "admin") {
     empTasks = data?.steps?.filter((step) => (step?.assignee ? true : false));
+    empTasks?.reverse()
   }
 
-  let myTasks;
+  let myTasks = [];
   if (user.role === "employee") {
-    myTasks = data?.steps?.filter((step) => {
-      if (step?.assignee) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    myTasks = data?.steps?.filter((step) => (step?.assignee ? true : false));
+    myTasks?.reverse()
   }
 
   useEffect(() => {

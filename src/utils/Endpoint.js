@@ -1,5 +1,5 @@
-export const baseUrl = "https://server.emtsolutions.online"
-// export const baseUrl = "http://localhost:8800"
+// export const baseUrl = "https://server.emtsolutions.online"
+export const baseUrl = "http://localhost:8800"
 
 // Login page
 export const loginPost = '/api/auth/login'
@@ -149,3 +149,6 @@ export const deleteStepper = "/api/stepper/delete"; //<== + stepperid
 export const getAllMembersFromProject = "/api/project/get-members"; //<== + project id
 
 export const changePhaseOfApplication = "/api/application/phase-change"; //<== + application id
+
+// To get all applications of a student in student side dashboard
+export const getMyApplicationsRoute = "/api/student/get-my-applications"; //<== + student Id

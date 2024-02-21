@@ -54,7 +54,7 @@ const Login = () => {
       // Backend call for user Validation
       if (Object.keys(validationError).length === 0) {
         const response = await axios.post(loginPost, user);
-        toast.success(response?.data?.email && "Successfully Logged In");
+        toast.success(response?.data?.email && "Authenticated");
         dispatch(setUser(response.data));
       }
     } catch (error) {

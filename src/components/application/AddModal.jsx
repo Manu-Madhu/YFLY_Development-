@@ -122,7 +122,7 @@ const AddModal = ({ setModal, cb }) => {
     axios
       .get(getAllStudent)
       .then((res) => {
-        setData(res?.data?.filter((data) => !data?.applicationId));
+        setData(res?.data);
       })
       .catch((error) => {
         console.log(error);
