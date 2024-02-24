@@ -8,11 +8,13 @@ import { TimeLimit } from "../../../utils/TimeLimit";
 import EmptyData from "../../loading/EmptyData";
 import { IoClose } from "react-icons/io5";
 import { status } from "../../../data/Employee";
-import instance from "../../../utils/AxiosInstance";
 import { updateTask } from "../../../utils/Endpoint";
 import { toast } from "react-toastify";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 
 const TaskCard = ({ data, cb }) => {
+  const instance = useAxiosPrivate();
+
   const userInfo = useSelector((state) => state.auth.userInfo);
   const [modal, setModal] = useState(false);
   const [form, setForm] = useState({

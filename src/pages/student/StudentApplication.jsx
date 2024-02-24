@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../utils/AxiosInstance";
 import StudentStepper from "../../components/student/StudentStepper";
 import DateFormat from "../../utils/DateFormat";
 import DocModal from "../../components/student/DocModal";
@@ -7,8 +6,11 @@ import DocModal from "../../components/student/DocModal";
 import { useSelector } from "react-redux";
 import { getAnApplicationRoute } from "../../utils/Endpoint";
 import { Link, useParams } from "react-router-dom";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const StudentApplication = () => {
+  const axios = useAxiosPrivate();
+
   const {id} = useParams()
   const [state, setState] = useState([]);
   const [docModal, setDocModal] = useState(false);

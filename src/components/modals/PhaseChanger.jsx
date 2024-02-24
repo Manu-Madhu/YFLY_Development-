@@ -2,12 +2,14 @@ import React, { useRef, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import { toast } from "react-toastify";
 
-import axios from "../../utils/AxiosInstance";
 import { changePhaseOfApplication } from "../../utils/Endpoint";
 import { Phases } from "../../data/Dashboard";
 import ReqLoader from "../loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const PhaseChanger = ({ data, setData, getTableData, setModal }) => {
+  const axios = useAxiosPrivate();
+
   const selectRef = useRef();
   const [loader, setLoader] = useState(false);
 

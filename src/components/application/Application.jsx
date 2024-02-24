@@ -4,10 +4,12 @@ import { getAnApplicationRoute, getStepper } from "../../utils/Endpoint";
 
 import TrackerVertical from "../stepper/TrackerVertical";
 import RightSide from "./tracking/RightSide";
-import instance from "../../utils/AxiosInstance";
 import ReqLoader from "../loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Application = () => {
+  const instance = useAxiosPrivate();
+
   const [loader, setLoader] = useState(false);
   const { id, stepperId } = useParams();
   const [data, setData] = useState({});

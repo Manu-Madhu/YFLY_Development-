@@ -5,11 +5,13 @@ import { Link } from "react-router-dom";
 import { getEmpTaskMetrics } from "../../utils/Endpoint";
 
 import Cards from "../../components/dashboard/Cards";
-import axios from "../../utils/AxiosInstance";
 import StudentLoader from "../../components/loading/StudentLoader";
 import RegistrationForm from "../../components/dashboard/RegistrationForm";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const EmployeeDashboard = () => {
+  const axios = useAxiosPrivate();
+
   const userData = useSelector((state) => state.auth.userInfo);
   const [dashData, setDashdata] = useState([]);
   const [loading, setLoading] = useState(false);

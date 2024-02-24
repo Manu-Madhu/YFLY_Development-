@@ -5,12 +5,14 @@ import { MdManageAccounts } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 import Filter from "../../components/dashboard/Filter";
-import axios from "../../utils/AxiosInstance";
 import RegistrationForm from "../../components/dashboard/RegistrationForm";
 import Cards from "../../components/dashboard/Cards";
 import StudentLoader from "../../components/loading/StudentLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Dashboard = () => {
+  const axios = useAxiosPrivate();
+  
   const [data, setData] = useState([]);
   const [modal, setModal] = useState(false);
   const [empModal, setEmpModal] = useState(false);

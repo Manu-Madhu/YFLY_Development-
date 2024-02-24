@@ -6,10 +6,12 @@ import { BarLoader } from "react-spinners";
 
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
-import axios from "../../utils/AxiosInstance";
 import "../stepper/TrackingUI.css";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const TrackingUI = ({stepper}) => {
+  const axios = useAxiosPrivate();
+
   const [currentStep, setCurrentStep] = useState(0);
   const [complete, setComplete] = useState(false);
   const [state, setState] = useState([]);

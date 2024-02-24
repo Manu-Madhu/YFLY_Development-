@@ -3,9 +3,11 @@ import CommonTable from "../Table/Commontable";
 import Pagination from "../Pagination";
 import { getAllApplications } from "../../utils/Endpoint";
 import { useLocation } from "react-router-dom";
-import instance from "../../utils/AxiosInstance";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Application = () => {
+  const instance = useAxiosPrivate();
+
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const query = searchParams.get('query')

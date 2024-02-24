@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../utils/AxiosInstance";
 import {
   deactivateEmployeeRoute,
   getEmployeesRoute,
@@ -12,8 +11,11 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import EditEmployee from "../modals/EditEmployee";
 import ReqLoader from "../loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Table = ({ department }) => {
+  const axios = useAxiosPrivate();
+
   const [data, setData] = useState([]);
   const [empData, setEmpData] = useState({});
   const [page, setPage] = useState(1);

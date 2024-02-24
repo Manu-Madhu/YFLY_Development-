@@ -4,15 +4,16 @@ import { IoClose } from "react-icons/io5";
 
 import Input from "../formField/Input";
 
-import axios from "../../utils/AxiosInstance";
 import {
   employeeRegisterRoute,
   studentRegisterRoute,
 } from "../../utils/Endpoint";
 import { toast } from "react-toastify";
 import { EmployeeCards } from "../../data/Employee";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const EditForm = ({entityData,setData, getTableData, setModal, entity }) => {
+  const axios = useAxiosPrivate();
 
   const [formData, setFormData] = useState({
     name: "",

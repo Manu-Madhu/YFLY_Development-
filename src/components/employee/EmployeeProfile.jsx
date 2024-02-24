@@ -3,15 +3,17 @@ import Profile from "./Profile/Profile";
 import DashCard from "./Profile/DashCard";
 import Applications from "./Profile/Applications";
 import { useParams } from "react-router-dom";
-import axios from "../../utils/AxiosInstance";
 import {
   getAnEmployeeRoute,
   getAssignedWorksRoute,
   getEmpTaskMetrics,
 } from "../../utils/Endpoint";
 import ReqLoader from "../loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const EmployeeProfile = () => {
+  const axios = useAxiosPrivate();
+
   const { id } = useParams();
   const [loader, setLoader] = useState(false);
   const [empData, setEmpData] = useState({});

@@ -8,12 +8,14 @@ import {
 import { Intake, countries } from "../../data/Dashboard";
 import { useSelector } from "react-redux";
 
-import axios from "../../utils/AxiosInstance";
 import { EmployeeCards } from "../../data/Employee";
 import { toast } from "react-toastify";
 import ReqLoader from "../loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const AddModal = ({ setModal, cb }) => {
+  const axios = useAxiosPrivate();
+
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false);
   const [employee, setEmployee] = useState([]);

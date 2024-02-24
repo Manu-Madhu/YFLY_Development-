@@ -4,12 +4,14 @@ import { IoClose } from "react-icons/io5";
 
 import Input from "../formField/Input";
 
-import axios from "../../utils/AxiosInstance";
 import { updateStudentRoute } from "../../utils/Endpoint";
 import { toast } from "react-toastify";
 import ReqLoader from "../loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const EditStudent = ({ entityData, setData, getTableData, setModal }) => {
+  const axios = useAxiosPrivate();
+
   const [loader, setLoader] = useState(false);
   const [stdFormData, setStdFormData] = useState(entityData);
 

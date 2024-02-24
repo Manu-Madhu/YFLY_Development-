@@ -3,9 +3,11 @@ import { getAssignedWorksRoute } from "../../utils/Endpoint";
 import { useSelector } from "react-redux";
 
 import Applications from "../../components/employee/Profile/Applications";
-import instance from "../../utils/AxiosInstance";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const AssignedWork = () => {
+  const instance = useAxiosPrivate();
+
   const [works, setWorks] = useState([]);
   const userData = useSelector((state) => state.auth.userInfo);
 

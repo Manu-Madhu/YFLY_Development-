@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "../../components/student/Carousel";
-import axios from "../../utils/AxiosInstance";
 import StudentStepper from "../../components/student/StudentStepper";
 import DateFormat from "../../utils/DateFormat";
 import DocModal from "../../components/student/DocModal";
@@ -9,8 +8,11 @@ import { Banner } from "../../data/Banner";
 import { useSelector } from "react-redux";
 import { getAnApplicationRoute, getMyApplicationsRoute } from "../../utils/Endpoint";
 import { Link, useNavigate } from "react-router-dom";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const StudentDashboard = () => {
+  const axios = useAxiosPrivate();
+
   const navigate = useNavigate()
   const [state, setState] = useState([]);
   const [docModal, setDocModal] = useState(false);
@@ -43,14 +45,14 @@ const StudentDashboard = () => {
         {
           state?.length 
           ?
-          <h1 className="text-[#0061B2] font-bold text-xl mt-5">
+          <h1 className="text-[#0061B2] font-bold text-xl mt-10">
             Select an Application
           </h1>
           :
           <p>No Applications Available</p>
         }
 
-        <div className="w-full mt-5 flex gap-5 ">
+        <div className="w-full mt-5 flex gap-5 flex-wrap">
           {
             state?.map((data,i)=>(
               <div
@@ -58,6 +60,7 @@ const StudentDashboard = () => {
               onClick={()=> navigate(`/student/application/${data._id}`)}
               className="flex flex-col p-5 bg-white rounded-lg shadow-xl w-full md:w-[210px] cursor-pointer"
               >
+                <h1 className="text-primary_colors">Application <span className="text-black">{i + 1}</span> </h1>
                 <h1 className="text-primary_colors">Country: <span className="text-black">{data?.country}</span> </h1>
 
                 

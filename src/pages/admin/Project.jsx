@@ -3,7 +3,6 @@ import { IoClose } from "react-icons/io5";
 
 import Multiselect from "multiselect-react-dropdown";
 import ProjectCard from "../../components/projeect/ProjectCard";
-import instance from "../../utils/AxiosInstance";
 import {
   createProject,
   deleteProject,
@@ -14,8 +13,10 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import EmptyData from "../../components/loading/EmptyData";
 import ReqLoader from "../../components/loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Project = () => {
+  const instance = useAxiosPrivate()
   const [loader, setLoader] = useState(false);
   const [modal, setModal] = useState(false);
   const [employee, setEmployee] = useState([]);

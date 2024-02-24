@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
-import instance from "../../utils/AxiosInstance";
 import { toast } from "react-toastify";
 import ReqLoader from "../loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const DeleteApplication = ({
   setModal,
@@ -11,6 +11,9 @@ const DeleteApplication = ({
   getTableData,
   route,
 }) => {
+
+  const instance = useAxiosPrivate();
+
   const [loader, setLoader] = useState(false);
   const CancelModal = () => {
     setModal(false);

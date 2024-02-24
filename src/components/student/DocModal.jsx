@@ -3,10 +3,12 @@ import { IoCloseCircle } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { uploadDocumentRoute } from "../../utils/Endpoint";
 
-import axios from "../../utils/AxiosInstance";
 import StudentLoader from "../loading/StudentLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const DocModal = ({ setModal, applicationData, cb }) => {
+  const axios = useAxiosPrivate();
+
   console.log(applicationData)
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
@@ -41,6 +43,7 @@ const DocModal = ({ setModal, applicationData, cb }) => {
       const formData = new FormData();
       formData.append("document", data.document);
 
+      console.log("document", data.document)
       console.log(formData);
       const response = await axios.post(
         `${uploadDocumentRoute}/${applicationData?._id}/${data?.docName}`,

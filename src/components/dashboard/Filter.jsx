@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { FilterData, FilterDataDash } from "../../data/Dashboard";
-import axios from "../../utils/AxiosInstance";
 
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import ReqLoader from "../loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Filter = ({ setData, endPoint, isDashboard }) => {
+  const axios = useAxiosPrivate();
+
   const [loader, setLoader] = useState(false);
   const TheDataToFilter = isDashboard ? FilterDataDash : FilterData;
 

@@ -4,14 +4,16 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
-import axios from "../../../utils/AxiosInstance";
 import EmptyData from "../../loading/EmptyData";
 import DocModal from "../../student/DocModal";
 import Tippy from "@tippyjs/react";
 import StatusModal from "../../employee/StatusModal";
 import AdminModal from "../../Admin/AdminModal";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 
 const RightSide = ({ data, cb, application }) => {
+  const axios = useAxiosPrivate();
+
   const createdDate = application?.createdAt?.split("T")[0];
   const user = useSelector((state) => state?.auth?.userInfo);
   const [comments, setComments] = useState([]);

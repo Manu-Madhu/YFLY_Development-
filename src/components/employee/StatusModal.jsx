@@ -3,12 +3,13 @@ import { IoCloseCircle } from "react-icons/io5";
 import { status } from "../../data/Employee";
 import { toast } from "react-toastify";
 
-import axios from "../../utils/AxiosInstance";
 import { useSelector } from "react-redux";
 import { changeStepStatus } from "../../utils/Endpoint";
 import ReqLoader from "../loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const StatusModal = ({ setModal, stepNumber, applicationData, cb }) => {
+  const axios = useAxiosPrivate();
   const selectRef = useRef();
   const employeeData = useSelector((state) => state.auth.userInfo);
   const [loading,setLoading] = useState(false)

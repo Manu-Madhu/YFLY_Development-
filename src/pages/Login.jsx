@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 import logo from "../assets/logo.png";
-import axios from "../utils/AxiosInstance";
+import axios from "../api/axios";
+import { setAccessToken, setRefreshToken } from "../redux/slices/TokenReducer";
 
 const Login = () => {
   const [error, setError] = useState({});
@@ -55,7 +56,9 @@ const Login = () => {
       if (Object.keys(validationError).length === 0) {
         const response = await axios.post(loginPost, user);
         toast.success(response?.data?.email && "Authenticated");
-        dispatch(setUser(response.data));
+        dispatch(setUser(response.data.userInfo));
+        dispatch(setAccessToken(response.data?.accessToken));
+        dispatch(setRefreshToken(response.data?.refreshToken));
       }
     } catch (error) {
       console.log(error);

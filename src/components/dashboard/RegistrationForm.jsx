@@ -4,7 +4,6 @@ import { IoClose } from "react-icons/io5";
 
 import Input from "../formField/Input";
 
-import axios from "../../utils/AxiosInstance";
 import {
   employeeRegisterRoute,
   studentRegisterRoute,
@@ -12,8 +11,11 @@ import {
 import { toast } from "react-toastify";
 import { EmployeeCards } from "../../data/Employee";
 import ReqLoader from "../loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const RegistrationForm = ({ setModal, entity }) => {
+  const axios = useAxiosPrivate();
+
   const [loader, setLoader] = useState(false);
   const [formData, setFormData] = useState({
     name: "",

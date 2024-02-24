@@ -11,10 +11,12 @@ import { toast } from "react-toastify";
 import { logout } from "../../redux/slices/AuthSlicer";
 
 import profile from "../../assets/icon/profileicon.png";
-import instance from "../../utils/AxiosInstance";
 import { Sidebar, SidebarE } from "../../data/SideBar";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Header = () => {
+  const instance = useAxiosPrivate();
+
   const [menu, setMenu] = useState(false);
   const [search, setSearch] = useState("");
   const user = useSelector((state) => state?.auth?.userInfo);

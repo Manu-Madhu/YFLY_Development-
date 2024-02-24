@@ -7,12 +7,14 @@ import {
   workEmployeeAssignRoute,
 } from "../../utils/Endpoint";
 
-import axios from "../../utils/AxiosInstance";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import ReqLoader from "../loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const AdminModal = ({ setModal, applicationData, cb }) => {
+  const axios = useAxiosPrivate();
+
   const userInfo = useSelector((items) => items.auth.userInfo);
   const [employee, setEmployee] = useState([]);
   const [loading, setLoading] = useState(false);

@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import { getAllStudent } from "../../utils/Endpoint";
 
 import StudentTable from "../../components/Table/StudentTable";
-import instance from "../../utils/AxiosInstance";
 import Pagination from "../../components/Pagination";
 import SearchData from "../../components/search/SearchData";
 import { toast } from "react-toastify";
 import { Office } from "../../data/Dashboard";
 import { useSelector } from "react-redux";
 import ReqLoader from "../../components/loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 // import Pagination from "../../components/Pagination";
 
 const Student = () => {
+  const instance = useAxiosPrivate();
+
   const [loader, setLoader] = useState(false);
   const [data, setData] = useState();
   const [page, setPage] = useState(1);

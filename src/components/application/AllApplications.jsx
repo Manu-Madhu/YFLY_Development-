@@ -3,15 +3,17 @@ import { getAllApplications } from "../../utils/Endpoint";
 import { Intake } from "../../data/Dashboard";
 
 import CommonTable from "../Table/Commontable";
-import instance from "../../utils/AxiosInstance";
 import AddModal from "./AddModal";
 import Pagination from "../Pagination";
 import { useSelector } from "react-redux";
 import Filter from "../dashboard/Filter";
 import LoadingData from "../loading/LoadingData";
 import ReqLoader from "../loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const AllApplications = () => {
+  const instance = useAxiosPrivate();
+
   const [data, setData] = useState();
   const [loader, setLoader] = useState(false);
   const [page, setPage] = useState(1);

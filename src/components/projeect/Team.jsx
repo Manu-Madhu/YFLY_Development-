@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import TaskMain from "./task/TaskMain";
-import instance from "../../utils/AxiosInstance";
 import EmptyData from "../loading/EmptyData";
 import LoadingData from "../loading/LoadingData";
 
@@ -13,8 +12,11 @@ import {
 } from "../../utils/Endpoint";
 import { IoClose } from "react-icons/io5";
 import { toast } from "react-toastify";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Team = () => {
+  const instance = useAxiosPrivate();
+
   const [taskData, setTaskData] = useState();
   const [loader, setLoader] = useState(false);
   const [modal, setaModal] = useState(false);

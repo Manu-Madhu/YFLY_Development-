@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../utils/AxiosInstance";
 import { useParams } from "react-router-dom";
 import { getAnApplicationRoute } from "../../utils/Endpoint";
 import ApplicationCard from "../../components/application/ApplicationCard";
 import EmptyData from "../../components/loading/EmptyData";
 import ReqLoader from "../../components/loading/ReqLoader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Stepper = () => {
+  const axios = useAxiosPrivate();
+
   const { id } = useParams();
   const [data, setData] = useState({});
   const [loader, setLoader] = useState(false);
