@@ -33,7 +33,7 @@ export const FormData = [
         type: "date"
     },
     {
-        id: 7,
+        id: 6,
         name: "qualification",
         placeholder: "Qualification",
         type: "text"
@@ -51,11 +51,11 @@ export const Office =[
         name:"Branch A"
     },
     {
-        id:2,
+        id:3,
         name:"Branch B"
     },
     {
-        id:3,
+        id:4,
         name:"Branch C"
     },
 ]
