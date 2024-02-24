@@ -132,16 +132,18 @@ const AddModal = ({ setModal, cb }) => {
   // On Submit
   const SubmitHandler = async (e) => {
     e.preventDefault();
-
+ 
     try {
       setLoader(true)
       const response = await axios.post(createApplicationRoute, formData);
+      console.log(response)
       if (response?.status === 200) {
         toast.success(response?.data?.msg);
         cb();
         setModal(false);
       }
     } catch (error) {
+      console.log(error)
       toast.error(error?.response?.data?.msg || "Something Went Wrong");
     } finally {
       setLoader(false);
