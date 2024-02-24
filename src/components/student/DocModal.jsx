@@ -9,7 +9,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 const DocModal = ({ setModal, applicationData, cb }) => {
   const axios = useAxiosPrivate();
 
-  console.log(applicationData)
+  // console.log(applicationData)
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     document: null,
@@ -43,13 +43,13 @@ const DocModal = ({ setModal, applicationData, cb }) => {
       const formData = new FormData();
       formData.append("document", data.document);
 
-      console.log("document", data.document)
-      console.log(formData);
+      // console.log("document", data.document)
+      // console.log(formData);
       const response = await axios.post(
         `${uploadDocumentRoute}/${applicationData?._id}/${data?.docName}`,
         formData
       );
-      console.log(response);
+      // console.log(response);
       if (response?.status === 200 || response?.status === 201) {
         console.log(response);
         setLoading(false);
