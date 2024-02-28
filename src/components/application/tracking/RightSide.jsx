@@ -37,9 +37,9 @@ const RightSide = ({ data, cb, application }) => {
   }
 
   useEffect(() => {
-    if(data?.applicationId){
+   
       axios
-        .get(`${getAllComments}/application/${data?.applicationId}`)
+        .get(`${getAllComments}/stepper/${data?._id}`)
         .then((res) => {
           setComments(res?.data);
         })
@@ -47,14 +47,13 @@ const RightSide = ({ data, cb, application }) => {
           console.log(error);
         });
 
-    }
-  }, [data?.applicationId]);
+  }, [data?._id]);
 
   const submitHandle = async (e) => {
     e.preventDefault();
     const message = {
-      resourceId: data?.applicationId,
-      resourceType: "application",
+      resourceId: data?._id,
+      resourceType: "stepper",
       commentorId: user?._id,
       comment: comment,
     };
