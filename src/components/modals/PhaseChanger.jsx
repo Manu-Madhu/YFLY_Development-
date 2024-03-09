@@ -65,13 +65,16 @@ const PhaseChanger = ({ data, setData, getTableData, setModal }) => {
                   defaultValue={data?.phase}
                   name="stepStatus"
                   id=""
-                  className="border p-3 w-full rounded focus:outline-none text-sm text-gray-700"
+                  className="border p-3 w-full rounded capitalize focus:outline-none text-sm text-gray-700"
                 >
                   <option className="text-xs" value="">
                     Select a state
                   </option>
                   {Phases.map((phase) => (
-                    <option value={phase?.name}>{phase?.name}</option>
+                    <option value={phase?.name} className="capitalize">
+                      {phase?.name}
+                    
+                    </option>
                   ))}
                 </select>
               </div>
