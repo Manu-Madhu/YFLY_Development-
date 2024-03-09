@@ -19,6 +19,7 @@ const Student = () => {
   const [page, setPage] = useState(1);
   const [entries, setEntries] = useState(10);
   const [office, setOffice] = useState("");
+  const [appstatus, setAppstatus] = useState("");
   const [search, setSearch] = useState("");
   const user = useSelector((state)=> state?.auth?.userInfo)
 
@@ -27,7 +28,7 @@ const Student = () => {
     try {
       setLoader(true)
       const res = await instance.get(
-        `${getAllStudent}?page=${page}&entries=${entries}&office=${office}`
+        `${getAllStudent}?page=${page}&entries=${entries}&office=${office}&appstatus=${appstatus}`
       );
       setData(res.data);
       // console.log(res.data);
@@ -41,7 +42,7 @@ const Student = () => {
   useEffect(() => {
     window.scroll(0, 0);
     studentTable();
-  }, [office]);
+  }, [office, appstatus]);
 
   // Search Student
   const searchHandler = async () => {
@@ -75,6 +76,19 @@ const Student = () => {
           {
             user?.role === "admin"
             &&
+            <>
+            <select
+              onChange={(e)=> setAppstatus(e.target.value)}
+              className="border shadow p-2  rounded-lg text-secondary text-normal focus:outline-none w-3/4"
+            >
+              <option value= "" >Select App. Presence</option>
+              
+                  <option value="present" >With Application</option>
+                  <option value="absent" >Without Application</option>
+               
+
+            </select>
+
             <select
               onChange={(e)=> setOffice(e.target.value)}
               className="border shadow p-2  rounded-lg text-secondary text-normal focus:outline-none w-1/2"
@@ -87,6 +101,7 @@ const Student = () => {
               }
 
             </select>
+            </>
           }
             
           <SearchData
