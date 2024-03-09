@@ -21,7 +21,7 @@ const Student = () => {
   const [office, setOffice] = useState("");
   const [appstatus, setAppstatus] = useState("");
   const [search, setSearch] = useState("");
-  const user = useSelector((state)=> state?.auth?.userInfo)
+  const user = useSelector((state) => state?.auth?.userInfo)
 
   // Table initial api call
   const studentTable = async () => {
@@ -34,7 +34,7 @@ const Student = () => {
       // console.log(res.data);
     } catch (error) {
       console.log(error);
-    }finally{
+    } finally {
       setLoader(false)
     }
   };
@@ -73,37 +73,33 @@ const Student = () => {
         </h1>
         <div className="flex flex-col md:flex-row mt-4 md:mt-0 gap-4">
 
+          <select
+            onChange={(e) => setAppstatus(e.target.value)}
+            className="border shadow p-2  rounded-lg text-secondary text-normal focus:outline-none w-3/4"
+          >
+            <option value="" >Select App. Presence</option>
+            <option value="present" >With Application</option>
+            <option value="absent" >Without Application</option>
+          </select>
+
           {
             user?.role === "admin"
             &&
-            <>
-            <select
-              onChange={(e)=> setAppstatus(e.target.value)}
-              className="border shadow p-2  rounded-lg text-secondary text-normal focus:outline-none w-3/4"
-            >
-              <option value= "" >Select App. Presence</option>
-              
-                  <option value="present" >With Application</option>
-                  <option value="absent" >Without Application</option>
-               
-
-            </select>
 
             <select
-              onChange={(e)=> setOffice(e.target.value)}
+              onChange={(e) => setOffice(e.target.value)}
               className="border shadow p-2  rounded-lg text-secondary text-normal focus:outline-none w-1/2"
             >
-              <option value= "" >Select Office</option>
+              <option value="" >Select Office</option>
               {
-                Office.map((item)=>(
+                Office.map((item) => (
                   <option key={item.id} value={item.name}>{item.name}</option>
                 ))
               }
 
             </select>
-            </>
           }
-            
+
           <SearchData
             placeholder={"Student Data"}
             searchHandler={searchHandler}

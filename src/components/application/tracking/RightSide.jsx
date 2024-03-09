@@ -23,7 +23,7 @@ const RightSide = ({ data, cb, application }) => {
   const [assigneeUpdate, setAssigneeUpdate] = useState(false);
   const [stepNumber, setStepNumber] = useState(null);
 
-  const isCompleted = application.phase === "completed"
+  const isFinished = application.phase === "completed" || application.phase === "cancelled"
 
   // console.log(data);
   let empTasks = [];
@@ -105,7 +105,7 @@ const RightSide = ({ data, cb, application }) => {
               </div>
               <div className="flex flex-col justify-between capitalize">
                 {
-                  !isCompleted
+                  !isFinished
                   &&
                   <button
                     onClick={() => {
@@ -150,7 +150,7 @@ const RightSide = ({ data, cb, application }) => {
               </div>
               <div className="flex flex-col justify-between capitalize">
                 {
-                  myTasks?.assignee === user?._id && !isCompleted
+                  myTasks?.assignee === user?._id && !isFinished
                   &&
                   <div className="flex flex-col gap-2">
                     <button
@@ -208,7 +208,7 @@ const RightSide = ({ data, cb, application }) => {
         )}
 
         {
-          !isCompleted
+          !isFinished
           &&
           <button
             onClick={() => setDocModal(true)}
@@ -225,7 +225,7 @@ const RightSide = ({ data, cb, application }) => {
         Comments
       </h1>
       {
-        !isCompleted
+        !isFinished
         &&
         <div className="relative ">
           <form action="" onSubmit={submitHandle}>
