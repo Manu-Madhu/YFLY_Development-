@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import ReqLoader from "../loading/ReqLoader";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
-const Filter = ({ setData, endPoint, isDashboard }) => {
+const Filter = ({ setData, endPoint, isDashboard, page, entries }) => {
   const axios = useAxiosPrivate();
 
   const [loader, setLoader] = useState(false);
@@ -35,7 +35,7 @@ const Filter = ({ setData, endPoint, isDashboard }) => {
     try {
       setLoader(true);
       const res = await axios.get(
-        `${endPoint}?start_date=${start_date}&end_date=${end_date}&country=${country}&intake=${intake}&status=${status}`
+        `${endPoint}?page=${page}&entries=${entries}&start_date=${start_date}&end_date=${end_date}&country=${country}&intake=${intake}&status=${status}`
       );
       // console.log(res);
       setData(res.data);

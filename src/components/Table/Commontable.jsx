@@ -61,7 +61,7 @@ const CommonTable = ({ data, page, entries, getData }) => {
                 <td className="px-6 py-4">{items?.studentName ? items?.studentName : "NIL"}</td>
                 <td className="px-6 py-4">{items?.country ? items?.country : "NIL"}</td>
                 <td className="px-6 py-4 truncate">
-                  {items?.intakes
+                  {items?.intakes?.length > 0
                     ?
                     (items?.intakes?.length > 1
                       ?
@@ -75,7 +75,7 @@ const CommonTable = ({ data, page, entries, getData }) => {
                 </td>
 
                 <td className="px-6 py-4">
-                  {items?.statuses
+                  {items?.statuses?.length > 0
                     ?
                     (items?.statuses?.length > 1
                       ?
@@ -88,7 +88,7 @@ const CommonTable = ({ data, page, entries, getData }) => {
                 </td>
                 <td className="px-6 py-4">
                   {/* {items?.assignee ? items?.assigneeName : "NIL"} */}
-                  {items?.assigneeNames
+                  {items?.assigneeNames?.length > 0
                     ?
                     (items?.assigneeNames?.length > 1
                       ?

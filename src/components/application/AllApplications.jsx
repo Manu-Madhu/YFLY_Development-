@@ -67,6 +67,8 @@ const AllApplications = () => {
               setData={setData}
               endPoint={getAllApplications}
               isDashboard={false}
+              page={page}
+              entries={entries}
             />
           </div>
         </div>
