@@ -5,6 +5,8 @@ import ApplicationCard from "../../components/application/ApplicationCard";
 import EmptyData from "../../components/loading/EmptyData";
 import ReqLoader from "../../components/loading/ReqLoader";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { MdAddCircle } from "react-icons/md";
+import AddStepper from "../../components/modals/AddStepper";
 
 const Stepper = () => {
   const axios = useAxiosPrivate();
@@ -12,6 +14,7 @@ const Stepper = () => {
   const { id } = useParams();
   const [data, setData] = useState({});
   const [loader, setLoader] = useState(false);
+  const [modal, setModal] = useState(false);
 
   // Get Application Data
   const getApplication = async () => {
@@ -72,12 +75,16 @@ const Stepper = () => {
               {data?.createdAt?.split("T")[0]}
             </h5>
           </div>
-          <div className="flex  flex-col justify-start w-full">
-            <h5 className="font-bold">Updated Date</h5>
-            <h5 className="text-sm capitalize">
-              {data?.updatedAt?.split("T")[0]}
+
+          <div className="flex  flex-col justify-start items-center w-full">
+            <h5 className="font-bold">Add new</h5>
+            <h5 className="text-sm capitalize cursor-pointer">
+              <MdAddCircle size={23}
+              onClick={()=> setModal(true)}
+              />
             </h5>
           </div>
+
         </div>
       </div>
 
@@ -86,17 +93,23 @@ const Stepper = () => {
         {data?.steppers && data?.steppers.length > 0 ? (
           data?.steppers.map((items, i) => (
             <div className="w-full md:w-[310px]">
-              <ApplicationCard data={items} />
+              <ApplicationCard data={items} getData={getApplication} />
             </div>
           ))
         ) : (
           <div>
-            <EmptyData data={"No Application Available....."} />
+            <EmptyData data={"No Data Available"} />
           </div>
         )}
       </div>
 
       {loader && <ReqLoader />}
+
+      {
+        modal 
+        &&
+        <AddStepper application={data} setModal={setModal} cb={getApplication}/>
+      }
     </div>
   );
 };

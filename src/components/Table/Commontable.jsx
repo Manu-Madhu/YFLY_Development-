@@ -14,7 +14,7 @@ const CommonTable = ({ data, page, entries, getData }) => {
   const user = useSelector((state) => state.auth.userInfo);
   const [editModal, setEditModal] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
-  const [application, setApplication] = useState(false)
+  const [application, setApplication] = useState({})
   const navigate = useNavigate();
 
   const handleDelete = (data) => {

@@ -136,13 +136,13 @@ export const updateProjectStatus = "/api/project/update-status";
 // Create a stepper
 export const createStepper = "/api/stepper/create";
 
-// Create a stepper
+// Get a stepper
 export const getStepper = "/api/stepper/get"; //<== + stepperid
 
-// Create a stepper
+// Get all steppers
 export const getAllSteppers = "/api/stepper/get-all"; //<== + applicationid
 
-// Create a stepper
+// Delete a stepper
 export const deleteStepper = "/api/stepper/delete"; //<== + stepperid
 
 // get All Members From Project
