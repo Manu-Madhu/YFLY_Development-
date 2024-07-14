@@ -25,6 +25,7 @@ import Team from './components/projeect/Team';
 import Stepper from './pages/admin/Stepper';
 import StaffProtectedRoute from './routes/StaffProtectedRoute';
 import StudentApplication from './pages/student/StudentApplication';
+import Followups from './pages/employee/Followups';
 
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
           <Route index path='/' element={<Login />} />
           <Route path='/' element={<Layout />}>
 
-            
+
             {/* Admin Routes */}
             <Route element={<AdminProtectedRoute />}>
               <Route path='admin/dashboard' element={<Dashboard />} />
@@ -43,16 +44,16 @@ function App() {
               <Route path='admin/employee/list/:role' element={<ViewEmployees />} />
               <Route path='admin/employee/profile/:id' element={<EmployeeProfile />} />
               <Route path='admin/applications' element={<AllApplications />} />
+              <Route path='admin/followups' element={<Followups />} />
               <Route path='admin/student' element={<Student />} />
               <Route path='admin/project' element={<Project />} />
               <Route path='admin/project/team/:proId' element={<Team />} />
             </Route>
 
-            <Route element={<StaffProtectedRoute/>}>
+            <Route element={<StaffProtectedRoute />}>
               <Route path='applications/stepper/:id' element={<Stepper />} />
               <Route path='applications/:id/:stepperId' element={<Application />} />
               <Route path='/applications/search' element={<SearchApplication />} />
-
             </Route>
 
             {/* Employee Routes */}
@@ -61,11 +62,12 @@ function App() {
               <Route path='employee/task' element={<AssignedWork />} />
               <Route path='employee/application/:id/:stepperId' element={<Application />} />
               <Route path='employee/applications' element={<AllApplications />} />
+              <Route path='employee/followups' element={<Followups />} />
               <Route path='employee/students' element={<Student />} />
               <Route path='employee/projects' element={<Project />} />
               <Route path='employee/project/team/:proId' element={<Team />} />
             </Route>
-            
+
             {/* Student Routes */}
             <Route element={<StudentProtectedRoute />}>
               <Route path='student/dashboard' element={<StudentDashboard />} />

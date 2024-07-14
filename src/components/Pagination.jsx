@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const Pagination = ({ Data, page, setPage, getMethod }) => {
+const Pagination = ({ Data, page, setPage,  }) => {
   const prevHandler = () => {
     if (page > 1) {
       setPage((prevPage) => prevPage - 1);
@@ -13,13 +13,6 @@ const Pagination = ({ Data, page, setPage, getMethod }) => {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await getMethod();
-    };
-
-    fetchData();
-  }, [page]);
 
   return (
     <div className="flex border rounded  text-sm">
