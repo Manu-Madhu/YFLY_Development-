@@ -154,3 +154,12 @@ export const changePhaseOfApplication = "/api/application/phase-change"; //<== +
 
 // To get all applications of a student in student side dashboard
 export const getMyApplicationsRoute = "/api/student/get-my-applications"; //<== + student Id
+
+
+// followups
+
+export const followupRoute = "/api/student/followup";
+
+export const dataRoute = "/api/data";
+
+export const adminDataRoute = "/api/admin/data";

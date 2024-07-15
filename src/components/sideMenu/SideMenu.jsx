@@ -65,7 +65,7 @@ const SideMenu = () => {
         )}
 
         {/* Arrow */}
-        <div className="w-full flex absolute top-64 -right-3 items-end justify-end mt-10">
+        <div className="w-fit flex absolute top-64 -right-3 items-end justify-end mt-10">
           {sideArrow ? (
             <MdOutlineKeyboardDoubleArrowLeft
               onClick={() => setSideArrow(false)}

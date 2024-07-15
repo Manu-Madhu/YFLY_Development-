@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const Pagination = ({ Data, page, setPage,  }) => {
+const Pagination = ({ Data, page, setPage, getMethod }) => {
   const prevHandler = () => {
     if (page > 1) {
       setPage((prevPage) => prevPage - 1);
@@ -12,6 +12,14 @@ const Pagination = ({ Data, page, setPage,  }) => {
       setPage((prevPage) => prevPage + 1);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getMethod();
+    };
+
+    fetchData();
+  }, [page]);
 
 
   return (

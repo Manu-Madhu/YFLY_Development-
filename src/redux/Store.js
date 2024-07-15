@@ -3,10 +3,12 @@ import TokenReducer from './slices/TokenReducer';
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage';
 import {persistStore, persistReducer} from "redux-persist"
+import CommonDataReducer from './slices/CommonDataReducer';
 
 const rootReducer = combineReducers({
     auth: AuthSlicer,
-    token: TokenReducer
+    token: TokenReducer,
+    data: CommonDataReducer
   })
 
   const persistConfig = {

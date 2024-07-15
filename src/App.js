@@ -26,9 +26,32 @@ import Stepper from './pages/admin/Stepper';
 import StaffProtectedRoute from './routes/StaffProtectedRoute';
 import StudentApplication from './pages/student/StudentApplication';
 import Followups from './pages/employee/Followups';
+import { useDispatch } from 'react-redux';
+import { dataRoute } from './utils/Endpoint';
+import axios from './api/axios';
+import { useEffect } from 'react';
+import { setAdminDefinedData } from './redux/slices/CommonDataReducer';
+import Settings from './pages/settings/Settings';
 
 
 function App() {
+  const dispatch = useDispatch();
+
+  const getAdminDefinedData = async ()=>{
+    try {
+      const response = await axios.get(dataRoute)
+      const adminDefinedData=  response?.data?.data || [];
+      dispatch(setAdminDefinedData(adminDefinedData))
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(()=>{
+    getAdminDefinedData()
+  },[])
+
   return (
     <div className="App">
       <Router>
@@ -48,6 +71,7 @@ function App() {
               <Route path='admin/student' element={<Student />} />
               <Route path='admin/project' element={<Project />} />
               <Route path='admin/project/team/:proId' element={<Team />} />
+              <Route path='admin/settings' element={<Settings/>} />
             </Route>
 
             <Route element={<StaffProtectedRoute />}>
