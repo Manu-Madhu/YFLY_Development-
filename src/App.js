@@ -32,8 +32,7 @@ import axios from './api/axios';
 import { useEffect } from 'react';
 import { setAdminDefinedData } from './redux/slices/CommonDataReducer';
 import Settings from './pages/settings/Settings';
-import { messaging } from './configs/firebase';
-import { getToken, onMessage, onTokenRefresh } from "firebase/messaging";
+import { onMessageListener, requestPermissionAndGetToken } from './configs/firebase';
 
 
 function App() {
@@ -59,43 +58,20 @@ function App() {
 
   useEffect(() => {
     if (userId) {
-      const requestPermissionAndGetToken = async () => {
-        try {
-          const permission = await Notification.requestPermission();
-          if (permission === 'granted') {
-            const token = await getToken(messaging, {vapidKey: "BMzUxQCa4DAvV9C_yEynasBeBT4BvGXHNyzUWo3Dvi-4TCTb-q565aZMvPlDjgWzFlwkRYd_XRWa-9ncf6jkAzE"});
+      requestPermissionAndGetToken(userId);
 
-            if(token){
-              console.log('FCM Token:', token);
-              saveTokenToServer(userId, token);
-            }else{
-              console.log("Failed to generate the app registration token")
-            }
-          
-          }
-          else{
-            console.log('user permission denied')
-          }
+    }
 
+    const unsubscribe = onMessageListener()
+    .then((payload)=>{
+      console.log('Msg received in foreground')
+      console.log({payload})
+    })
 
-        } catch (error) {
-          console.error('Error getting FCM token:', error);
-        }
-      };
-
-      requestPermissionAndGetToken();
-
+    return ()=>{
+      unsubscribe.catch(err=> console.log('failed', err))
     }
   }, [userId]);
-
-  const saveTokenToServer = async (userId, token) => {
-    try {
-      await axios.post('/api/notification/save-token', { userId, token });
-      console.log('Token sent to server successfully');
-    } catch (error) {
-      console.error('Error sending token to server:', error);
-    }
-  };
 
   console.log({ userId, user })
 
