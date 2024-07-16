@@ -163,3 +163,7 @@ export const followupRoute = "/api/student/followup";
 export const dataRoute = "/api/data";
 
 export const adminDataRoute = "/api/admin/data";
+
+export const selectEmployee = "/api/employee/select-employee"
+export const getStages = "/api/data/single?name=stage"
+export const getFollowUp = "/api/data/single?name=followup method"
