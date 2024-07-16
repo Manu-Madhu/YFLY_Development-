@@ -26,31 +26,54 @@ import Stepper from './pages/admin/Stepper';
 import StaffProtectedRoute from './routes/StaffProtectedRoute';
 import StudentApplication from './pages/student/StudentApplication';
 import Followups from './pages/employee/Followups';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { dataRoute } from './utils/Endpoint';
 import axios from './api/axios';
 import { useEffect } from 'react';
 import { setAdminDefinedData } from './redux/slices/CommonDataReducer';
 import Settings from './pages/settings/Settings';
+import { onMessageListener, requestPermissionAndGetToken } from './configs/firebase';
 
 
 function App() {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.auth.userInfo)
+  const userId = user?._id;
 
-  const getAdminDefinedData = async ()=>{
+  const getAdminDefinedData = async () => {
     try {
       const response = await axios.get(dataRoute)
-      const adminDefinedData=  response?.data?.data || [];
+      const adminDefinedData = response?.data?.data || [];
       dispatch(setAdminDefinedData(adminDefinedData))
-      
+
     } catch (error) {
       console.log(error)
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getAdminDefinedData()
-  },[])
+  }, [])
+
+
+  useEffect(() => {
+    if (userId) {
+      requestPermissionAndGetToken(userId);
+
+    }
+
+    const unsubscribe = onMessageListener()
+    .then((payload)=>{
+      console.log('Msg received in foreground')
+      console.log({payload})
+    })
+
+    return ()=>{
+      unsubscribe.catch(err=> console.log('failed', err))
+    }
+  }, [userId]);
+
+  console.log({ userId, user })
 
   return (
     <div className="App">
@@ -71,7 +94,7 @@ function App() {
               <Route path='admin/student' element={<Student />} />
               <Route path='admin/project' element={<Project />} />
               <Route path='admin/project/team/:proId' element={<Team />} />
-              <Route path='admin/settings' element={<Settings/>} />
+              <Route path='admin/settings' element={<Settings />} />
             </Route>
 
             <Route element={<StaffProtectedRoute />}>
