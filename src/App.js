@@ -26,31 +26,78 @@ import Stepper from './pages/admin/Stepper';
 import StaffProtectedRoute from './routes/StaffProtectedRoute';
 import StudentApplication from './pages/student/StudentApplication';
 import Followups from './pages/employee/Followups';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { dataRoute } from './utils/Endpoint';
 import axios from './api/axios';
 import { useEffect } from 'react';
 import { setAdminDefinedData } from './redux/slices/CommonDataReducer';
 import Settings from './pages/settings/Settings';
+import { messaging } from './configs/firebase';
+import { getToken, onMessage, onTokenRefresh } from "firebase/messaging";
 
 
 function App() {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.auth.userInfo)
+  const userId = user?._id;
 
-  const getAdminDefinedData = async ()=>{
+  const getAdminDefinedData = async () => {
     try {
       const response = await axios.get(dataRoute)
-      const adminDefinedData=  response?.data?.data || [];
+      const adminDefinedData = response?.data?.data || [];
       dispatch(setAdminDefinedData(adminDefinedData))
-      
+
     } catch (error) {
       console.log(error)
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getAdminDefinedData()
-  },[])
+  }, [])
+
+
+  useEffect(() => {
+    if (userId) {
+      const requestPermissionAndGetToken = async () => {
+        try {
+          const permission = await Notification.requestPermission();
+          if (permission === 'granted') {
+            const token = await getToken(messaging, {vapidKey: "BMzUxQCa4DAvV9C_yEynasBeBT4BvGXHNyzUWo3Dvi-4TCTb-q565aZMvPlDjgWzFlwkRYd_XRWa-9ncf6jkAzE"});
+
+            if(token){
+              console.log('FCM Token:', token);
+              saveTokenToServer(userId, token);
+            }else{
+              console.log("Failed to generate the app registration token")
+            }
+          
+          }
+          else{
+            console.log('user permission denied')
+          }
+
+
+        } catch (error) {
+          console.error('Error getting FCM token:', error);
+        }
+      };
+
+      requestPermissionAndGetToken();
+
+    }
+  }, [userId]);
+
+  const saveTokenToServer = async (userId, token) => {
+    try {
+      await axios.post('/api/notification/save-token', { userId, token });
+      console.log('Token sent to server successfully');
+    } catch (error) {
+      console.error('Error sending token to server:', error);
+    }
+  };
+
+  console.log({ userId, user })
 
   return (
     <div className="App">
@@ -71,7 +118,7 @@ function App() {
               <Route path='admin/student' element={<Student />} />
               <Route path='admin/project' element={<Project />} />
               <Route path='admin/project/team/:proId' element={<Team />} />
-              <Route path='admin/settings' element={<Settings/>} />
+              <Route path='admin/settings' element={<Settings />} />
             </Route>
 
             <Route element={<StaffProtectedRoute />}>

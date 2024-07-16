@@ -21,31 +21,31 @@ export const Sidebar = [
         icon: <MdOutlinePeople size={25} />
     },
     {
-        id: 6,
+        id: 3,
         name: "Follow-ups",
         path: "/admin/followups",
         icon: <MdCall size={25} />
     },
     {
-        id: 3,
+        id: 4,
         name: "Applications",
         path: "/admin/applications",
         icon: <PiStudentFill size={25} />
     },
     {
-        id: 4,
+        id: 5,
         name: "Track Student",
         path: "/admin/student",
         icon: <TbBrowserCheck size={25} />
     },
     {
-        id: 5,
+        id: 6,
         name: "Project",
         path: "/admin/project",
         icon: <AiOutlineFundProjectionScreen size={25} />
     },
     {
-        id: 6,
+        id: 7,
         name: "Settings",
         path: "/admin/settings",
         icon: <CiSettings size={25}/>
@@ -66,25 +66,25 @@ export const SidebarE = [
         icon: <MdOutlinePeople size={25} />
     },
     {
-        id: 6,
+        id: 3,
         name: "Follow-ups",
         path: "/employee/followups",
         icon: <MdCall size={25} />
     },
     {
-        id: 3,
+        id: 4,
         name: "Applications",
         path: "/employee/applications",
         icon: <PiStudentFill size={25} />
     },
     {
-        id: 4,
+        id: 5,
         name: "Track Student",
         path: "/employee/students",
         icon: <TbBrowserCheck size={25} />
     },
     {
-        id: 5,
+        id: 6,
         name: "Project",
         path: "/employee/projects",
         icon: <AiOutlineFundProjectionScreen size={25} />
