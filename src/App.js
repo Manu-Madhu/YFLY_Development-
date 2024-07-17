@@ -27,18 +27,22 @@ import StaffProtectedRoute from './routes/StaffProtectedRoute';
 import StudentApplication from './pages/student/StudentApplication';
 import Followups from './pages/employee/Followups';
 import { useDispatch, useSelector } from 'react-redux';
-import { dataRoute } from './utils/Endpoint';
+import { dataRoute, notifyEmployeeRoute } from './utils/Endpoint';
 import axios from './api/axios';
 import { useEffect } from 'react';
 import { setAdminDefinedData } from './redux/slices/CommonDataReducer';
 import Settings from './pages/settings/Settings';
 import { onMessageListener, requestPermissionAndGetToken } from './configs/firebase';
+import useAxiosPrivate from './hooks/useAxiosPrivate';
+import { setNotifications, updateNotifications } from './redux/slices/NotifyReducer';
 
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth.userInfo)
   const userId = user?._id;
+
+  const axiosPrivate = useAxiosPrivate()
 
   const getAdminDefinedData = async () => {
     try {
@@ -51,9 +55,24 @@ function App() {
     }
   }
 
+  const getUserNotifications = async()=>{
+    try {
+      const response = await axiosPrivate.get(`${notifyEmployeeRoute}/all/${userId}`)
+      const userNotifications = response?.data?.notification || [];
+      dispatch(setNotifications(userNotifications))
+    } catch (error) {
+      console.log(error)
+      
+    }
+  }
+
   useEffect(() => {
     getAdminDefinedData()
   }, [])
+
+  useEffect(()=>{
+    getUserNotifications()
+  },[userId])
 
 
   useEffect(() => {
@@ -66,6 +85,18 @@ function App() {
     .then((payload)=>{
       console.log('Msg received in foreground')
       console.log({payload})
+
+      const newNotification = {
+        _id: payload?.data?.docId,
+        userId: payload?.data?.userId,
+        notificationType: payload?.data?.notificationType,
+        title: payload?.notification?.title,
+        body: payload?.notification?.body,
+        isRead:false,
+      }
+
+      dispatch(updateNotifications(newNotification))
+
     })
 
     return ()=>{

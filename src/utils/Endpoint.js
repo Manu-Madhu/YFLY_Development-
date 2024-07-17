@@ -167,3 +167,6 @@ export const adminDataRoute = "/api/admin/data";
 export const selectEmployee = "/api/employee/select-employee"
 export const getStages = "/api/data/single?name=stage"
 export const getFollowUp = "/api/data/single?name=followup method"
+
+export const notifyRoute = "/api/notification"
+export const notifyEmployeeRoute = "/api/employee/notification"

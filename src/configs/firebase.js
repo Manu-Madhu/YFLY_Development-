@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import axios from "../api/axios";
+import { notifyRoute } from "../utils/Endpoint";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBMPXicM6F_WkYy1lgqS4Uv_LBNWT0KiPM",
@@ -42,7 +43,7 @@ export const requestPermissionAndGetToken = async (userId) => {
 
   const saveTokenToServer = async (userId, token) => {
     try {
-      await axios.post('/api/notification/save-token', { userId, token });
+      await axios.post(`${notifyRoute}/fcmtoken`, { userId, token });
       console.log('Token sent to server successfully');
     } catch (error) {
       console.error('Error sending token to server:', error);
