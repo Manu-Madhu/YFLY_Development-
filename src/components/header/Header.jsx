@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import { IoMdNotificationsOutline } from "react-icons/io";
+import { IoMdNotifications, IoMdNotificationsOutline } from "react-icons/io";
 import { LuMenu } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,8 @@ import { logout } from "../../redux/slices/AuthSlicer";
 import profile from "../../assets/icon/profileicon.png";
 import { Sidebar, SidebarE } from "../../data/SideBar";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { IoNotifications } from "react-icons/io5";
+import NotifyModal from "../notification/NotifyModal";
 
 const Header = () => {
   const instance = useAxiosPrivate();
@@ -22,6 +24,17 @@ const Header = () => {
   const user = useSelector((state) => state?.auth?.userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [notifyModal, setNotifyModal] = useState(false)
+  const notifications = useSelector(state => state.notify.notifications) || [];
+
+  const [isAlarm, setIsAlarm] = useState(false)
+
+  useEffect(() => {
+    const unreadPresent = notifications.some(item => !item?.isRead)
+    setIsAlarm(unreadPresent)
+  }, [notifications])
+
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -55,7 +68,7 @@ const Header = () => {
   return (
     <>
       <div className="shadow-sm fixed z-40 w-full bg-white top-0">
-        <div className="container mx-auto w-full">
+        <div className="relative container mx-auto w-full">
           <div className="mx-1 flex items-center justify-between p-5">
             <div className="w-full cursor-pointer" onClick={LogoClick}>
               <img
@@ -70,7 +83,7 @@ const Header = () => {
               &&
               <div className="w-full relative hidden md:flex">
                 <CiSearch
-                  onClick={()=> navigate(`/applications/search?query=${search}`)}
+                  onClick={() => navigate(`/applications/search?query=${search}`)}
                   className="absolute text-slate-400 top-2 ms-3 cursor-pointer"
                   size={25}
                 />
@@ -88,9 +101,27 @@ const Header = () => {
 
 
             <div className="hidden md:flex gap-3 w-full items-center justify-end">
+
+              <div
+                onClick={() => setNotifyModal(true)}
+                className="flex flex-col items-center cursor-pointer"
+              >
+                {
+                  isAlarm
+                    ?
+                    <IoMdNotifications size={30} className="text-primary_colors" />
+                    :
+                    <IoMdNotificationsOutline
+                      size={30}
+                      className="hover:text-primary_colors"
+                    />
+                }
+
+              </div>
+
               <div
                 onClick={LogoutHandler}
-                className="mt-2 flex flex-col justify-end hover:text-primary_colors cursor-pointer"
+                className="flex flex-col justify-end hover:text-primary_colors cursor-pointer"
               >
                 <AiOutlineLogin className="" size={30} />
                 <h1 className="text-xs text-secondary mt-1 cursor-pointer hover:text-primary_colors">
@@ -126,7 +157,7 @@ const Header = () => {
                         &&
                         <div className="w-full relative">
                           <CiSearch
-                            onClick={()=> {navigate(`/applications/search?query=${search}`); setMenu(false)}}
+                            onClick={() => { navigate(`/applications/search?query=${search}`); setMenu(false) }}
                             className="absolute text-slate-400 top-2 ms-3 cursor-pointer"
                             size={25}
                           />
@@ -142,6 +173,23 @@ const Header = () => {
                       }
                       <div className="flex flex-col gap-3 w-full items-center mt-3">
                         <div className="flex gap-3 w-full items-center justify-between mt-3">
+
+                          <div
+                            onClick={() => setNotifyModal(true)}
+                            className="flex flex-col items-center cursor-pointer"
+                          >
+                            {
+                              isAlarm
+                                ?
+                                <IoMdNotifications size={30} className="text-primary_colors" />
+                                :
+                                <IoMdNotificationsOutline
+                                  size={30}
+                                  className="hover:text-primary_colors"
+                                />
+                            }
+
+                          </div>
 
                           <div>
                             <img
@@ -205,7 +253,11 @@ const Header = () => {
               )}
             </div>
           </div>
+          {
+            notifyModal && <NotifyModal setModal={setNotifyModal} data={[...notifications]} />
+          }
         </div>
+
       </div>
     </>
   );

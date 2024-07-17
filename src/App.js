@@ -35,6 +35,7 @@ import Settings from './pages/settings/Settings';
 import { onMessageListener, requestPermissionAndGetToken } from './configs/firebase';
 import useAxiosPrivate from './hooks/useAxiosPrivate';
 import { setNotifications, updateNotifications } from './redux/slices/NotifyReducer';
+import { toast } from 'react-toastify';
 
 
 function App() {
@@ -96,6 +97,7 @@ function App() {
       }
 
       dispatch(updateNotifications(newNotification))
+      toast.info(payload?.notification?.title)
 
     })
 
