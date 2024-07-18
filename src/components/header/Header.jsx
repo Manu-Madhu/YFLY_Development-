@@ -254,7 +254,7 @@ const Header = () => {
             </div>
           </div>
           {
-            notifyModal && <NotifyModal setModal={setNotifyModal} data={[...notifications]} />
+            notifyModal && <NotifyModal setModal={setNotifyModal} data={[...notifications]?.reverse()} />
           }
         </div>
 
