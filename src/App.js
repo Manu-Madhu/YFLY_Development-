@@ -32,10 +32,11 @@ import axios from './api/axios';
 import { useEffect } from 'react';
 import { setAdminDefinedData } from './redux/slices/CommonDataReducer';
 import Settings from './pages/settings/Settings';
-import { onMessageListener, requestPermissionAndGetToken } from './configs/firebase';
+import { messaging, onMessageListener, requestPermissionAndGetToken } from './configs/firebase';
 import useAxiosPrivate from './hooks/useAxiosPrivate';
 import { setNotifications, updateNotifications } from './redux/slices/NotifyReducer';
 import { toast } from 'react-toastify';
+import { onMessage } from 'firebase/messaging';
 
 
 function App() {
@@ -74,18 +75,16 @@ function App() {
   useEffect(()=>{
     getUserNotifications()
   },[userId])
-
+  
 
   useEffect(() => {
     if (userId) {
       requestPermissionAndGetToken(userId);
-
     }
 
-    const unsubscribe = onMessageListener()
-    .then((payload)=>{
-      console.log('Msg received in foreground')
-      console.log({payload})
+    const handleNewMessage = (payload) => {
+      console.log('Message received');
+      console.log(payload);
 
       const newNotification = {
         _id: payload?.data?.docId,
@@ -93,19 +92,25 @@ function App() {
         notificationType: payload?.data?.notificationType,
         title: payload?.notification?.title,
         body: payload?.notification?.body,
-        isRead:false,
-      }
+        isRead: false,
+      };
 
-      dispatch(updateNotifications(newNotification))
-      toast.info(payload?.notification?.title)
+      toast.info(payload?.notification?.title);
+      dispatch(updateNotifications(newNotification));
+    };
 
-    })
+    const handleError = (error) => {
+      console.log(error);
+      console.log({ omerror: error });
+    };
 
-    return ()=>{
-      unsubscribe.catch(err=> console.log('failed', err))
-    }
-  }, [userId]);
+    const unsubscribe = onMessage(messaging, handleNewMessage, handleError);
 
+    return () => {
+      unsubscribe();
+    };
+  }, [userId, dispatch]);
+  
   console.log({ userId, user })
 
   return (

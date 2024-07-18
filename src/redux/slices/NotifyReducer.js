@@ -13,7 +13,11 @@ const notifySlice = createSlice({
         },
 
         updateNotifications:(state, action)=>{
-            state.notifications.push(action.payload)
+            const existing = state.notifications?.map(item=> item?._id).includes(action.payload?._id)
+
+            if(!existing){
+                state.notifications.push(action.payload)
+            }
         }
     }
 });

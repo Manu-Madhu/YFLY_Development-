@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const NotifyCard = ({ item, selected, setSelected, checkCard }) => {
+const NotifyCard = ({ item, selected, checkCard }) => {
 
     return (
         <div className='relative w-full min-h-[70px] p-2 rounded-lg shadow cursor-pointer 

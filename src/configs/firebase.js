@@ -51,15 +51,15 @@ export const requestPermissionAndGetToken = async (userId) => {
   };
 
 
-  export const onMessageListener = () => {
-    return new Promise((resolve, reject) => {
-      onMessage(messaging, (payload) => {
-        console.log('Message recieved')
-        console.log(payload)
-        resolve(payload);
-      }, (error) => {
-        console.log(error)
-        reject(error);
-      });
-    });
-  };
+  // export const onMessageListener = () => {
+  //   return new Promise((resolve, reject) => {
+  //     onMessage(messaging, (payload) => {
+  //       console.log('Message recieved')
+  //       console.log(payload)
+  //       resolve(payload)
+  //     }, (error) => {
+  //       console.log(error)
+  //       reject(error)
+  //     });
+  //   });
+  // };
