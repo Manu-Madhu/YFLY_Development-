@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { IoClose } from 'react-icons/io5'
-import { useSelector } from 'react-redux'
-import NotifyCard from './NotifyCard';
-import { PiDotsThreeFill } from "react-icons/pi";
-import { HiDotsHorizontal } from "react-icons/hi";
-import AllTab from './AllTab';
-import UnreadTab from './UnreadTab';
+import NotifyTab from './NotifyTab';
 
 const NotifyModal = ({ setModal, data }) => {
     const [tab, setTab] = useState('all')
@@ -37,10 +32,15 @@ const NotifyModal = ({ setModal, data }) => {
 
                 {
                     tab === 'all'
-                    ?
-                    <AllTab data={data}  />
-                    :
-                    <UnreadTab data={data?.filter(item => item?.isRead === false)}/>
+                    &&
+                    <NotifyTab data={data} />
+                }
+                
+                {
+                    tab === 'unread'
+                    &&
+                    <NotifyTab data={data?.filter(item => item?.isRead === false)} />
+
                 }
 
 
