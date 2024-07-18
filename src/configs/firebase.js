@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { getMessaging, getToken} from "firebase/messaging";
 import axios from "../api/axios";
 import { notifyRoute } from "../utils/Endpoint";
 
