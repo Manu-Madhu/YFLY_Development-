@@ -86,17 +86,23 @@ function App() {
       console.log('Message received');
       console.log(payload);
 
-      const newNotification = {
-        _id: payload?.data?.docId,
-        userId: payload?.data?.userId,
-        notificationType: payload?.data?.notificationType,
-        title: payload?.notification?.title,
-        body: payload?.notification?.body,
-        isRead: false,
-      };
+      const sameUser = payload?.data?.userId === userId;
 
-      toast.info(payload?.notification?.title);
-      dispatch(updateNotifications(newNotification));
+      if(sameUser){
+        const newNotification = {
+          _id: payload?.data?.docId,
+          userId: payload?.data?.userId,
+          notificationType: payload?.data?.notificationType,
+          title: payload?.notification?.title,
+          body: payload?.notification?.body,
+          isRead: false,
+        };
+  
+        toast.info(payload?.notification?.title);
+        dispatch(updateNotifications(newNotification));
+
+      }
+
     };
 
     const handleError = (error) => {
