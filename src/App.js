@@ -115,7 +115,7 @@ function App() {
     return () => {
       unsubscribe();
     };
-  }, [userId, dispatch]);
+  }, [userId]);
   
   console.log({ userId, user })
 

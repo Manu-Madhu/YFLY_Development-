@@ -3,13 +3,17 @@ import EmptyData from "../loading/EmptyData";
 import SingleFollow from "../SingleFollow";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { getFollowUp, getStages, selectEmployee } from "../../utils/Endpoint";
+import { useSelector } from "react-redux";
 
 const FollowTable = ({ data, setData, page, entries }) => {
   const [followupModal, setFollowupModal] = useState(false);
-  const [followData, setFollowData] = useState({});
+  const [followId, setFollowId] = useState(null);
   const [employeeData, setEmployeeData] = useState([]);
-  const [stagesData, setStages] = useState({});
-  const [followUpData, setFollowUpData] = useState({});
+  const adminDefinedData = useSelector(state => state.data.adminDefinedData)
+  const stagesData = adminDefinedData?.find(item => item.name === 'stage');
+  const comMethods = adminDefinedData?.find(item => item.name === 'followup method')
+
+
 
   const axiosPrivate = useAxiosPrivate();
 
@@ -18,44 +22,25 @@ const FollowTable = ({ data, setData, page, entries }) => {
     try {
       const result = await axiosPrivate.get(selectEmployee);
       if (result.status === 200) {
-        setEmployeeData(result?.data);
+        setEmployeeData(result?.data?.employee);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  // getting the Stages data
-  const getStagesData = async () => {
-    try {
-      const result = await axiosPrivate.get(getStages);
-      if (result.status === 200) {
-        setStages(result?.data?.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // getting the getFollowUp data
-  const getFollowUpData = async () => {
-    try {
-      const result = await axiosPrivate.get(getFollowUp);
-      if (result.status === 200) {
-        console.log(result?.data?.data);
-        setFollowUpData(result?.data?.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  console.log(data);
+  console.log({ adminDefinedData });
+  console.log({ employeeData });
 
   useEffect(() => {
     getEmployeeData();
-    getStagesData();
-    getFollowUpData();
+
   }, []);
+
+  const openModal = (id) => {
+    setFollowId(id)
+    setFollowupModal(true)
+  }
 
   return (
     <>
@@ -72,25 +57,25 @@ const FollowTable = ({ data, setData, page, entries }) => {
               <th className="px-2 py-4">Assignee</th>
               <th className="px-2 py-4">Stage</th>
               <th className="px-2 py-4">followup method</th>
-              <th className="px-2 py-4">Submit</th>
+              <th className="px-2 py-4">View</th>
             </tr>
           </thead>
           <tbody>
             {data?.length > 0 ? (
-              data?.map((follow, i) => (
+              data?.map((item, i) => (
                 <tr
                   key={i}
                   className="bg-white border-b  hover:bg-gray-50 text-black  text-xs"
                 >
                   <td className="pl-4 py-4 ">{(page - 1) * entries + i + 1}</td>
                   <td className="px-2 py-4 capitalize">
-                    {follow?.name ? follow?.name : "NIL"}
+                    {item?.name ? item?.name : "NIL"}
                   </td>
                   <td className="px-2 py-4">
-                    {follow?.email ? follow?.email : "NIL"}
+                    {item?.email ? item?.email : "NIL"}
                   </td>
                   <td className="px-2 py-4">
-                    {follow?.phone ? follow?.phone : "NIL"}
+                    {item?.phone ? item?.phone : "NIL"}
                   </td>
 
                   {/* Employee Assignee */}
@@ -101,12 +86,12 @@ const FollowTable = ({ data, setData, page, entries }) => {
                       className="border focus:outline-none p-2 rounded border-primary_colors/30 cursor-pointer md:w-[125px]"
                     >
                       <option value="">
-                        {follow?.assigneeName
-                          ? follow?.assigneeName
-                          : "Select a person"}
+                        {item?.assigneeName
+                          ? item?.assigneeName
+                          : "Select assignee"}
                       </option>
 
-                      {employeeData &&
+                      {
                         employeeData.map((data) => (
                           <option key={data?._id} value={data?._id}>
                             {data?.name}
@@ -123,11 +108,11 @@ const FollowTable = ({ data, setData, page, entries }) => {
                       className="border focus:outline-none p-2 rounded border-primary_colors/30 cursor-pointer md:w-[125px]"
                     >
                       <option value="">
-                        {follow?.stageName
-                          ? follow?.stageName
+                        {item?.stageName
+                          ? item?.stageName
                           : "Select a stage"}
                       </option>
-                      {stagesData &&
+                      {
                         stagesData?.list?.map((data) => (
                           <option key={data?._id} value={data?._id}>
                             {data?.label}
@@ -137,8 +122,8 @@ const FollowTable = ({ data, setData, page, entries }) => {
                   </td>
                   {/* Methods */}
                   <td className="px-2 py-4 capitalize flex  gap-2">
-                    {followUpData &&
-                      followUpData?.list?.map((data) => (
+                    {comMethods &&
+                      comMethods?.list?.map((data) => (
                         <div
                           className="flex flex-col items-start"
                           key={data?._id}
@@ -151,15 +136,17 @@ const FollowTable = ({ data, setData, page, entries }) => {
                             id={`checkBox-${i}`}
                             type="checkbox"
                             className="cursor-pointer"
-                            checked={follow.communication.includes(data._id)}
+                            checked={item?.communication?.includes(data._id)}
                           />
                         </div>
                       ))}
                   </td>
 
                   <td className="px-2 py-4 capitalize">
-                    <button className="bg-primary_colors p-2 px-4 text-white text-xs rounded">
-                      Done
+                    <button
+                      onClick={() => openModal(item?.followup)}
+                      className="bg-primary_colors p-2 px-4 text-white text-xs rounded">
+                      View
                     </button>
                   </td>
                 </tr>
@@ -176,7 +163,9 @@ const FollowTable = ({ data, setData, page, entries }) => {
       </div>
 
       {followupModal && (
-        <SingleFollow setModal={setFollowupModal} data={followData} />
+        <SingleFollow setModal={setFollowupModal} data={data} setData={setData} followId={followId} employeeData={employeeData}
+          stagesData={stagesData} comMethods={comMethods}
+        />
       )}
     </>
   );
