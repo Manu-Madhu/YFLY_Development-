@@ -93,6 +93,7 @@ function App() {
           _id: payload?.data?.docId,
           userId: payload?.data?.userId,
           notificationType: payload?.data?.notificationType,
+          route: payload?.data?.route,
           title: payload?.notification?.title,
           body: payload?.notification?.body,
           isRead: false,
