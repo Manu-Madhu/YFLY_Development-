@@ -51,6 +51,8 @@ const SingleFollow = ({ setModal, getData, studentData, employeeData, stagesData
   }
 
   const addNoteFunc = ()=>{
+    if(!content?.trim()){ return}
+    
     setFollowData((prev)=>({
       ...prev,
       contents:[...prev.contents, content]
