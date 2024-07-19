@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { getAllComments, postComment } from "../../../utils/Endpoint";
+import {
+  getAllComments,
+  getEmployeesRoute,
+  notification,
+  postComment,
+} from "../../../utils/Endpoint";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import EmptyData from "../../loading/EmptyData";
 import DocModal from "../../student/DocModal";
@@ -10,6 +15,8 @@ import Tippy from "@tippyjs/react";
 import StatusModal from "../../employee/StatusModal";
 import AdminModal from "../../Admin/AdminModal";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import { Mention, MentionsInput } from "react-mentions";
+import { axiosPrivate } from "../../../api/axios";
 
 const RightSide = ({ data, cb, application }) => {
   const axios = useAxiosPrivate();
@@ -22,55 +29,98 @@ const RightSide = ({ data, cb, application }) => {
   const [statusUpdate, setStatusUpdate] = useState(false);
   const [assigneeUpdate, setAssigneeUpdate] = useState(false);
   const [stepNumber, setStepNumber] = useState(null);
+  const [employeeData, setEmployeeData] = useState([]);
 
-  const isFinished = application.phase === "completed" || application.phase === "cancelled"
+  const path = useLocation();
+
+  const isFinished =
+    application.phase === "completed" || application.phase === "cancelled";
 
   // console.log(data);
   let empTasks = [];
   if (user.role === "admin") {
     empTasks = data?.steps?.filter((step) => (step?.assignee ? true : false));
-    empTasks?.reverse()
+    empTasks?.reverse();
   }
 
   let myTasks = [];
   if (user.role === "employee") {
     myTasks = data?.steps?.filter((step) => (step?.assignee ? true : false));
-    myTasks?.reverse()
+    myTasks?.reverse();
   }
 
   useEffect(() => {
-   
-      axios
-        .get(`${getAllComments}/stepper/${data?._id}`)
-        .then((res) => {
-          setComments(res?.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
+    axios
+      .get(`${getAllComments}/stepper/${data?._id}`)
+      .then((res) => {
+        setComments(res?.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [data?._id]);
 
   const submitHandle = async (e) => {
     e.preventDefault();
+    const formattedMessage = comment.replace(/@\[(.*?)\]\((.*?)\)/g, "@$1");
+    const mentionPersonId = comment.match(/[^(]+(?=\))/g);
+    if (mentionPersonId.length > 1) {
+      return toast.warning("Please Remove multiple mentioning from the box");
+    }
     const message = {
       resourceId: data?._id,
       resourceType: "stepper",
       commentorId: user?._id,
-      comment: comment,
+      comment: formattedMessage,
     };
     console.log("data", data);
     console.log("message", message);
     try {
       const response = await axios.post(postComment, message);
-      toast.success(response?.data?.msg);
-      setComments([response?.data?.data, ...comments]);
-      setComment("");
+      if (response.status === 200) {
+        const notificationData = {
+          userId: mentionPersonId[0],
+          title: `Comment from ${user?.name}`,
+          body: formattedMessage,
+          notificationType: "comment",
+          route: path?.pathname,
+        };
+        const notificationSend = await axiosPrivate.post(
+          notification,
+          notificationData
+        );
+        console.log(notificationSend);
+        toast.success(response?.data?.msg);
+        setComments([response?.data?.data, ...comments]);
+        setComment("");
+      }
     } catch (error) {
-      console.log(error);
-      toast.warning(error?.response?.data?.msg);
+      if (error?.response?.data?.msg === "FCM Token not found") {
+        toast.success("Successfully send the comment");
+        setComment("");
+      } else {
+        console.log(error);
+        toast.warning(error?.response?.data?.msg);
+      }
     }
   };
+
+  const changeHandler = (event, newValue) => {
+    setComment(newValue);
+  };
+
+  // Employee Data Fetching
+  useEffect(() => {
+    axios
+      .get(getEmployeesRoute)
+      .then((res) => {
+        console.log(res);
+        setEmployeeData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <>
@@ -104,9 +154,7 @@ const RightSide = ({ data, cb, application }) => {
                 </h1>
               </div>
               <div className="flex flex-col justify-between capitalize">
-                {
-                  !isFinished
-                  &&
+                {!isFinished && (
                   <button
                     onClick={() => {
                       setStepNumber(empTask._id);
@@ -116,8 +164,7 @@ const RightSide = ({ data, cb, application }) => {
                   >
                     Assign Next
                   </button>
-
-                }
+                )}
                 <h1 className="font-semibold text-sm mt-1 text-end">
                   Step Number: {empTask?._id}
                 </h1>
@@ -149,12 +196,12 @@ const RightSide = ({ data, cb, application }) => {
                 </h1>
               </div>
               <div className="flex flex-col justify-between capitalize">
-                {
-                  myTasks?.assignee === user?._id && !isFinished
-                  &&
+                {myTasks?.assignee === user?._id && !isFinished && (
                   <div className="flex flex-col gap-2">
                     <button
-                      onClick={() => (setStepNumber(myTasks._id),setStatusUpdate(true))}
+                      onClick={() => (
+                        setStepNumber(myTasks._id), setStatusUpdate(true)
+                      )}
                       className="w-full text-[13px] bg-primary_colors text-white p-1 px-5 rounded "
                     >
                       Update Status
@@ -169,8 +216,7 @@ const RightSide = ({ data, cb, application }) => {
                       Assign Next
                     </button>
                   </div>
-
-                }
+                )}
 
                 <h1 className="font-semibold text-sm mt-1 text-end">
                   Step Number: {myTasks?._id}
@@ -207,26 +253,21 @@ const RightSide = ({ data, cb, application }) => {
           </div>
         )}
 
-        {
-          !isFinished
-          &&
+        {!isFinished && (
           <button
             onClick={() => setDocModal(true)}
             className="absolute bottom-5 right-4 bg-primary_colors text-white text-[13px] px-5 rounded p-1 text-center"
           >
             Upload Document
           </button>
-
-        }
+        )}
       </div>
 
       {/* Comment typing Form */}
       <h1 className="my-3 font-semibold text-slate-500 text-sm text-gray-600">
         Comments
       </h1>
-      {
-        !isFinished
-        &&
+      {/* {!isFinished && (
         <div className="relative ">
           <form action="" onSubmit={submitHandle}>
             <textarea
@@ -245,8 +286,33 @@ const RightSide = ({ data, cb, application }) => {
             </button>
           </form>
         </div>
+      )} */}
 
-      }
+      {!isFinished && (
+        <div className="relative">
+          <form action="" onSubmit={submitHandle}>
+            <MentionsInput
+              value={comment}
+              onChange={changeHandler}
+              className="mentions-input w-full h-20 rounded-lg focus:outline-none  text-xs bg-white text-slate-300 resize-none overflow-y-auto"
+              placeholder="Enter your message"
+              style={{ padding: "5px" }}
+            >
+              <Mention
+                trigger="@"
+                data={employeeData.map((emp) => ({
+                  id: emp._id,
+                  display: emp.name,
+                }))}
+                className="mentions__mention"
+              />
+            </MentionsInput>
+            <button className="absolute bottom-5 right-4 bg-primary_colors text-white text-[13px] px-5 rounded p-2 text-center">
+              Send
+            </button>
+          </form>
+        </div>
+      )}
 
       {/* Comments */}
       <div className="my-3  max-h-[220px] space-y-3 overflow-scroll border p-3 rounded-lg">
@@ -274,7 +340,11 @@ const RightSide = ({ data, cb, application }) => {
       </div>
 
       {docModal && (
-        <DocModal cb={cb} setModal={setDocModal} applicationData={application} />
+        <DocModal
+          cb={cb}
+          setModal={setDocModal}
+          applicationData={application}
+        />
       )}
 
       {statusUpdate && (

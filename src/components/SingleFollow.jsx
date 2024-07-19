@@ -129,7 +129,7 @@ const SingleFollow = ({
           route: path?.pathname,
         };
         const notificationSend = await axiosPrivate.post(notification, data);
-        console.log(notificationSend)
+        console.log(notificationSend);
         toast.success("Saved changes");
         setModal(false);
         getData();
@@ -137,8 +137,14 @@ const SingleFollow = ({
         toast.error("Unable to save");
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Unable to save");
+      if (error?.response?.data?.msg === "FCM Token not found") {
+        toast.success("Saved changes");
+        setModal(false);
+        getData();
+      } else {
+        console.log(error);
+        toast.error("Unable to save");
+      }
     }
   };
 
