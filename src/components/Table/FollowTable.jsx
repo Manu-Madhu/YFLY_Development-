@@ -4,10 +4,11 @@ import SingleFollow from "../SingleFollow";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { getFollowUp, getStages, selectEmployee } from "../../utils/Endpoint";
 import { useSelector } from "react-redux";
+import { MdOutlineOpenInNew } from "react-icons/md";
 
-const FollowTable = ({ data, setData, page, entries }) => {
+const FollowTable = ({ data, setData, page, entries, getData }) => {
   const [followupModal, setFollowupModal] = useState(false);
-  const [followId, setFollowId] = useState(null);
+  const [studentData, setStudentData] = useState({});
   const [employeeData, setEmployeeData] = useState([]);
   const adminDefinedData = useSelector(state => state.data.adminDefinedData)
   const stagesData = adminDefinedData?.find(item => item.name === 'stage');
@@ -37,8 +38,8 @@ const FollowTable = ({ data, setData, page, entries }) => {
 
   }, []);
 
-  const openModal = (id) => {
-    setFollowId(id)
+  const openModal = (student) => {
+    setStudentData(student)
     setFollowupModal(true)
   }
 
@@ -56,7 +57,7 @@ const FollowTable = ({ data, setData, page, entries }) => {
               <th className="px-2 py-4">Phone</th>
               <th className="px-2 py-4">Assignee</th>
               <th className="px-2 py-4">Stage</th>
-              <th className="px-2 py-4">followup method</th>
+              {/* <th className="px-2 py-4">followup method</th> */}
               <th className="px-2 py-4">View</th>
             </tr>
           </thead>
@@ -80,48 +81,17 @@ const FollowTable = ({ data, setData, page, entries }) => {
 
                   {/* Employee Assignee */}
                   <td className="px-2 py-4 capitalize">
-                    <select
-                      name=""
-                      id=""
-                      className="border focus:outline-none p-2 rounded border-primary_colors/30 cursor-pointer md:w-[125px]"
-                    >
-                      <option value="">
-                        {item?.assigneeName
-                          ? item?.assigneeName
-                          : "Select assignee"}
-                      </option>
-
-                      {
-                        employeeData.map((data) => (
-                          <option key={data?._id} value={data?._id}>
-                            {data?.name}
-                          </option>
-                        ))}
-                    </select>
+                    
+                    {item?.assigneeName ?? "NIL"}
                   </td>
 
                   {/* Stages */}
                   <td className="px-2 py-4 capitalize">
-                    <select
-                      name=""
-                      id=""
-                      className="border focus:outline-none p-2 rounded border-primary_colors/30 cursor-pointer md:w-[125px]"
-                    >
-                      <option value="">
-                        {item?.stageName
-                          ? item?.stageName
-                          : "Select a stage"}
-                      </option>
-                      {
-                        stagesData?.list?.map((data) => (
-                          <option key={data?._id} value={data?._id}>
-                            {data?.label}
-                          </option>
-                        ))}
-                    </select>
+                    {item?.stageName ?? 'NIL'}
                   </td>
+
                   {/* Methods */}
-                  <td className="px-2 py-4 capitalize flex  gap-2">
+                  {/* <td className="px-2 py-4 capitalize flex  gap-2">
                     {comMethods &&
                       comMethods?.list?.map((data) => (
                         <div
@@ -140,14 +110,20 @@ const FollowTable = ({ data, setData, page, entries }) => {
                           />
                         </div>
                       ))}
-                  </td>
+                  </td> */}
 
                   <td className="px-2 py-4 capitalize">
-                    <button
-                      onClick={() => openModal(item?.followup)}
+                    {/* <button
+                      onClick={() => openModal(item)}
                       className="bg-primary_colors p-2 px-4 text-white text-xs rounded">
                       View
-                    </button>
+                    </button> */}
+
+                    <MdOutlineOpenInNew
+                    onClick={() => openModal(item)}
+                    size={22}
+                    className="text-primary_colors cursor-pointer"
+                    />
                   </td>
                 </tr>
               ))
@@ -163,7 +139,7 @@ const FollowTable = ({ data, setData, page, entries }) => {
       </div>
 
       {followupModal && (
-        <SingleFollow setModal={setFollowupModal} data={data} setData={setData} followId={followId} employeeData={employeeData}
+        <SingleFollow setModal={setFollowupModal} getData={getData} studentData={studentData} employeeData={employeeData}
           stagesData={stagesData} comMethods={comMethods}
         />
       )}

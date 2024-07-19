@@ -38,32 +38,7 @@ const Followups = () => {
       <div className="flex flex-col sm:flex-row gap-5 sm:gap-0 justify-between">
         <h1 className="text-primary_colors text-2xl font-bold">Follow-ups</h1>
         <div className="flex gap-5">
-          {/* Date Starting filter */}
-          {/* <div className="relative">
-            <label htmlFor="" className="absolute top-[-20px] left-0 text-xs ">
-              Starting Date
-            </label>
-            <input
-              // onChange={(e) => setDate((prev) => ({ ...prev, start_date: e.target.value }))}
-              type="date"
-              name="start_date"
-              placeholder=""
-              className="cursor-pointer border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none w-full"
-            />
-          </div> */}
-          {/* Date Ending Filter */}
-          {/* <div className="relative">
-            <label htmlFor="" className="absolute top-[-20px] left-0 text-xs ">
-              Ending Date
-            </label>
-            <input
-              // onChange={(e) => setDate((prev) => ({ ...prev, end_date: e.target.value }))}
-              type="date"
-              name="end_date"
-              placeholder=""
-              className="cursor-pointer border border-primary_colors p-2  rounded-lg text-secondary text-normal focus:outline-none w-full"
-            />
-          </div> */}
+          
           {/* Select Status option */}
           <select
             // onChange={(e) => setStatus(e.target.value)}
@@ -87,6 +62,7 @@ const Followups = () => {
         <FollowTable
           data={data}
           setData={setData}
+          getData={getData}
           page={page}
           entries={entries}
         />

@@ -2,18 +2,84 @@ import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { followupRoute } from "../utils/Endpoint";
+import { useSelector } from "react-redux";
+import { toast } from 'react-toastify';
 
-const SingleFollow = ({ setModal, data, followId, employeeData, stagesData, comMethods }) => {
+const SingleFollow = ({ setModal, getData, studentData, employeeData, stagesData, comMethods }) => {
 
   const axiosPrivate = useAxiosPrivate();
-  const [followData, setFollowData] = useState({})
+  const user = useSelector(state => state.auth.userInfo);
+
+  const [followData, setFollowData] = useState({
+    studentId: studentData?._id,
+    assignee: null,
+    stage: null,
+    communication: [],
+    author: user?._id,
+    contents:[],
+  });
+
+  const [content, setContent] = useState("")
+  // const [studentName, setStudentName] = useState("")
+  const [notes, setNotes] = useState([])
+
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+    setFollowData((prev) => {
+      if (name === 'communication') {
+        return {
+          ...prev,
+          communication: [...prev.communication, value],
+        };
+      }
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
+  const toggleChecker = (commId)=>{
+    // remove commId if present
+    if(followData?.communication?.includes(commId)){
+      const newArr = followData?.communication?.filter(item=> item !== commId)
+      setFollowData((prev)=> ({...prev, communication: newArr}))
+    }
+    else{
+      setFollowData((prev)=> ({...prev, communication:[...prev.communication, commId]}))
+    }
+  }
+
+  const addNoteFunc = ()=>{
+    setFollowData((prev)=>({
+      ...prev,
+      contents:[...prev.contents, content]
+    }))
+
+    setContent('')
+  }
+
 
   const getFollowup = async () => {
     try {
-      const response = await axiosPrivate.get(`${followupRoute}/${followId}`)
+      if(!studentData?.followup){return }
+      const response = await axiosPrivate.get(`${followupRoute}/${studentData?.followup}`)
 
       if (response.status === 200) {
-        setFollowData(response.data.followup)
+        const followup = response.data.followup;
+
+        setFollowData((prev) => (
+          {
+            ...prev,
+            // studentId:followup?.studentId?._id,
+            assignee: followup?.assignee?._id ?? null,
+            stage: followup?.stage ?? null,
+            communication: followup?.communication ?? [],
+          }
+        ))
+
+        setNotes(followup?.notes)
+        // setStudentName(studentData.name)
       }
 
     } catch (error) {
@@ -22,11 +88,35 @@ const SingleFollow = ({ setModal, data, followId, employeeData, stagesData, comM
   }
 
   useEffect(() => {
-    if (followId) {
+    if (studentData?.followup) {
       getFollowup()
 
     }
-  }, [followId])
+  }, [studentData?.followup])
+
+
+  const saveChanges = async()=>{
+    try {
+      if(!followData?.studentId){ return}
+
+      const response = await axiosPrivate.put(followupRoute, followData)
+
+      if(response.status === 200){
+        toast.success('Saved changes')
+        setModal(false)
+        getData()
+        
+
+      }else{
+        toast.error('Unable to save')
+      }
+      
+    } catch (error) {
+      console.log(error)
+      toast.error('Unable to save')
+
+    }
+  }
 
   console.log({ followData })
 
@@ -44,23 +134,33 @@ const SingleFollow = ({ setModal, data, followId, employeeData, stagesData, comM
             className=" rounded-lg w-full flex flex-col gap-4"
           >
             <h1 className="font-bold text-center text-xl md:text-[22px] text-primary_colors pb-3">
-              View{'isAssignee' && '/Edit'} Follow-Up
+              View/Edit Follow-Up
             </h1>
 
+            <div className="flex justify-between">
+              <p className="mb-3 capitalize">Follow Up with {studentData?.name ?? "NIL"}</p>
+              <button
+                type="button"
+                onClick={saveChanges}
+                className="bg-primary_colors text-white p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"
+              >
+                Save
+              </button>
+            </div>
 
-            <p className="mb-3 capitalize">Follow Up with {followData?.studentId?.name ? followData?.studentId?.name : "NIL"}</p>
-
-            <div className="w-full flex flex-col sm:flex-row flex-wrap">
+            <div className="w-full h-[200px] flex sm:flex-row flex-wrap overflow-y-scroll border-2 rounded-lg border-dotted border-primary_colors">
               {/* Employee Assignee */}
-              <div className="px-2 py-4 capitalize">
+              <div className="h-fit px-2 py-4 capitalize">
                 <select
-                  name=""
+                  name="assignee"
                   id=""
                   className="border focus:outline-none p-2 rounded border-primary_colors/30 cursor-pointer md:w-[125px]"
-                  value={followData?.assignee?._id
-                    ? followData?.assignee?._id
-                    : ""}
+                  value={followData?.assignee ?? ""}
+                  onChange={changeHandler}
                 >
+                  <option  value="">
+                        Assignee
+                      </option>
                   {
                     employeeData.map((data) => (
                       <option key={data?._id} value={data?._id}>
@@ -71,14 +171,18 @@ const SingleFollow = ({ setModal, data, followId, employeeData, stagesData, comM
               </div>
 
               {/* Stages */}
-              <div className="px-2 py-4 capitalize">
+              <div className="h-fit px-2 py-4 capitalize">
                 <select
-                  name=""
+                  name="stage"
                   id=""
                   className="border focus:outline-none p-2 rounded border-primary_colors/30 cursor-pointer md:w-[125px]"
                   value={followData?.stage ?? ""}
+                  onChange={changeHandler}
                 >
-  
+                  <option  value="">
+                        Stage
+                      </option>
+
                   {
                     stagesData?.list?.map((data) => (
                       <option key={data?._id} value={data?._id}>
@@ -87,64 +191,107 @@ const SingleFollow = ({ setModal, data, followId, employeeData, stagesData, comM
                     ))}
                 </select>
               </div>
-              
-              {/* Methods */}
+
+              {/* Communication Methods */}
               <div className="px-2 py-4 capitalize flex flex-wrap gap-2">
                 {
-                  comMethods?.list?.map((data) => (
+                  comMethods?.list?.map((data,i) => (
                     <div
-                      className="w-fit flex items-center gap-2 p-2 rounded-lg border border-primary_colors"
+                      className="w-fit h-fit flex items-center gap-2 p-2 rounded-lg border border-primary_colors"
                       key={data?._id}
-                      value={data?._id}
                     >
                       <label
-                      // htmlFor={`checkBox-${i}`}
+                      htmlFor={`checkBox-${i}`}
                       >
                         {data?.label}
                       </label>
                       <input
-                        // id={`checkBox-${i}`}
+                        id={`checkBox-${i}`}
                         type="checkbox"
                         className="cursor-pointer"
+                        name="communication"
                         checked={followData?.communication?.includes(data._id)}
+                        onChange={()=> toggleChecker(data?._id)}
+
                       />
                     </div>
                   ))}
               </div>
+
+              <div className="w-full px-4 flex flex-col gap-2">
+
+                {
+                  followData?.contents?.length > 0 &&
+                  [...followData?.contents]?.reverse()?.map((item, i) => (
+                    <div className="flex flex-col">
+                      <label className="capitalize text-[#777] text-sm">You:</label>
+                      <textarea
+                        name="note"
+                        placeholder="Note"
+                        id=""
+                        // cols="20"
+                        rows="2"
+                        value={item}
+                        disabled={true}
+                        className="w-full border-2 rounded-lg bg-primary_colors/5  border-primary_colors p-2 focus:outline-none"
+                      ></textarea>
+
+                    </div>
+
+                  ))
+                }
+
+
+                {notes?.length > 0 &&<h2 className="text-sm mt-4">Previous Notes: </h2>}
+                {
+                  notes?.length > 0 &&
+                  [...notes]?.reverse()?.map((item, i) => (
+                    <div className="flex flex-col">
+                      <label className="capitalize text-[#777] text-sm">{item?.author?.name ?? "Yfly"}:</label>
+                      <textarea
+                        name="note"
+                        placeholder="Note"
+                        id=""
+                        // cols="20"
+                        rows="2"
+                        value={item?.content}
+                        disabled={true}
+                        className="w-full border-2 rounded-lg bg-primary_colors/5  border-primary_colors p-2 focus:outline-none"
+                      ></textarea>
+
+                    </div>
+
+                  ))
+                }
+              </div>
+
+
             </div>
 
-            {/* <div className="w-full relative">
-              Notes:
+
+            {/* Add Note */}
+
+            <div className="text-black text-normal flex items-center mt-5 justify-between">
               <textarea
-                name="note"
+                name="content"
                 placeholder="Note"
                 id=""
-                cols="20"
                 rows="2"
-                value={"divData?.note"}
-                onChange={"changeHandler"}
-                disabled={"!isAssignee"}
-                className="w-full border-2 rounded-lg bg-primary_colors/5  border-primary_colors p-2 focus:outline-none"
+                value={content}
+                onChange={(e)=> setContent(e.target.value)}
+                className="w-full sm:w-3/4 border-2 rounded-lg bg-primary_colors/5  border-primary_colors p-2 focus:outline-none"
               ></textarea>
-            </div> */}
 
-            {/* BUTTON */}
 
-            <div className="text-white text-normal space-x-3 flex items-center justify-between mt-5">
               <button
                 type="button"
-                // onClick={()=> setAddBox(true)}
-                className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"
+                onClick={addNoteFunc}
+                className=" bg-primary_colors text-white py-2 px-3 rounded-lg hover:scale-105 ease-in-out duration-200"
               >
                 Add Note
               </button>
 
-              <button
-                type="submit"
-                className="bg-primary_colors p-2 px-5 rounded-lg hover:scale-105 ease-in-out duration-200"
-              >
-                Save
-              </button>
+
 
             </div>
 
