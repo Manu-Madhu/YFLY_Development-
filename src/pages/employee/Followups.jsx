@@ -10,15 +10,18 @@ const Followups = () => {
   const [page, setPage] = useState(1);
   const [entries, setEntries] = useState(10);
   const [stage, setStage] = useState(null)
+  const [assignee, setAssignee] = useState(null)
 
   const adminDefinedData = useSelector((state) => state.data.adminDefinedData)
   const stages = adminDefinedData.find(item => item.name === 'stage')?.list || []
 
   const axiosPrivate = useAxiosPrivate()
 
+  const user = useSelector(stage=> stage.auth.userInfo)
+
   const getData = async () => {
     try {
-      const response = await axiosPrivate.get(`${followupRoute}?page=${page}&entries=${entries}&stage=${stage}`)
+      const response = await axiosPrivate.get(`${followupRoute}?page=${page}&entries=${entries}&stage=${stage}&assignee=${assignee}`)
 
       if (response.status === 200) {
         const data = response?.data?.followups || [];
@@ -31,12 +34,31 @@ const Followups = () => {
 
   useEffect(() => {
     getData()
-  }, [stage])
+  }, [stage, assignee])
 
   return (
     <div className="w-full min-h-screen text-black my-[5vh]">
       <div className="flex flex-col sm:flex-row gap-5 sm:gap-0 justify-between">
         <h1 className="text-primary_colors text-2xl font-bold">Follow-ups</h1>
+
+        {
+          user?.role !== "admin"
+          &&
+          <div className="flex gap-5">
+            
+            <select
+              className="w-fit border shadow p-2  rounded-lg text-secondary text-normal focus:outline-none"
+              onClick={(e) => setAssignee(e.target.value)}
+            >
+              <option value="">All</option>
+              <option value={user?._id}>Assigned</option>
+
+            </select>
+          </div>
+
+        }
+
+
         <div className="flex gap-5">
           
           {/* Select Status option */}
