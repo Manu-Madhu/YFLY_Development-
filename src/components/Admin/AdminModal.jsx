@@ -1,8 +1,11 @@
 import React, { useRef, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import { EmployeeCards } from "../../data/Employee";
+import { useLocation } from "react-router-dom";
+
 import {
   getEmployeesRoute,
+  notification,
   workAssignRoute,
   workEmployeeAssignRoute,
 } from "../../utils/Endpoint";
@@ -11,9 +14,11 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import ReqLoader from "../loading/ReqLoader";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { axiosPrivate } from "../../api/axios";
 
 const AdminModal = ({ setModal, applicationData, cb }) => {
   const axios = useAxiosPrivate();
+  const path = useLocation();
 
   const userInfo = useSelector((items) => items.auth.userInfo);
   const [employee, setEmployee] = useState([]);
@@ -26,6 +31,7 @@ const AdminModal = ({ setModal, applicationData, cb }) => {
     stepperId: applicationData?._id,
   });
 
+  console.log(applicationData);
   const onChangeCata = async (e) => {
     try {
       const response = await axios.get(
@@ -48,10 +54,20 @@ const AdminModal = ({ setModal, applicationData, cb }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.put( workEmployeeAssignRoute,
-        formData
-      );
+      const response = await axios.put(workEmployeeAssignRoute, formData);
       if (response?.status === 200) {
+        const notificationData = {
+          userId: formData?.employeeId,
+          title: `${userInfo?.name} Assigned you to the next step `,
+          body: ` assigned you `,
+          notificationType: "assign",
+          route: path?.pathname,
+        };
+        const notificationSend = await axiosPrivate.post(
+          notification,
+          notificationData
+        );
+        console.log(notificationSend);
         setModal(false);
         cb();
         toast.success(response?.data?.msg);
@@ -59,8 +75,14 @@ const AdminModal = ({ setModal, applicationData, cb }) => {
         toast.error(response?.data?.msg);
       }
     } catch (error) {
-      console.log(error);
-      toast.error(error?.response?.data?.msg);
+      if (error?.response?.data?.msg === "FCM Token not found") {
+        toast.success("Saved changes");
+        setModal(false);
+        cb();
+      } else {
+        console.log(error);
+        toast.error(error?.response?.data?.msg);
+      }
     } finally {
       setLoading(false);
     }
@@ -200,8 +222,7 @@ const AdminModal = ({ setModal, applicationData, cb }) => {
           </form>
         </div>
       </div>
-      {loading && <ReqLoader/>}
-
+      {loading && <ReqLoader />}
     </div>
   );
 };

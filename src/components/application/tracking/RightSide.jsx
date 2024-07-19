@@ -62,42 +62,54 @@ const RightSide = ({ data, cb, application }) => {
 
   const submitHandle = async (e) => {
     e.preventDefault();
+
+    // Comment and id
     const formattedMessage = comment.replace(/@\[(.*?)\]\((.*?)\)/g, "@$1");
     const mentionPersonId = comment.match(/[^(]+(?=\))/g);
-    if (mentionPersonId.length > 1) {
+
+    // If there multiple mentioning there the return will there.
+    if (mentionPersonId?.length > 1) {
       return toast.warning("Please Remove multiple mentioning from the box");
     }
+
+    // Message content
     const message = {
       resourceId: data?._id,
       resourceType: "stepper",
       commentorId: user?._id,
       comment: formattedMessage,
     };
-    console.log("data", data);
-    console.log("message", message);
+
     try {
+      // Comment post
       const response = await axios.post(postComment, message);
       if (response.status === 200) {
-        const notificationData = {
-          userId: mentionPersonId[0],
-          title: `Comment from ${user?.name}`,
-          body: formattedMessage,
-          notificationType: "comment",
-          route: path?.pathname,
-        };
-        const notificationSend = await axiosPrivate.post(
-          notification,
-          notificationData
-        );
-        console.log(notificationSend);
+        // there is a single assignee then the function enter here
+        if (mentionPersonId?.length > 0) {
+          // Notification Data
+          const notificationData = {
+            userId: mentionPersonId?.[0],
+            title: ` Comment from ${user?.name}`,
+            body: formattedMessage,
+            notificationType: "comment",
+            route: path?.pathname,
+          };
+
+          // Notification API call
+          await axiosPrivate.post(notification, notificationData);
+        }
         toast.success(response?.data?.msg);
         setComments([response?.data?.data, ...comments]);
         setComment("");
+        cb();
       }
     } catch (error) {
+      // the user not login then the token not found then
       if (error?.response?.data?.msg === "FCM Token not found") {
         toast.success("Successfully send the comment");
+        setComments([error?.response?.data?.data, ...comments]);
         setComment("");
+        cb();
       } else {
         console.log(error);
         toast.warning(error?.response?.data?.msg);
@@ -105,6 +117,7 @@ const RightSide = ({ data, cb, application }) => {
     }
   };
 
+  // Comment box input change handler
   const changeHandler = (event, newValue) => {
     setComment(newValue);
   };
@@ -114,7 +127,6 @@ const RightSide = ({ data, cb, application }) => {
     axios
       .get(getEmployeesRoute)
       .then((res) => {
-        console.log(res);
         setEmployeeData(res.data);
       })
       .catch((error) => {

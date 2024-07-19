@@ -128,6 +128,7 @@ const SingleFollow = ({
           notificationType: "assign",
           route: path?.pathname,
         };
+        // Notification post Data
         const notificationSend = await axiosPrivate.post(notification, data);
         console.log(notificationSend);
         toast.success("Saved changes");
@@ -148,7 +149,6 @@ const SingleFollow = ({
     }
   };
 
-  console.log({ followData });
 
   return (
     <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center z-50 p-5">

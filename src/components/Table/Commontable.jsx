@@ -12,22 +12,21 @@ import PhaseChanger from "../modals/PhaseChanger";
 
 const CommonTable = ({ data, page, entries, getData }) => {
   const user = useSelector((state) => state.auth.userInfo);
-  const [editModal, setEditModal] = useState(false)
-  const [deleteModal, setDeleteModal] = useState(false)
-  const [application, setApplication] = useState({})
+  const [editModal, setEditModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [application, setApplication] = useState({});
   const navigate = useNavigate();
 
   const handleDelete = (data) => {
     // console.log("applictn Data", data)
-    setApplication(data)
-    setDeleteModal(true)
-  }
-
+    setApplication(data);
+    setDeleteModal(true);
+  };
 
   const handleEdit = (data) => {
-    setApplication(data)
-    setEditModal(true)
-  }
+    setApplication(data);
+    setEditModal(true);
+  };
 
   return (
     <div className="relative md:min-h-screen shadow-md md:rounded-lg overflow-x-scroll md:overflow-hidden mb-3 w-full">
@@ -56,54 +55,41 @@ const CommonTable = ({ data, page, entries, getData }) => {
                 key={items?._id}
                 className="bg-white border-b  hover:bg-gray-50 text-black cursor-pointer capitalize"
               >
-                <td className="px-6 py-4">{((page - 1) * entries) + i + 1}</td>
-                <td className="px-6 py-4">{DateFormat(items?.createdAt ? items?.createdAt : "NIL")}</td>
-                <td className="px-6 py-4">{items?.studentName ? items?.studentName : "NIL"}</td>
-                <td className="px-6 py-4">{items?.country ? items?.country : "NIL"}</td>
+                <td className="px-6 py-4">{(page - 1) * entries + i + 1}</td>
+                <td className="px-6 py-4">
+                  {DateFormat(items?.createdAt ? items?.createdAt : "NIL")}
+                </td>
+                <td className="px-6 py-4">
+                  {items?.studentName ? items?.studentName : "NIL"}
+                </td>
+                <td className="px-6 py-4">
+                  {items?.country ? items?.country : "NIL"}
+                </td>
                 <td className="px-6 py-4 truncate">
                   {items?.intakes?.length > 0
-                    ?
-                    (items?.intakes?.length > 1
-                      ?
-                      items?.intakes[0] + " +more"
-                      :
-                      items?.intakes[0])
-                    :
-                    "NIL"
-
-                  }
+                    ? items?.intakes?.length > 1
+                      ? items?.intakes[0] + " +more"
+                      : items?.intakes[0]
+                    : "NIL"}
                 </td>
 
                 <td className="px-6 py-4">
                   {items?.statuses?.length > 0
-                    ?
-                    (items?.statuses?.length > 1
-                      ?
-                      items?.statuses[0] + " +more"
-                      :
-                      items?.statuses[0])
-                    :
-                    "NIL"
-                  }
+                    ? items?.statuses?.length > 1
+                      ? items?.statuses[0] + " +more"
+                      : items?.statuses[0]
+                    : "NIL"}
                 </td>
                 <td className="px-6 py-4">
                   {/* {items?.assignee ? items?.assigneeName : "NIL"} */}
                   {items?.assigneeNames?.length > 0
-                    ?
-                    (items?.assigneeNames?.length > 1
-                      ?
-                      items?.assigneeNames[0] + " +more"
-                      :
-                      items?.assigneeNames[0])
-                    :
-                    "NIL"
-                  }
+                    ? items?.assigneeNames?.length > 1
+                      ? items?.assigneeNames[0] + " +more"
+                      : items?.assigneeNames[0]
+                    : "NIL"}
                 </td>
 
-
-
                 <td className="px-6 py-4 truncate">
-
                   <div className="flex items-center justify-between gap-3">
                     <FaRegEdit
                       onClick={() => handleEdit(items)}
@@ -119,7 +105,6 @@ const CommonTable = ({ data, page, entries, getData }) => {
                   </div>
                 </td>
 
-
                 <td className="px-6 py-4  t">
                   <div className="font-medium text-blue-600 dark:text-blue-500 hover:underline-none hover:text-blue-800 hover:cursor-pointer">
                     <span
@@ -128,11 +113,9 @@ const CommonTable = ({ data, page, entries, getData }) => {
                       }
                     >
                       View
-
                     </span>
                   </div>
                 </td>
-
               </tr>
             ))
           ) : (
@@ -143,10 +126,24 @@ const CommonTable = ({ data, page, entries, getData }) => {
         </tbody>
       </table>
 
-      {editModal && <PhaseChanger data={application} setData={setApplication} getTableData={getData} setModal={setEditModal} />}
+      {editModal && (
+        <PhaseChanger
+          data={application}
+          setData={setApplication}
+          getTableData={getData}
+          setModal={setEditModal}
+        />
+      )}
 
-      {deleteModal && <DeleteApplication setModal={setDeleteModal} data={application} setData={setApplication} getTableData={getData} route={deleteApplicationRoute} />}
-
+      {deleteModal && (
+        <DeleteApplication
+          setModal={setDeleteModal}
+          data={application}
+          setData={setApplication}
+          getTableData={getData}
+          route={deleteApplicationRoute}
+        />
+      )}
     </div>
   );
 };
