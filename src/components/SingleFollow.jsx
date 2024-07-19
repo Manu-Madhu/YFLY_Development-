@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { followupRoute } from "../utils/Endpoint";
+import { followupRoute, notification } from "../utils/Endpoint";
 import { useSelector } from "react-redux";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
 
-const SingleFollow = ({ setModal, getData, studentData, employeeData, stagesData, comMethods }) => {
-
+const SingleFollow = ({
+  setModal,
+  getData,
+  studentData,
+  employeeData,
+  stagesData,
+  comMethods,
+}) => {
   const axiosPrivate = useAxiosPrivate();
-  const user = useSelector(state => state.auth.userInfo);
+  const user = useSelector((state) => state.auth.userInfo);
+
+  const path = useLocation();
+  // console.log(path)
+  // console.log(user)
+  // console.log(studentData)
 
   const [followData, setFollowData] = useState({
     studentId: studentData?._id,
@@ -16,17 +28,17 @@ const SingleFollow = ({ setModal, getData, studentData, employeeData, stagesData
     stage: null,
     communication: [],
     author: user?._id,
-    contents:[],
+    contents: [],
   });
 
-  const [content, setContent] = useState("")
+  const [content, setContent] = useState("");
   // const [studentName, setStudentName] = useState("")
-  const [notes, setNotes] = useState([])
+  const [notes, setNotes] = useState([]);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setFollowData((prev) => {
-      if (name === 'communication') {
+      if (name === "communication") {
         return {
           ...prev,
           communication: [...prev.communication, value],
@@ -39,88 +51,98 @@ const SingleFollow = ({ setModal, getData, studentData, employeeData, stagesData
     });
   };
 
-  const toggleChecker = (commId)=>{
+  const toggleChecker = (commId) => {
     // remove commId if present
-    if(followData?.communication?.includes(commId)){
-      const newArr = followData?.communication?.filter(item=> item !== commId)
-      setFollowData((prev)=> ({...prev, communication: newArr}))
+    if (followData?.communication?.includes(commId)) {
+      const newArr = followData?.communication?.filter(
+        (item) => item !== commId
+      );
+      setFollowData((prev) => ({ ...prev, communication: newArr }));
+    } else {
+      setFollowData((prev) => ({
+        ...prev,
+        communication: [...prev.communication, commId],
+      }));
     }
-    else{
-      setFollowData((prev)=> ({...prev, communication:[...prev.communication, commId]}))
-    }
-  }
+  };
 
-  const addNoteFunc = ()=>{
-    if(!content?.trim()){ return}
-    
-    setFollowData((prev)=>({
+  const addNoteFunc = () => {
+    if (!content?.trim()) {
+      return;
+    }
+
+    setFollowData((prev) => ({
       ...prev,
-      contents:[...prev.contents, content]
-    }))
+      contents: [...prev.contents, content],
+    }));
 
-    setContent('')
-  }
-
+    setContent("");
+  };
 
   const getFollowup = async () => {
     try {
-      if(!studentData?.followup){return }
-      const response = await axiosPrivate.get(`${followupRoute}/${studentData?.followup}`)
+      if (!studentData?.followup) {
+        return;
+      }
+      const response = await axiosPrivate.get(
+        `${followupRoute}/${studentData?.followup}`
+      );
 
       if (response.status === 200) {
         const followup = response.data.followup;
 
-        setFollowData((prev) => (
-          {
-            ...prev,
-            // studentId:followup?.studentId?._id,
-            assignee: followup?.assignee?._id ?? null,
-            stage: followup?.stage ?? null,
-            communication: followup?.communication ?? [],
-          }
-        ))
+        setFollowData((prev) => ({
+          ...prev,
+          // studentId:followup?.studentId?._id,
+          assignee: followup?.assignee?._id ?? null,
+          stage: followup?.stage ?? null,
+          communication: followup?.communication ?? [],
+        }));
 
-        setNotes(followup?.notes)
+        setNotes(followup?.notes);
         // setStudentName(studentData.name)
       }
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     if (studentData?.followup) {
-      getFollowup()
-
+      getFollowup();
     }
-  }, [studentData?.followup])
+  }, [studentData?.followup]);
 
-
-  const saveChanges = async()=>{
+  const saveChanges = async () => {
     try {
-      if(!followData?.studentId){ return}
-
-      const response = await axiosPrivate.put(followupRoute, followData)
-
-      if(response.status === 200){
-        toast.success('Saved changes')
-        setModal(false)
-        getData()
-        
-
-      }else{
-        toast.error('Unable to save')
+      if (!followData?.studentId) {
+        return;
       }
-      
+      const response = await axiosPrivate.put(followupRoute, followData);
+
+      if (response.status === 200) {
+        const data = {
+          userId: followData?.assignee,
+          title: `Follow up with ${studentData?.name}`,
+          body: `${user?.name} assigned you `,
+          notificationType: "assign",
+          route: path?.pathname,
+        };
+        const notificationSend = await axiosPrivate.post(notification, data);
+        console.log(notificationSend)
+        toast.success("Saved changes");
+        setModal(false);
+        getData();
+      } else {
+        toast.error("Unable to save");
+      }
     } catch (error) {
-      console.log(error)
-      toast.error('Unable to save')
-
+      console.log(error);
+      toast.error("Unable to save");
     }
-  }
+  };
 
-  console.log({ followData })
+  console.log({ followData });
 
   return (
     <div className="fixed top-0 left-0 w-full h-screen overflow-auto bg-black/50 flex items-center justify-center z-50 p-5">
@@ -130,17 +152,15 @@ const SingleFollow = ({ setModal, getData, studentData, employeeData, stagesData
           className="absolute right-1 top-1 rounded bg-primary_colors text-white cursor-pointer"
         />
         <div className="flex flex-col w-full items-center justify-center border-2 rounded-lg border-dotted border-primary_colors p-5 md:p-17">
-
-          <div
-
-            className=" rounded-lg w-full flex flex-col gap-4"
-          >
+          <div className=" rounded-lg w-full flex flex-col gap-4">
             <h1 className="font-bold text-center text-xl md:text-[22px] text-primary_colors pb-3">
               View/Edit Follow-Up
             </h1>
 
             <div className="flex justify-between">
-              <p className="mb-3 capitalize">Follow Up with {studentData?.name ?? "NIL"}</p>
+              <p className="mb-3 capitalize">
+                Follow Up with {studentData?.name ?? "NIL"}
+              </p>
               <button
                 type="button"
                 onClick={saveChanges}
@@ -160,15 +180,12 @@ const SingleFollow = ({ setModal, getData, studentData, employeeData, stagesData
                   value={followData?.assignee ?? ""}
                   onChange={changeHandler}
                 >
-                  <option  value="">
-                        Assignee
-                      </option>
-                  {
-                    employeeData.map((data) => (
-                      <option key={data?._id} value={data?._id}>
-                        {data?.name}
-                      </option>
-                    ))}
+                  <option value="">Assignee</option>
+                  {employeeData.map((data) => (
+                    <option key={data?._id} value={data?._id}>
+                      {data?.name}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -181,52 +198,43 @@ const SingleFollow = ({ setModal, getData, studentData, employeeData, stagesData
                   value={followData?.stage ?? ""}
                   onChange={changeHandler}
                 >
-                  <option  value="">
-                        Stage
-                      </option>
+                  <option value="">Stage</option>
 
-                  {
-                    stagesData?.list?.map((data) => (
-                      <option key={data?._id} value={data?._id}>
-                        {data?.label}
-                      </option>
-                    ))}
+                  {stagesData?.list?.map((data) => (
+                    <option key={data?._id} value={data?._id}>
+                      {data?.label}
+                    </option>
+                  ))}
                 </select>
               </div>
 
               {/* Communication Methods */}
               <div className="px-2 py-4 capitalize flex flex-wrap gap-2">
-                {
-                  comMethods?.list?.map((data,i) => (
-                    <div
-                      className="w-fit h-fit flex items-center gap-2 p-2 rounded-lg border border-primary_colors"
-                      key={data?._id}
-                    >
-                      <label
-                      htmlFor={`checkBox-${i}`}
-                      >
-                        {data?.label}
-                      </label>
-                      <input
-                        id={`checkBox-${i}`}
-                        type="checkbox"
-                        className="cursor-pointer"
-                        name="communication"
-                        checked={followData?.communication?.includes(data._id)}
-                        onChange={()=> toggleChecker(data?._id)}
-
-                      />
-                    </div>
-                  ))}
+                {comMethods?.list?.map((data, i) => (
+                  <div
+                    className="w-fit h-fit flex items-center gap-2 p-2 rounded-lg border border-primary_colors"
+                    key={data?._id}
+                  >
+                    <label htmlFor={`checkBox-${i}`}>{data?.label}</label>
+                    <input
+                      id={`checkBox-${i}`}
+                      type="checkbox"
+                      className="cursor-pointer"
+                      name="communication"
+                      checked={followData?.communication?.includes(data._id)}
+                      onChange={() => toggleChecker(data?._id)}
+                    />
+                  </div>
+                ))}
               </div>
 
               <div className="w-full px-4 flex flex-col gap-2">
-
-                {
-                  followData?.contents?.length > 0 &&
+                {followData?.contents?.length > 0 &&
                   [...followData?.contents]?.reverse()?.map((item, i) => (
                     <div className="flex flex-col">
-                      <label className="capitalize text-[#777] text-sm">You:</label>
+                      <label className="capitalize text-[#777] text-sm">
+                        You:
+                      </label>
                       <textarea
                         name="note"
                         placeholder="Note"
@@ -237,19 +245,18 @@ const SingleFollow = ({ setModal, getData, studentData, employeeData, stagesData
                         disabled={true}
                         className="w-full border-2 rounded-lg bg-primary_colors/5  border-primary_colors p-2 focus:outline-none"
                       ></textarea>
-
                     </div>
+                  ))}
 
-                  ))
-                }
-
-
-                {notes?.length > 0 &&<h2 className="text-sm mt-4">Previous Notes: </h2>}
-                {
-                  notes?.length > 0 &&
+                {notes?.length > 0 && (
+                  <h2 className="text-sm mt-4">Previous Notes: </h2>
+                )}
+                {notes?.length > 0 &&
                   [...notes]?.reverse()?.map((item, i) => (
                     <div className="flex flex-col">
-                      <label className="capitalize text-[#777] text-sm">{item?.author?.name ?? "Yfly"}:</label>
+                      <label className="capitalize text-[#777] text-sm">
+                        {item?.author?.name ?? "Yfly"}:
+                      </label>
                       <textarea
                         name="note"
                         placeholder="Note"
@@ -260,16 +267,10 @@ const SingleFollow = ({ setModal, getData, studentData, employeeData, stagesData
                         disabled={true}
                         className="w-full border-2 rounded-lg bg-primary_colors/5  border-primary_colors p-2 focus:outline-none"
                       ></textarea>
-
                     </div>
-
-                  ))
-                }
+                  ))}
               </div>
-
-
             </div>
-
 
             {/* Add Note */}
 
@@ -280,10 +281,9 @@ const SingleFollow = ({ setModal, getData, studentData, employeeData, stagesData
                 id=""
                 rows="2"
                 value={content}
-                onChange={(e)=> setContent(e.target.value)}
+                onChange={(e) => setContent(e.target.value)}
                 className="w-full sm:w-3/4 border-2 rounded-lg bg-primary_colors/5  border-primary_colors p-2 focus:outline-none"
               ></textarea>
-
 
               <button
                 type="button"
@@ -292,13 +292,8 @@ const SingleFollow = ({ setModal, getData, studentData, employeeData, stagesData
               >
                 Add Note
               </button>
-
-
-
             </div>
-
           </div>
-
         </div>
       </div>
       {/* {loader && <ReqLoader />} */}

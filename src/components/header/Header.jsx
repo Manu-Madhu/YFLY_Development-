@@ -25,21 +25,25 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [notifyModal, setNotifyModal] = useState(false)
-  const notifications = useSelector(state => state.notify.notifications) || [];
+  const [notifyModal, setNotifyModal] = useState(false);
+  const notifications =
+    useSelector((state) => state.notify.notifications) || [];
 
-  const [isAlarm, setIsAlarm] = useState(false)
+  const [isAlarm, setIsAlarm] = useState(false);
+  const [unreadLength, setUnreadLength] = useState();
 
   useEffect(() => {
-    const unreadPresent = notifications.some(item => !item?.isRead)
-    setIsAlarm(unreadPresent)
-  }, [notifications])
+    const unreadPresent = notifications.some((item) => !item?.isRead);
+    setIsAlarm(unreadPresent);
+    const unreadCount = notifications?.filter((item) => item?.isRead === false);
+    setUnreadLength(unreadCount.length);
+  }, [notifications]);
 
+  console.log(unreadLength);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       navigate(`/applications/search?query=${search}`);
-
     }
   };
 
@@ -57,13 +61,13 @@ const Header = () => {
 
   const LogoClick = () => {
     if (user.role === "admin") {
-      navigate("/admin/dashboard")
+      navigate("/admin/dashboard");
     } else if (user.role === "employee") {
-      navigate("/employee/dashboard")
+      navigate("/employee/dashboard");
     } else if (user.role === "student") {
-      navigate("/student/dashboard")
+      navigate("/student/dashboard");
     }
-  }
+  };
 
   return (
     <>
@@ -78,12 +82,12 @@ const Header = () => {
               />
             </div>
 
-            {
-              user?.role !== 'student'
-              &&
+            {user?.role !== "student" && (
               <div className="w-full relative hidden md:flex">
                 <CiSearch
-                  onClick={() => navigate(`/applications/search?query=${search}`)}
+                  onClick={() =>
+                    navigate(`/applications/search?query=${search}`)
+                  }
                   className="absolute text-slate-400 top-2 ms-3 cursor-pointer"
                   size={25}
                 />
@@ -96,27 +100,39 @@ const Header = () => {
                   placeholder="Search Application"
                 />
               </div>
-
-            }
-
+            )}
 
             <div className="hidden md:flex gap-3 w-full items-center justify-end">
-
               <div
                 onClick={() => setNotifyModal(true)}
                 className="flex flex-col items-center cursor-pointer"
               >
-                {
-                  isAlarm
-                    ?
-                    <IoMdNotifications size={30} className="text-primary_colors" />
-                    :
+                {isAlarm ? (
+                  <div className="relative">
+                    <IoMdNotifications
+                      size={30}
+                      className="text-primary_colors"
+                    />
+                    <div className="absolute top-0 left-0 flex items-center justify-center bg-red-400 rounded-full z-10 w-[18px] h-[18px]">
+                      <h1 className="text-white text-[10px] ">
+                        {unreadLength}
+                      </h1>
+                    </div>
+                  </div>
+                ) : (
+                  
+                  <div className="relative">
                     <IoMdNotificationsOutline
                       size={30}
                       className="hover:text-primary_colors"
                     />
-                }
-
+                    <div className="absolute top-0 left-0 flex items-center justify-center bg-red-400 rounded-full z-10 w-[18px] h-[18px]">
+                      <h1 className="text-white text-[10px] ">
+                        {unreadLength}
+                      </h1>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div
@@ -152,12 +168,13 @@ const Header = () => {
                   <IoClose size={30} onClick={() => setMenu(false)} />
                   <div className="absolute w-full left-0 p-5">
                     <div className="bg-white shadow p-3 rounded-lg">
-                      {
-                        user?.role !== 'student'
-                        &&
+                      {user?.role !== "student" && (
                         <div className="w-full relative">
                           <CiSearch
-                            onClick={() => { navigate(`/applications/search?query=${search}`); setMenu(false) }}
+                            onClick={() => {
+                              navigate(`/applications/search?query=${search}`);
+                              setMenu(false);
+                            }}
                             className="absolute text-slate-400 top-2 ms-3 cursor-pointer"
                             size={25}
                           />
@@ -169,26 +186,24 @@ const Header = () => {
                             placeholder="Search"
                           />
                         </div>
-
-                      }
+                      )}
                       <div className="flex flex-col gap-3 w-full items-center mt-3">
                         <div className="flex gap-3 w-full items-center justify-between mt-3">
-
                           <div
                             onClick={() => setNotifyModal(true)}
                             className="flex flex-col items-center cursor-pointer"
                           >
-                            {
-                              isAlarm
-                                ?
-                                <IoMdNotifications size={30} className="text-primary_colors" />
-                                :
-                                <IoMdNotificationsOutline
-                                  size={30}
-                                  className="hover:text-primary_colors"
-                                />
-                            }
-
+                            {isAlarm ? (
+                              <IoMdNotifications
+                                size={30}
+                                className="text-primary_colors"
+                              />
+                            ) : (
+                              <IoMdNotificationsOutline
+                                size={30}
+                                className="hover:text-primary_colors"
+                              />
+                            )}
                           </div>
 
                           <div>
@@ -211,41 +226,39 @@ const Header = () => {
                               Logout
                             </h1>
                           </div>
-
                         </div>
 
                         {user?.role === "admin" ? (
                           Sidebar.map((data) => (
-                            <Link key={data?.id} to={data.path}
+                            <Link
+                              key={data?.id}
+                              to={data.path}
                               onClick={() => setMenu(false)}
                               className="w-full flex justify-between items-center border p-2 rounded hover:scale-105 ease-in-out duration-300"
                             >
                               <div className="text-xs flex flex-col items-center ">
                                 <h2 className="font-semibold">{data?.name}</h2>
                               </div>
-                              <div>
-                                {data.icon}
-                              </div>
+                              <div>{data.icon}</div>
                             </Link>
                           ))
                         ) : user?.role === "employee" ? (
                           SidebarE.map((data) => (
-                            <Link key={data?.id} to={data.path}
+                            <Link
+                              key={data?.id}
+                              to={data.path}
                               onClick={() => setMenu(false)}
                               className="w-full flex justify-between items-center border p-2 rounded hover:scale-105 ease-in-out duration-300"
                             >
                               <div className="text-xs flex flex-col items-center ">
                                 <h2 className="font-semibold">{data?.name}</h2>
                               </div>
-                              <div>
-                                {data.icon}
-                              </div>
+                              <div>{data.icon}</div>
                             </Link>
                           ))
                         ) : (
                           <div className="hidden"></div>
                         )}
-
                       </div>
                     </div>
                   </div>
@@ -253,11 +266,13 @@ const Header = () => {
               )}
             </div>
           </div>
-          {
-            notifyModal && <NotifyModal setModal={setNotifyModal} data={[...notifications]?.reverse()} />
-          }
+          {notifyModal && (
+            <NotifyModal
+              setModal={setNotifyModal}
+              data={[...notifications]?.reverse()}
+            />
+          )}
         </div>
-
       </div>
     </>
   );

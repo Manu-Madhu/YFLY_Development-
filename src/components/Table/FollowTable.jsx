@@ -10,11 +10,11 @@ const FollowTable = ({ data, setData, page, entries, getData }) => {
   const [followupModal, setFollowupModal] = useState(false);
   const [studentData, setStudentData] = useState({});
   const [employeeData, setEmployeeData] = useState([]);
-  const adminDefinedData = useSelector(state => state.data.adminDefinedData)
-  const stagesData = adminDefinedData?.find(item => item.name === 'stage');
-  const comMethods = adminDefinedData?.find(item => item.name === 'followup method')
-
-
+  const adminDefinedData = useSelector((state) => state.data.adminDefinedData);
+  const stagesData = adminDefinedData?.find((item) => item.name === "stage");
+  const comMethods = adminDefinedData?.find(
+    (item) => item.name === "followup method"
+  );
 
   const axiosPrivate = useAxiosPrivate();
 
@@ -30,18 +30,14 @@ const FollowTable = ({ data, setData, page, entries, getData }) => {
     }
   };
 
-  console.log({ adminDefinedData });
-  console.log({ employeeData });
-
   useEffect(() => {
     getEmployeeData();
-
   }, []);
 
   const openModal = (student) => {
-    setStudentData(student)
-    setFollowupModal(true)
-  }
+    setStudentData(student);
+    setFollowupModal(true);
+  };
 
   return (
     <>
@@ -81,13 +77,12 @@ const FollowTable = ({ data, setData, page, entries, getData }) => {
 
                   {/* Employee Assignee */}
                   <td className="px-2 py-4 capitalize">
-                    
                     {item?.assigneeName ?? "NIL"}
                   </td>
 
                   {/* Stages */}
                   <td className="px-2 py-4 capitalize">
-                    {item?.stageName ?? 'NIL'}
+                    {item?.stageName ?? "NIL"}
                   </td>
 
                   {/* Methods */}
@@ -120,9 +115,9 @@ const FollowTable = ({ data, setData, page, entries, getData }) => {
                     </button> */}
 
                     <MdOutlineOpenInNew
-                    onClick={() => openModal(item)}
-                    size={22}
-                    className="text-primary_colors cursor-pointer"
+                      onClick={() => openModal(item)}
+                      size={22}
+                      className="text-primary_colors cursor-pointer"
                     />
                   </td>
                 </tr>
@@ -139,8 +134,13 @@ const FollowTable = ({ data, setData, page, entries, getData }) => {
       </div>
 
       {followupModal && (
-        <SingleFollow setModal={setFollowupModal} getData={getData} studentData={studentData} employeeData={employeeData}
-          stagesData={stagesData} comMethods={comMethods}
+        <SingleFollow
+          setModal={setFollowupModal}
+          getData={getData}
+          studentData={studentData}
+          employeeData={employeeData}
+          stagesData={stagesData}
+          comMethods={comMethods}
         />
       )}
     </>
