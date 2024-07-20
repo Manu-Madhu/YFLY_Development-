@@ -1,7 +1,10 @@
+// PRODUCTION BASE URL
 // export const baseUrl = "https://yflyserver.qmarkdesk.com" 
 // export const baseUrl = "https://server.emtsolutions.online" 
-                    
-export const baseUrl = "http://localhost:8800"
+
+// DEVELOPMENT BASE URL
+// export const baseUrl = "http://localhost:8800"
+export const baseUrl = "https://yflydevserver.qmarkdesk.com"
 
 // Login page
 export const loginPost = '/api/auth/login'
