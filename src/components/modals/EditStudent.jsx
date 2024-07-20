@@ -131,6 +131,15 @@ const EditStudent = ({ entityData, setData, getTableData, setModal }) => {
                         placeholder="Birth Date"
                       />
                     </div>
+                    <div className="w-full md:w-1/2 p-1 py-2">
+                      <Input
+                        name="enquiryRoute"
+                        type="text"
+                        changeHandler={changeHandler}
+                        value={stdFormData?.enquiryRoute}
+                        placeholder="Enquiry route"
+                      />
+                    </div>
 
                     <div className="flex w-full gap-2">
                       <select

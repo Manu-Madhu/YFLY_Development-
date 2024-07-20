@@ -34,15 +34,16 @@ const StudentTable = ({ data , getData , page , entries}) => {
       <table className="w-full max-w-[1200px]  text-sm text-left ">
         <thead className="text-xs text-white uppercase bg ">
           <tr className="bg-primary_colors border-b  ">
-            <th scope="row" className="px-6 py-4 font-bold  text-white">
+            <th scope="row" className="pl-6 py-4 font-bold  text-white">
               No.
             </th>
-            <th className="px-6 py-4">Name</th>
-            <th className="px-6 py-4">Email</th>
-            <th className="px-6 py-4">Phone</th>
-            <th className="px-6 py-4">Qualification</th>
-            {/* <th className="px-6 py-4">application Id</th> */}
-            {user?.role === "admin" && <th className="px-6 py-4 text-center">Actions</th>}
+            <th className="px-3 py-4">Name</th>
+            <th className="px-3 py-4">Email</th>
+            <th className="px-3 py-4">Phone</th>
+            <th className="px-3 py-4">Qualification</th>
+            <th className="px-3 py-4">Enquiry Route</th>
+            {/* <th className="px-3 py-4">application Id</th> */}
+            {user?.role === "admin" && <th className="px-3 py-4 text-center">Actions</th>}
           </tr>
         </thead>
         <tbody>
@@ -52,21 +53,20 @@ const StudentTable = ({ data , getData , page , entries}) => {
                 key={items?._id}
                 className="bg-white border-b text-ellipsis hover:bg-gray-50 text-black cursor-pointer "
               >
-                <td className="px-6 py-4 ">{((page - 1) * entries) + i + 1}</td>
-                <td className="px-6 py-4 capitalize">{items?.name ? items?.name : "NIL" }</td>
-                <td className="px-6 py-4">{items?.email ? items?.email : "NIL"}</td>
-                <td className="px-6 py-4">{items?.phone ? items?.phone : "NIL" }</td>
-                <td className="px-6 py-4 capitalize">
+                <td className="pl-6 py-4 ">{((page - 1) * entries) + i + 1}</td>
+                <td className="px-3 py-4 capitalize">{items?.name ? items?.name : "NIL" }</td>
+                <td className="px-3 py-4">{items?.email ? items?.email : "NIL"}</td>
+                <td className="px-3 py-4">{items?.phone ? items?.phone : "NIL" }</td>
+                <td className="px-3 py-4 capitalize">
                   {items?.qualification ? items?.qualification : "NIL"}
                 </td>
-                {/* <td className="px-6 py-4 truncate">
-                  {items?.applicationId ? items?.applicationId : "NIL"}
-                </td> */}
+                <td className="px-3 py-4">{items?.enquiryRoute ? items?.enquiryRoute : "NIL" }</td>
+                
 
                 {
                   user?.role === "admin"
                   &&
-                  <td className="px-6 py-4 truncate">
+                  <td className="px-3 py-4 truncate">
 
                         <div className="flex items-center justify-between gap-3">
                           <FaRegEdit

@@ -27,6 +27,7 @@ const RegistrationForm = ({ setModal, entity }) => {
     image: "",
     qualification: "",
     office: "",
+    enquiryRoute:"",
     address: {
       houseName: "",
       city: "",

@@ -38,6 +38,12 @@ export const FormData = [
         placeholder: "Qualification",
         type: "text"
     },
+    {
+        id: 7,
+        name: "enquiryRoute",
+        placeholder: "Enquiry route",
+        type: "text"
+    },
 ]
 
 
