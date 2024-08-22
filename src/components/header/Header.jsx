@@ -26,17 +26,16 @@ const Header = () => {
   const navigate = useNavigate();
 
   const [notifyModal, setNotifyModal] = useState(false);
-  const notifications =
-    useSelector((state) => state.notify.notifications) || [];
+  const notifications = useSelector((state) => state.notify.notifications) || [];
 
   const [isAlarm, setIsAlarm] = useState(false);
-  const [unreadLength, setUnreadLength] = useState();
+  const [unreadLength, setUnreadLength] = useState(0);
 
   useEffect(() => {
     const unreadPresent = notifications.some((item) => !item?.isRead);
     setIsAlarm(unreadPresent);
-    const unreadCount = notifications?.filter((item) => item?.isRead === false);
-    setUnreadLength(unreadCount.length);
+    const unreadNotifications = notifications?.filter((item) => item?.isRead === false);
+    setUnreadLength(unreadNotifications?.length);
   }, [notifications]);
 
   console.log(unreadLength);

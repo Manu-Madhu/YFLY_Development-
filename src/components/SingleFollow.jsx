@@ -129,7 +129,7 @@ const SingleFollow = ({
             title: `Follow up with ${studentData?.name}`,
             body: `${user?.name} assigned you `,
             notificationType: "assign",
-            route: path?.pathname,
+            route: `/employee/followups`,
           };
 
           try {
