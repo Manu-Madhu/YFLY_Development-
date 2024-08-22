@@ -3,8 +3,8 @@
 // export const baseUrl = "https://server.emtsolutions.online" 
 
 // DEVELOPMENT BASE URL
-// export const baseUrl = "http://localhost:8800"
-export const baseUrl = "https://yflydevserver.qmarkdesk.com"
+export const baseUrl = "http://localhost:8800"
+// export const baseUrl = "https://yflydevserver.qmarkdesk.com"
 
 // Login page
 export const loginPost = '/api/auth/login'

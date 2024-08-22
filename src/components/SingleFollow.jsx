@@ -121,17 +121,28 @@ const SingleFollow = ({
       const response = await axiosPrivate.put(followupRoute, followData);
 
       if (response.status === 200) {
-        const data = {
-          userId: followData?.assignee,
-          title: `Follow up with ${studentData?.name}`,
-          body: `${user?.name} assigned you `,
-          notificationType: "assign",
-          route: path?.pathname,
-        };
-        // Notification post Data
-        const notificationSend = await axiosPrivate.post(notification, data);
-        console.log(notificationSend);
-        toast.success("Saved changes");
+        toast.success("Update Saved");
+
+        if (followData?.assignee) {
+          const data = {
+            userId: followData?.assignee,
+            title: `Follow up with ${studentData?.name}`,
+            body: `${user?.name} assigned you `,
+            notificationType: "assign",
+            route: path?.pathname,
+          };
+
+          try {
+            // Notification post Data
+            const notificationReponse = await axiosPrivate.post(notification, data);
+            console.log({ notificationReponse });
+
+          } catch (error) {
+            console.log(error)
+          }
+
+        }
+
         setModal(false);
         getData();
       } else {
