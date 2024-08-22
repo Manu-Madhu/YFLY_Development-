@@ -84,36 +84,35 @@ const RightSide = ({ data, cb, application }) => {
       // Comment post
       const response = await axios.post(postComment, message);
       if (response.status === 200) {
+        toast.success("Comment Sent");
+        setComments([response?.data?.data, ...comments]);
+        setComment("");
+        cb();
+
         // there is a single assignee then the function enter here
         if (mentionPersonId?.length > 0) {
           // Notification Data
           const notificationData = {
-            userId: mentionPersonId?.[0],
-            title: ` Comment from ${user?.name}`,
+            userId: mentionPersonId[0],
+            title: `Comment from ${user?.name}`,
             body: formattedMessage,
             notificationType: "comment",
             route: path?.pathname,
           };
 
           // Notification API call
-          await axiosPrivate.post(notification, notificationData);
+          try {
+            await axiosPrivate.post(notification, notificationData);
+
+          } catch (error) {
+            console.log(error)
+          }
         }
-        toast.success(response?.data?.msg);
-        setComments([response?.data?.data, ...comments]);
-        setComment("");
-        cb();
+
       }
     } catch (error) {
-      // the user not login then the token not found then
-      if (error?.response?.data?.msg === "FCM Token not found") {
-        toast.success("Successfully send the comment");
-        setComments([error?.response?.data?.data, ...comments]);
-        setComment("");
-        cb();
-      } else {
-        console.log(error);
-        toast.warning(error?.response?.data?.msg);
-      }
+      console.log(error);
+      toast.warning("Failed to sent comment");
     }
   };
 
